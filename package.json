@@ -1,0 +1,43 @@
+{
+  "name": "chore-cli",
+  "version": "0.0.1",
+  "description": "️Chore CLI is the Tooling for building a front-end library.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "tsc",
+    "test": "echo '1'"
+  },
+  "bin": {
+    "chore": "dist/chore.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iwfan/chore-cli.git"
+  },
+  "keywords": [
+    "cli",
+    "chore"
+  ],
+  "author": "iwfan <fan.wang@thoughtworks.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/iwfan/chore-cli/issues"
+  },
+  "homepage": "https://github.com/iwfan/chore-cli#readme",
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "commander": "^2.20.0",
+    "execa": "^1.0.0",
+    "inquirer": "^6.3.1",
+    "listr": "^0.14.3",
+    "pkg-install": "^1.0.0",
+    "shelljs": "^0.8.3"
+  },
+  "devDependencies": {
+    "@types/execa": "^0.9.0",
+    "@types/node": "^12.0.0",
+    "@types/shelljs": "^0.8.5",
+    "typescript": "^3.4.5"
+  }
+}
