@@ -10,7 +10,7 @@ program
   .description(description)
   .version(version)
   .usage('[options] <project-directory>')
-  // .option('-g, --git', 'This will run git init to instantiate a new git project')
+  .option('-g, --git', 'This will run git init to instantiate a new git project')
   // .option('-i, --install', 'This will automatically install all the dependencies for the project')
   // .option('-y, --yes', 'This will skip all prompts and go for default options')
   .action(async (projectDirectory, cmd) => {
@@ -29,7 +29,7 @@ program
 
     const baseOptions = {
       projectDir: projectDirPath,
-      // initGitRepository: cmd.git,
+      initGitRepository: cmd.git,
       // installDepend: cmd.install,
       // skipPrompts: cmd.yes,
     };

@@ -1,19 +1,44 @@
 const execa = require('execa');
-const TaskList = require('listr');
+const Listr = require('listr');
+const fs = require('fs');
+const { promisify } = require('util');
 const { projectInstall } = require('pkg-install');
-const { promisifyExec } = require('./util');
+
+const mkdir = promisify(fs.mkdir);
+
 module.exports = async function createProject(options) {
 
-  const tasks = new TaskList([
+  const tasks = new Listr([
+    {
+      title: '创建项目目录',
+      task: async () => {
+        await mkdir(options.projectDir);
+        process.chdir(options.projectDir);
+      }
+    },
     {
       title: 'Initialize git repository',
-      task: () => promisifyExec(`git1 init ${options.projectDir}`),
-      // enabled: () => options.initGitRepository,
+      task: async (ctx, task) => {
+        try {
+          await execa('git', ['init']);
+        } catch (e) {
+          task.skip('Failed to initialize git repository');
+        }
+      },
+      enabled: () => options.initGitRepository,
     },
-    // {
-    //   title: 'Add dependencies',
-    //   task: () => { console.log(1) }
-    // },
+    {
+      title: 'Initialize project',
+      task: async () => {
+        await execa('npm', ['init', '-y'])
+      }
+    },
+    {
+      title: 'Add dependencies',
+      task: async () => {
+        await execa('yarn', ['add', 'typescript'])
+      }
+    },
     // {
     //   title: 'Install dependencies',
     //   task: () =>
@@ -27,19 +52,12 @@ module.exports = async function createProject(options) {
     // },
   ]);
 
-  await tasks.run();
+  try {
+    await tasks.run(options);
+  } catch (e) {
+    console.log(e);
 
-
-}
-
-async function initGitRepository(options) {
-  const result = await execa('git', ['init'], {
-    cwd: options.projectDir,
-  });
-  if (result.failed) {
-    console.log(chalk.red.bold('Failed to initialize git repository'));
+    fs.rmdir(options.projectDir);
   }
-  return;
 
-
-}
+};
