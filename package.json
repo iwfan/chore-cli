@@ -5,12 +5,9 @@
   "main": "index.js",
   "scripts": {},
   "bin": {
-    "chore": "bin/cli.js"
+    "chore": "bin/chore.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/iwfan/chore-cli.git"
-  },
+  "repository": "git+https://github.com/iwfan/chore-cli.git",
   "keywords": [
     "cli",
     "chore"
@@ -25,9 +22,16 @@
     "chalk": "^2.4.2",
     "commander": "^2.20.0",
     "execa": "^1.0.0",
+    "fs-extra": "^8.0.1",
     "inquirer": "^6.3.1",
     "listr": "^0.14.3",
-    "pkg-install": "^1.0.0",
-    "shelljs": "^0.8.3"
+    "ora": "^3.4.0",
+    "shelljs": "^0.8.3",
+    "typescript": "^3.4.5"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^7.0.0",
+    "@types/inquirer": "^6.0.2",
+    "@types/node": "^12.0.2"
   }
 }
