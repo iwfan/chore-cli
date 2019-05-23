@@ -1,6 +1,7 @@
 # Idea
 .idea
 dist
+bin
 # Logs
 logs
 *.log
