@@ -1,6 +1,6 @@
 import inquirer from 'inquirer';
 
-export default async function promptForMissingOptions(options) {
+export default async function promptForMissingOptions(options: ChoreOptions): Promise<ChoreOptions> {
   const questions = [];
 
   if (!options.skipPrompts) {
@@ -29,7 +29,7 @@ export default async function promptForMissingOptions(options) {
   // });
 
 
-  const answers = await inquirer.prompt(questions);
+  const answers = await inquirer.prompt<{ initGitRepository: boolean }>(questions);
   return {
     ...options,
     initGitRepository: answers.initGitRepository || true,
