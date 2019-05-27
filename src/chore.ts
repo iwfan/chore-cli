@@ -5,10 +5,10 @@ import path from 'path';
 import cmd from 'commander';
 import chalk from 'chalk';
 import promptForMissingOptions from './promptForMissingOptions';
-// import createProject from './createProject';
+import createProject from './createProject';
 
 
-const { description, version } = fs.readJsonSync(path.resolve(__dirname, '../package.json'));
+const {description, version} = fs.readJsonSync(path.resolve(__dirname, '../package.json'));
 
 cmd
   .description(description)
@@ -32,13 +32,16 @@ cmd
     const baseOptions: ChoreOptions = {
       projectDir: projectDirPath,
       skipPrompts: cmd.yes,
+      features: [],
+      deps: [],
+      devDeps: [],
+      files: {},
+      postInstallListener: []
     };
 
-    const features = ['typescript', 'webpack', 'eslint', 'prettier', 'commitmessagelint'];
     const options = await promptForMissingOptions(baseOptions);
 
-    // await createProject(options);
-    console.log(features, options);
+    await createProject(options);
   });
 
 

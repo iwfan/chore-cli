@@ -1,16 +1,16 @@
-import inquirer from 'inquirer';
+// import inquirer from 'inquirer';
 
 export default async function promptForMissingOptions(options: ChoreOptions): Promise<ChoreOptions> {
-  const questions = [];
+// const questions = [];
 
-  if (!options.skipPrompts) {
-    questions.push({
-      type: 'confirm',
-      name: 'initGitRepository',
-      message: 'Initialize a git repository?',
-      default: true,
-    });
-  }
+  // if (!options.skipPrompts) {
+  //   questions.push({
+  //     type: 'confirm',
+  //     name: 'initGitRepository',
+  //     message: 'Initialize a git repository?',
+  //     default: true,
+  //   });
+  // }
 
   // questions.push({
   //   type: 'list',
@@ -29,13 +29,23 @@ export default async function promptForMissingOptions(options: ChoreOptions): Pr
   // });
 
 
-  const answers = await inquirer.prompt<{ initGitRepository: boolean }>(questions);
+  // const answers = await inquirer.prompt<{ initGitRepository: boolean }>(questions);
+
+  const features = [
+    'typescript',
+    'webpack',
+    'babel',
+    'eslint',
+    'prettier',
+    'stylelint',
+    'commitlint',
+    'conventional-changelog',
+    'jest',
+  ];
+
   return {
     ...options,
-    initGitRepository: answers.initGitRepository || true,
-    // libraries: {
-    //   language: answers.language,
-    //   bundler: answers.bundler,
-    // }
+    initGitRepository: true,
+    features,
   };
 }
