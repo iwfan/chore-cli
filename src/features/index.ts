@@ -1,9 +1,10 @@
-import addCommitlint from "./addCommitlint";
-import addPackageJson from "./addPackageJson";
-import addEditorconfig from "./addEditorconfig";
+import addCommitlint from './addCommitlint';
+import addPackageJson from './addPackageJson';
+import addEditorconfig from './addEditorconfig';
 import addTypescript from './addTypescript';
-import addEslint from "./addEslint";
-import addPrettier from "./addPrettier";
+import addEslint from './addEslint';
+import addPrettier from './addPrettier';
+import addJest from './addJest';
 // const featureMap = {
 //   'typescript': function () {
 //   },
@@ -19,5 +20,5 @@ export default async function addFeatures(options: ChoreOptions) {
   await addTypescript(options);
   await addPrettier(options);
   await addEslint(options);
-
+  await addJest(options);
 }

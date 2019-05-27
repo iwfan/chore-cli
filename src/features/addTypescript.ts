@@ -13,6 +13,6 @@ export default async function (options: ChoreOptions) {
       '--strictBindCallApply',
       '--strictPropertyInitialization',
       '--noImplicitThis',
-      '--alwaysStrict'])
-  })
+      '--alwaysStrict']);
+  });
 }

@@ -19,5 +19,5 @@ trim_trailing_whitespace = false
 export default async function (options: ChoreOptions) {
   Object.assign(options.files, {
     '.editorconfig': editorconfig
-  })
+  });
 }

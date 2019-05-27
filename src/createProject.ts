@@ -4,7 +4,7 @@ import fs from 'fs-extra';
 import addFeatures from './features';
 import getPackageManager from './helper/getPackageManager';
 import writeFileFromObject from './helper/writeFileFromObjects';
-import execa from "execa";
+import execa from 'execa';
 
 
 export default async function createProject(options: ChoreOptions) {
@@ -12,14 +12,14 @@ export default async function createProject(options: ChoreOptions) {
   const tasks = new Listr([
     {
       title: 'Create project directory',
-      task: async ({options}) => {
+      task: async ({ options }) => {
         await fs.mkdirp(options.projectDir);
         process.chdir(options.projectDir);
       }
     },
     {
       title: 'Add the required features',
-      task: async ({options}) => {
+      task: async ({ options }) => {
         await addFeatures(options);
       }
     },
@@ -31,7 +31,7 @@ export default async function createProject(options: ChoreOptions) {
           await execa('git', ['init']);
           Object.assign<FileContent, FileContent>(ctx.options.files, {
             '.gitignore': `node_modules`
-          })
+          });
         } catch (e) {
           task.skip('Failed to initialize git repository');
         }
@@ -40,15 +40,15 @@ export default async function createProject(options: ChoreOptions) {
     },
     {
       title: 'Create files',
-      task: async ({options}) => {
-        const {files} = options;
+      task: async ({ options }) => {
+        const { files } = options;
         await writeFileFromObject(files, options.projectDir);
       }
     },
     {
       title: 'Add dependencies',
-      task: async ({options}) => {
-        const {deps, devDeps} = options;
+      task: async ({ options }) => {
+        const { deps, devDeps } = options;
         const pkgManager = getPackageManager();
         options.pkgManager = pkgManager;
         if (deps.length > 0) {
@@ -61,16 +61,16 @@ export default async function createProject(options: ChoreOptions) {
     },
     {
       title: 'post install',
-      task: async ({options}) => {
+      task: async ({ options }) => {
         [].forEach.call(options.postInstallListener, (listener: () => void) => {
           listener.call(null);
-        })
+        });
       }
     }
   ]);
 
   try {
-    await tasks.run({options});
+    await tasks.run({ options });
   } catch (e) {
     try {
       await fs.remove(options.projectDir);

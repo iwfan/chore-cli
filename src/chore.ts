@@ -8,7 +8,7 @@ import promptForMissingOptions from './promptForMissingOptions';
 import createProject from './createProject';
 
 
-const {description, version} = fs.readJsonSync(path.resolve(__dirname, '../package.json'));
+const { description, version } = fs.readJsonSync(path.resolve(__dirname, '../package.json'));
 
 cmd
   .description(description)

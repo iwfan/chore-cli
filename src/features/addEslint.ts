@@ -1,16 +1,16 @@
-export default async function(options: ChoreOptions) {
-  const {features} = options;
+export default async function (options: ChoreOptions) {
+  const { features } = options;
   const eslintConfig: any = {
-    "env": {
-      "browser": true,
-      "node": true
+    'env': {
+      'browser': true,
+      'node': true
     },
-    "extends": "eslint:recommended",
-    "parserOptions": {
-      "ecmaVersion": 9,
-      "sourceType": "module",
+    'extends': 'eslint:recommended',
+    'parserOptions': {
+      'ecmaVersion': 9,
+      'sourceType': 'module',
     },
-    "rules": {}
+    'rules': {}
   };
 
   options.devDeps = [...options.devDeps, 'eslint'];
@@ -25,10 +25,10 @@ export default async function(options: ChoreOptions) {
     eslintConfig.extends.unshift('plugin:react/recommended');
     eslintConfig.parserOptions.ecmaFeatures = {
       jsx: true
-    }
+    };
     eslintConfig.settings = {
-      react: {version: 'detect'}
-    }
+      react: { version: 'detect' }
+    };
     options.devDeps = [...options.devDeps, 'eslint-plugin-react'];
   }
 

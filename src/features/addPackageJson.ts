@@ -1,7 +1,7 @@
 import path from 'path';
 
 export default async function (options: ChoreOptions) {
-  const {projectDir, features} = options;
+  const { projectDir, features } = options;
   const appName = path.basename(projectDir);
 
   const pkgJson = {
@@ -12,7 +12,7 @@ export default async function (options: ChoreOptions) {
     module: `dist/${appName}.esm.js`,
     typings: 'dist/index.d.ts',
     scripts: {
-      "test": "echo \"Error: no test specified\" && exit 1"
+      'test': 'echo "Error: no test specified" && exit 1'
     },
     repository: {
       'type': 'git',

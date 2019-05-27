@@ -8,7 +8,7 @@ export default async function writeFileFromObject(files: FileContent, parentDir:
       if (typeof fileContent === 'string') {
         await fs.writeFile(path.resolve(parentDir, filename), fileContent);
       } else if (typeof fileContent === 'object') {
-        await writeFileFromObject(fileContent, path.resolve(parentDir, filename))
+        await writeFileFromObject(fileContent, path.resolve(parentDir, filename));
       }
     }
   }
