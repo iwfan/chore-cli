@@ -55,7 +55,7 @@ async function getGitInfo() {
   };
 
   const infoMap: any = {
-    'name': 'user.name',
+    'user': 'user.name',
     'email': 'user.email',
     'url': 'remote.origin.url',
   };

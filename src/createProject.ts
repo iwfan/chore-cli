@@ -31,7 +31,7 @@ export default async function createProject(options: ChoreOptions) {
           task.skip('Failed to initialize git repository');
         }
       },
-      skip: ({options}) => fs.existsSync(path.resolve(options.projectDir, '.git')),
+      skip: ({ options }) => fs.existsSync(path.resolve(options.projectDir, '.git')),
     },
     {
       title: 'Analyze the required features',
@@ -58,22 +58,18 @@ export default async function createProject(options: ChoreOptions) {
         if (devDeps.length > 0) {
           await execa(pkgManager, ['add', ...devDeps, '-D']);
         }
-      }
-    },
-    {
-      title: 'post install',
-      task: async ({ options }) => {
+
         [].forEach.call(options.postInstallListener, (listener: () => void) => {
           listener.call(null);
         });
       }
-    }
+    },
   ]);
 
   try {
     await tasks.run({ options });
   } catch (e) {
-    console.log(e.message)
+    console.log(e.message);
     try {
       await fs.remove(options.projectDir);
     } catch (e) {
