@@ -15,8 +15,13 @@ export default async function (options: ChoreOptions) {
     options.devDeps.push('@babel/preset-typescript', '@types/jest', '@types/node');
   }
 
+  const rawJson = options.files['package.json'];
+  const pkgJson = JSON.parse(rawJson as string);
+  pkgJson.scripts.test = 'jest';
+
   Object.assign<FileContent, FileContent>(options.files, {
-    '.babelrc': JSON.stringify(babelConfig, null, 2)
+    '.babelrc': JSON.stringify(babelConfig, null, 2),
+    'package.json': JSON.stringify(pkgJson, null, 2)
   });
 
   options.postInstallListener.push(async () => {

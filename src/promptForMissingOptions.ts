@@ -1,51 +1,52 @@
-// import inquirer from 'inquirer';
+import inquirer from 'inquirer';
+
+type Answer = {
+  language: string;
+  bundler: string;
+}
 
 export default async function promptForMissingOptions(options: ChoreOptions): Promise<ChoreOptions> {
-// const questions = [];
 
-  // if (!options.skipPrompts) {
-  //   questions.push({
-  //     type: 'confirm',
-  //     name: 'initGitRepository',
-  //     message: 'Initialize a git repository?',
-  //     default: true,
-  //   });
-  // }
-
-  // questions.push({
-  //   type: 'list',
-  //   name: 'language',
-  //   message: 'Please choose which language to use',
-  //   choices: ['TypeScript', 'JavaScript'],
-  //   default: 'TypeScript',
-  // });
-  //
-  // questions.push({
-  //   type: 'list',
-  //   name: 'bundler',
-  //   message: 'Please choose which module bundler to use',
-  //   choices: ['webpack', 'rollup'],
-  //   default: 'webpack',
-  // });
-
-
-  // const answers = await inquirer.prompt<{ initGitRepository: boolean }>(questions);
+  let answer: Partial<Answer> = {};
 
   const features = [
-    'typescript',
-    'webpack',
     'babel',
     'eslint',
     'prettier',
-    'stylelint',
+    // 'stylelint',
     'commitlint',
     'conventional-changelog',
     'jest',
   ];
 
+
+  if (!options.skipPrompts) {
+    answer = await inquirer.prompt<Answer>([
+      {
+        type: 'list',
+        name: 'language',
+        message: 'please choose which language to use',
+        choices: ['TypeScript', 'JavaScript'],
+      },
+      {
+        type: 'list',
+        name: 'bundler',
+        message: 'Please choose which module bundler to use',
+        choices: ['webpack', 'Rollup'],
+      }
+    ]);
+  }
+
+  const { language, bundler } = answer;
+
+  features.push(language ? language.toLowerCase() : 'typescript');
+  features.push(bundler ? bundler.toLowerCase() : 'webpack');
+
   return {
     ...options,
-    initGitRepository: true,
     features,
   };
-}
+};
+
+
+

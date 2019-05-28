@@ -1,26 +1,21 @@
-// import execa from 'execa';
 import Listr from 'listr';
 import fs from 'fs-extra';
+import path from 'path';
 import addFeatures from './features';
 import getPackageManager from './helper/getPackageManager';
 import writeFileFromObject from './helper/writeFileFromObjects';
 import execa from 'execa';
 
-
 export default async function createProject(options: ChoreOptions) {
 
   const tasks = new Listr([
     {
-      title: 'Create project directory',
+      title: 'Initialize project directory',
       task: async ({ options }) => {
-        await fs.mkdirp(options.projectDir);
+        if (!fs.existsSync(options.projectDir)) {
+          await fs.mkdirp(options.projectDir);
+        }
         process.chdir(options.projectDir);
-      }
-    },
-    {
-      title: 'Add the required features',
-      task: async ({ options }) => {
-        await addFeatures(options);
       }
     },
     {
@@ -36,7 +31,13 @@ export default async function createProject(options: ChoreOptions) {
           task.skip('Failed to initialize git repository');
         }
       },
-      skip: () => !options.initGitRepository,
+      skip: ({options}) => fs.existsSync(path.resolve(options.projectDir, '.git')),
+    },
+    {
+      title: 'Analyze the required features',
+      task: async ({ options }) => {
+        await addFeatures(options);
+      }
     },
     {
       title: 'Create files',
@@ -72,6 +73,7 @@ export default async function createProject(options: ChoreOptions) {
   try {
     await tasks.run({ options });
   } catch (e) {
+    console.log(e.message)
     try {
       await fs.remove(options.projectDir);
     } catch (e) {

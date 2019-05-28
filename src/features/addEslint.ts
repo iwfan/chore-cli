@@ -1,10 +1,6 @@
 export default async function (options: ChoreOptions) {
   const { features } = options;
   const eslintConfig: any = {
-    'env': {
-      'browser': true,
-      'node': true
-    },
     'extends': 'eslint:recommended',
     'parserOptions': {
       'ecmaVersion': 9,
