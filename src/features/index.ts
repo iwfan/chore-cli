@@ -6,12 +6,14 @@ import addEslint from './addEslint';
 import addPrettier from './addPrettier';
 import addJest from './addJest';
 import addBoilerplateCode from './addBoilerplateCode';
+import addBrowsersList from './addBrowserslist';
 
 
 export default async function addFeatures(options: ChoreOptions) {
   const { features } = options;
   await addPackageJson(options);
   await addEditorconfig(options);
+  await addBrowsersList(options);
   await addPrettier(options);
   await addCommitlint(options);
 

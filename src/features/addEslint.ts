@@ -1,7 +1,7 @@
 export default async function (options: ChoreOptions) {
   const { features } = options;
   const eslintConfig: any = {
-    'extends': 'eslint:recommended',
+    'extends': ['eslint:recommended'],
     'parserOptions': {
       'ecmaVersion': 9,
       'sourceType': 'module',
@@ -37,6 +37,6 @@ export default async function (options: ChoreOptions) {
   }
 
   Object.assign<FileContent, FileContent>(options.files, {
-    '.eslintrc.js': 'module.exports = ' + JSON.stringify(eslintConfig, null, 2)
+    '.eslintrc': JSON.stringify(eslintConfig, null, 2)
   });
 }
