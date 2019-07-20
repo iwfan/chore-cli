@@ -14,4 +14,3 @@ interface ChoreOptions {
 }
 
 type PackageManager = 'yarn' | 'npm';
-

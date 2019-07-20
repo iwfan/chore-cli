@@ -1,7 +1,7 @@
 import path from 'path';
 import execa from 'execa';
 
-export default async function (options: ChoreOptions) {
+export default async function(options: ChoreOptions) {
   const { projectDir } = options;
   const appName = path.basename(projectDir);
   const gitInfo = await getGitInfo();
@@ -17,60 +17,56 @@ export default async function (options: ChoreOptions) {
     module: `dist/${appName}.esm.js`,
     typings: 'dist/index.d.ts',
     scripts: {
-      'test': 'echo "Error: no test specified" && exit 1'
+      test: 'echo "Error: no test specified" && exit 1',
     },
     repository: {
-      'type': 'git',
-      'url': `git+${gitInfo.url}.git`
+      type: 'git',
+      url: `git+${gitInfo.url}.git`,
     },
-    keywords: [
-      'chore',
-      'chore-cli'
-    ],
+    keywords: ['chore', 'chore-cli'],
     author: {
-      'name': gitInfo.user,
-      'email': gitInfo.email
+      name: gitInfo.user,
+      email: gitInfo.email,
     },
     license: 'MIT',
     bugs: {
-      'url': `${gitInfo.url}/issues`
+      url: `${gitInfo.url}/issues`,
     },
     homepage: `${gitInfo.url}#readme`,
-    files: [
-      'dist'
-    ],
+    files: ['dist'],
   };
 
   Object.assign<FileContent, FileContent>(options.files, {
-    'package.json': JSON.stringify(pkgJson, null, 2)
+    'package.json': JSON.stringify(pkgJson, null, 2),
   });
 }
-
 
 async function getGitInfo() {
   const gitInfo = {
     url: '',
     user: '',
-    email: ''
+    email: '',
   };
 
   const infoMap: any = {
-    'user': 'user.name',
-    'email': 'user.email',
-    'url': 'remote.origin.url',
+    user: 'user.name',
+    email: 'user.email',
+    url: 'remote.origin.url',
   };
 
   try {
     for (let infoMapKey in infoMap) {
       if (Object.hasOwnProperty.call(infoMap, infoMapKey)) {
         const property = infoMap[infoMapKey];
-        const { stdout: user } = await execa('git', ['config', '--get', property]);
+        const { stdout: user } = await execa('git', [
+          'config',
+          '--get',
+          property,
+        ]);
         (gitInfo as any)[infoMapKey] = user;
       }
     }
-  } catch (e) {
-
-  }
+  } catch (e) {}
 
   if (gitInfo.url) {
     gitInfo.url = transformGitUrlToHttpsUrl(gitInfo.url) || '';
@@ -78,7 +74,6 @@ async function getGitInfo() {
 
   return gitInfo;
 }
-
 
 function transformGitUrlToHttpsUrl(url: string): string | void {
   const substr = url.substring(url.lastIndexOf(':') + 1, url.lastIndexOf('.'));

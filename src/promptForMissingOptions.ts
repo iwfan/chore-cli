@@ -3,10 +3,11 @@ import inquirer from 'inquirer';
 type Answer = {
   language: string;
   bundler: string;
-}
+};
 
-export default async function promptForMissingOptions(options: ChoreOptions): Promise<ChoreOptions> {
-
+export default async function promptForMissingOptions(
+  options: ChoreOptions,
+): Promise<ChoreOptions> {
   let answer: Partial<Answer> = {};
 
   const features = [
@@ -18,7 +19,6 @@ export default async function promptForMissingOptions(options: ChoreOptions): Pr
     'conventional-changelog',
     'jest',
   ];
-
 
   if (!options.skipPrompts) {
     answer = await inquirer.prompt<Answer>([
@@ -46,7 +46,4 @@ export default async function promptForMissingOptions(options: ChoreOptions): Pr
     ...options,
     features,
   };
-};
-
-
-
+}

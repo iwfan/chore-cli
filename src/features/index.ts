@@ -10,7 +10,6 @@ import addBrowsersList from './addBrowserslist';
 import addRollup from './addRollup';
 import { addBabel } from './addBabel';
 
-
 export default async function addFeatures(options: ChoreOptions) {
   const { features } = options;
   await addPackageJson(options);

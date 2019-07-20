@@ -1,5 +1,4 @@
 export default async function addRollup(options: ChoreOptions) {
-
   const rawConfig = `import commonjs from 'rollup-plugin-commonjs';
 import resolve from 'rollup-plugin-node-resolve';
 import babel from 'rollup-plugin-babel';
@@ -32,18 +31,22 @@ export default {
     format: 'cjs',
   }],
 };
-  `
-
+  `;
 
   const rawJson = options.files['package.json'];
   const pkgJson = JSON.parse(rawJson as string);
   pkgJson.scripts.build = 'rollup -c';
 
-  options.devDeps = [...options.devDeps, 'rollup','rollup-plugin-babel', 'rollup-plugin-node-resolve', 'rollup-plugin-commonjs'];
-
+  options.devDeps = [
+    ...options.devDeps,
+    'rollup',
+    'rollup-plugin-babel',
+    'rollup-plugin-node-resolve',
+    'rollup-plugin-commonjs',
+  ];
 
   Object.assign<FileContent, FileContent>(options.files, {
     'rollup.config.js': rawConfig,
-    'package.json': JSON.stringify(pkgJson, null, 2)
+    'package.json': JSON.stringify(pkgJson, null, 2),
   });
 }

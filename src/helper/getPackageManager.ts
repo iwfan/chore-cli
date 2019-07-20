@@ -6,8 +6,7 @@ const getPackageManager: () => PackageManager = () => {
   try {
     execa.sync('yarnpkg', ['--version']);
     installedPackageManager = 'yarn';
-  } catch (e) {
-  }
+  } catch (e) {}
 
   return installedPackageManager;
 };

@@ -7,7 +7,9 @@ import chalk from 'chalk';
 import promptForMissingOptions from './promptForMissingOptions';
 import createProject from './createProject';
 
-const { description, version } = fs.readJsonSync(path.resolve(__dirname, '../package.json'));
+const { description, version } = fs.readJsonSync(
+  path.resolve(__dirname, '../package.json'),
+);
 
 cmd
   .description(description)
@@ -17,14 +19,23 @@ cmd
   .action(async (projectDirectory, cmd) => {
     try {
       if (typeof projectDirectory !== 'string') {
-        console.error('%s Please specify the project directory first!', chalk.red.bold('ERROR'));
+        console.error(
+          '%s Please specify the project directory first!',
+          chalk.red.bold('ERROR'),
+        );
         return;
       }
 
       const projectDirPath = path.resolve(process.cwd(), projectDirectory);
 
-      if (fs.existsSync(projectDirPath) && !fs.lstatSync(projectDirPath).isDirectory()) {
-        console.error('%s The project directory provided is not a correct directory!', chalk.red.bold('ERROR'));
+      if (
+        fs.existsSync(projectDirPath) &&
+        !fs.lstatSync(projectDirPath).isDirectory()
+      ) {
+        console.error(
+          '%s The project directory provided is not a correct directory!',
+          chalk.red.bold('ERROR'),
+        );
         return;
       }
 
@@ -35,17 +46,15 @@ cmd
         deps: [],
         devDeps: [],
         files: {},
-        postInstallListener: []
+        postInstallListener: [],
       };
 
       const options = await promptForMissingOptions(baseOptions);
 
       await createProject(options);
-
     } catch (e) {
       console.error(e);
     }
   });
-
 
 cmd.parse(process.argv);

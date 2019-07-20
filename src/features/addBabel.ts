@@ -1,22 +1,22 @@
 export async function addBabel(options: ChoreOptions) {
-
   const { features } = options;
 
   const babelConfig: any = {
-    presets: [
-      [
-        '@babel/preset-env'
-      ],
-    ],
-    'plugins': [
+    presets: [['@babel/preset-env']],
+    plugins: [
       '@babel/proposal-class-properties',
-      '@babel/proposal-object-rest-spread'
-    ]
+      '@babel/proposal-object-rest-spread',
+    ],
   };
 
-  options.devDeps = [...options.devDeps, '@babel/cli', '@babel/core', '@babel/preset-env',
+  options.devDeps = [
+    ...options.devDeps,
+    '@babel/cli',
+    '@babel/core',
+    '@babel/preset-env',
     '@babel/plugin-proposal-class-properties',
-    '@babel/plugin-proposal-object-rest-spread'];
+    '@babel/plugin-proposal-object-rest-spread',
+  ];
 
   if (features.includes('typescript')) {
     babelConfig.presets.push('@babel/preset-typescript');
@@ -31,5 +31,4 @@ export async function addBabel(options: ChoreOptions) {
   Object.assign<FileContent, FileContent>(options.files, {
     '.babelrc': JSON.stringify(babelConfig, null, 2),
   });
-
 }

@@ -7,7 +7,6 @@ import writeFileFromObject from './helper/writeFileFromObjects';
 import execa from 'execa';
 
 export default async function createProject(options: ChoreOptions) {
-
   const tasks = new Listr([
     {
       title: 'Initialize project directory',
@@ -16,7 +15,7 @@ export default async function createProject(options: ChoreOptions) {
           await fs.mkdirp(options.projectDir);
         }
         process.chdir(options.projectDir);
-      }
+      },
     },
     {
       title: 'Initialize git repository',
@@ -25,26 +24,27 @@ export default async function createProject(options: ChoreOptions) {
         try {
           await execa('git', ['init']);
           Object.assign<FileContent, FileContent>(ctx.options.files, {
-            '.gitignore': `node_modules`
+            '.gitignore': `node_modules`,
           });
         } catch (e) {
           task.skip('Failed to initialize git repository');
         }
       },
-      skip: ({ options }) => fs.existsSync(path.resolve(options.projectDir, '.git')),
+      skip: ({ options }) =>
+        fs.existsSync(path.resolve(options.projectDir, '.git')),
     },
     {
       title: 'Analyze the required features',
       task: async ({ options }) => {
         await addFeatures(options);
-      }
+      },
     },
     {
       title: 'Create files',
       task: async ({ options }) => {
         const { files } = options;
         await writeFileFromObject(files, options.projectDir);
-      }
+      },
     },
     {
       title: 'Add dependencies',
@@ -62,7 +62,7 @@ export default async function createProject(options: ChoreOptions) {
         [].forEach.call(options.postInstallListener, (listener: () => void) => {
           listener.call(null);
         });
-      }
+      },
     },
   ]);
 
@@ -72,8 +72,6 @@ export default async function createProject(options: ChoreOptions) {
     console.log(e.message);
     try {
       await fs.remove(options.projectDir);
-    } catch (e) {
-
-    }
+    } catch (e) {}
   }
-};
+}

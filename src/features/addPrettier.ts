@@ -1,4 +1,4 @@
-export default async function (options: ChoreOptions) {
+export default async function(options: ChoreOptions) {
   const prettierConfig = {
     trailingComma: 'all',
     singleQuote: true,
@@ -7,7 +7,7 @@ export default async function (options: ChoreOptions) {
   };
 
   Object.assign<FileContent, FileContent>(options.files, {
-    '.prettierrc': JSON.stringify(prettierConfig, null, 2)
+    '.prettierrc': JSON.stringify(prettierConfig, null, 2),
   });
 
   options.devDeps = [...options.devDeps, 'prettier'];
