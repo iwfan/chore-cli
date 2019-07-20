@@ -22,25 +22,25 @@ export default async function promptForMissingOptions(options: ChoreOptions): Pr
 
   if (!options.skipPrompts) {
     answer = await inquirer.prompt<Answer>([
-      {
-        type: 'list',
-        name: 'language',
-        message: 'please choose which language to use',
-        choices: ['TypeScript', 'JavaScript'],
-      },
-      {
-        type: 'list',
-        name: 'bundler',
-        message: 'Please choose which module bundler to use',
-        choices: ['webpack', 'Rollup'],
-      }
+      // {
+      //   type: 'list',
+      //   name: 'language',
+      //   message: 'please choose which language to use',
+      //   choices: ['TypeScript', 'JavaScript'],
+      // },
+      // {
+      //   type: 'list',
+      //   name: 'bundler',
+      //   message: 'Please choose which module bundler to use',
+      //   choices: ['webpack', 'Rollup'],
+      // }
     ]);
   }
 
   const { language, bundler } = answer;
 
   features.push(language ? language.toLowerCase() : 'typescript');
-  features.push(bundler ? bundler.toLowerCase() : 'webpack');
+  features.push(bundler ? bundler.toLowerCase() : 'rollup');
 
   return {
     ...options,

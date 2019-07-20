@@ -43,6 +43,7 @@ export default {
 
 
   Object.assign<FileContent, FileContent>(options.files, {
-    'rollup.config.js': rawConfig
+    'rollup.config.js': rawConfig,
+    'package.json': JSON.stringify(pkgJson, null, 2)
   });
 }

@@ -4,25 +4,19 @@ export async function addBabel(options: ChoreOptions) {
 
   const babelConfig: any = {
     presets: [
-      ['@babel/preset-env',
-        {
-          'useBuiltIns': 'usage'
-        }
+      [
+        '@babel/preset-env'
       ],
     ],
     'plugins': [
-      '@babel/plugin-transform-runtime',
       '@babel/proposal-class-properties',
       '@babel/proposal-object-rest-spread'
     ]
   };
 
-
-  options.devDeps = [...options.devDeps, '@babel/cli', '@babel/core', '@babel/preset-env', '@babel/plugin-transform-runtime',
+  options.devDeps = [...options.devDeps, '@babel/cli', '@babel/core', '@babel/preset-env',
     '@babel/plugin-proposal-class-properties',
     '@babel/plugin-proposal-object-rest-spread'];
-  options.deps = [...options.deps, '@babel/polyfill', '@babel/runtime'];
-
 
   if (features.includes('typescript')) {
     babelConfig.presets.push('@babel/preset-typescript');

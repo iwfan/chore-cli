@@ -7,6 +7,8 @@ import addPrettier from './addPrettier';
 import addJest from './addJest';
 import addBoilerplateCode from './addBoilerplateCode';
 import addBrowsersList from './addBrowserslist';
+import addRollup from './addRollup';
+import { addBabel } from './addBabel';
 
 
 export default async function addFeatures(options: ChoreOptions) {
@@ -20,14 +22,11 @@ export default async function addFeatures(options: ChoreOptions) {
   if (features.includes('typescript')) {
     await addTypescript(options);
   }
-
-  if (features.includes('webpack')) {
-    // await addTypescript(options);
-  }
-  if (features.includes('rollup')) {
-    // await addTypescript(options);
-  }
   await addEslint(options);
   await addJest(options);
+  if (features.includes('rollup')) {
+    await addBabel(options);
+    await addRollup(options);
+  }
   await addBoilerplateCode(options);
 }

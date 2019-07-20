@@ -4,7 +4,7 @@ const editorconfig =
 >= 1%
 last 1 major version
 not dead
-not ie <= 11",
+not ie <= 11
 `;
 
 export default async function (options: ChoreOptions) {
