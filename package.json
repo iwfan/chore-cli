@@ -25,6 +25,10 @@
     "url": "https://github.com/iwfan/chore-cli/issues"
   },
   "homepage": "https://github.com/iwfan/chore-cli#readme",
+  "engines": {
+    "npm": ">=6.9.0",
+    "node": ">=10.16.0"
+  },
   "files": [
     "bin"
   ],

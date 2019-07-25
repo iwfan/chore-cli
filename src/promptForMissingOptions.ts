@@ -3,6 +3,7 @@ import inquirer from 'inquirer';
 type Answer = {
   language: string;
   bundler: string;
+  react: boolean;
 };
 
 export default async function promptForMissingOptions(
@@ -22,25 +23,28 @@ export default async function promptForMissingOptions(
 
   if (!options.skipPrompts) {
     answer = await inquirer.prompt<Answer>([
-      // {
-      //   type: 'list',
-      //   name: 'language',
-      //   message: 'please choose which language to use',
-      //   choices: ['TypeScript', 'JavaScript'],
-      // },
-      // {
-      //   type: 'list',
-      //   name: 'bundler',
-      //   message: 'Please choose which module bundler to use',
-      //   choices: ['webpack', 'Rollup'],
-      // }
+      {
+        type: 'list',
+        name: 'bundler',
+        message: 'Please choose which module bundler to use',
+        choices: ['webpack', 'Rollup'],
+      },
+      {
+        type: 'confirm',
+        name: 'react',
+        message: 'Do you want to use react library?',
+        default: false,
+      },
     ]);
   }
 
-  const { language, bundler } = answer;
+  const { language, bundler, react } = answer;
 
   features.push(language ? language.toLowerCase() : 'typescript');
   features.push(bundler ? bundler.toLowerCase() : 'rollup');
+  if (react) {
+    features.push('react');
+  }
 
   return {
     ...options,
