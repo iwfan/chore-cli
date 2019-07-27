@@ -50,6 +50,7 @@ chore my-project
 - [ ] react
 - [ ] webpack
 - [ ] circleci
+- [ ] changelog
 
 ## 👤 Author
 

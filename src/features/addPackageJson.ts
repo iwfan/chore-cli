@@ -1,14 +1,11 @@
 import path from 'path';
-import execa from 'execa';
+import { getGitInfo, transformGitUrlToHttpsUrl } from '../utils';
 
 export default async function(options: ChoreOptions) {
-  const { projectDir } = options;
-  const appName = path.basename(projectDir);
+  const { libraryDir } = options;
+  const appName = path.basename(libraryDir);
   const gitInfo = await getGitInfo();
-  if (!gitInfo.url) {
-    gitInfo.url = 'https://github.com/iwfan/chore-cli';
-  }
-
+  const repoUrl = transformGitUrlToHttpsUrl(gitInfo.repoUrl);
   const pkgJson = {
     name: appName,
     version: '0.1.0',
@@ -21,64 +18,22 @@ export default async function(options: ChoreOptions) {
     },
     repository: {
       type: 'git',
-      url: `git+${gitInfo.url}.git`,
+      url: `git+${repoUrl}.git`,
     },
     keywords: ['chore', 'chore-cli'],
     author: {
-      name: gitInfo.user,
+      name: gitInfo.username,
       email: gitInfo.email,
     },
     license: 'MIT',
     bugs: {
-      url: `${gitInfo.url}/issues`,
+      url: `${repoUrl}/issues`,
     },
-    homepage: `${gitInfo.url}#readme`,
+    homepage: `${repoUrl}#readme`,
     files: ['dist'],
   };
 
   Object.assign<FileContent, FileContent>(options.files, {
     'package.json': JSON.stringify(pkgJson, null, 2),
   });
-}
-
-async function getGitInfo() {
-  const gitInfo = {
-    url: '',
-    user: '',
-    email: '',
-  };
-
-  const infoMap: any = {
-    user: 'user.name',
-    email: 'user.email',
-    url: 'remote.origin.url',
-  };
-
-  try {
-    for (let infoMapKey in infoMap) {
-      if (Object.hasOwnProperty.call(infoMap, infoMapKey)) {
-        const property = infoMap[infoMapKey];
-        const { stdout: user } = await execa('git', [
-          'config',
-          '--get',
-          property,
-        ]);
-        (gitInfo as any)[infoMapKey] = user;
-      }
-    }
-  } catch (e) {}
-
-  if (gitInfo.url) {
-    gitInfo.url = transformGitUrlToHttpsUrl(gitInfo.url) || '';
-  }
-
-  return gitInfo;
-}
-
-function transformGitUrlToHttpsUrl(url: string): string | void {
-  const substr = url.substring(url.lastIndexOf(':') + 1, url.lastIndexOf('.'));
-  const [userName, repoName] = substr.split('/');
-  if (userName && repoName) {
-    return `https://github.com/${userName}/${repoName}`;
-  }
 }

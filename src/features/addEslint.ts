@@ -1,7 +1,14 @@
+import { Feature } from '../constants';
+
 export default async function(options: ChoreOptions) {
   const { features } = options;
   const eslintConfig: any = {
-    extends: ['eslint:recommended'],
+    extends: [
+      'plugin:@typescript-eslint/recommended',
+      'prettier/@typescript-eslint',
+      'plugin:prettier/recommended',
+    ],
+    parser: '@typescript-eslint/parser',
     parserOptions: {
       ecmaVersion: 9,
       sourceType: 'module',
@@ -11,17 +18,15 @@ export default async function(options: ChoreOptions) {
 
   options.devDeps = [...options.devDeps, 'eslint'];
 
-  if (features.includes('typescript')) {
-    eslintConfig.parser = '@typescript-eslint/parser';
-    eslintConfig.extends = ['plugin:@typescript-eslint/recommended'];
-    options.devDeps = [
-      ...options.devDeps,
-      '@typescript-eslint/parser',
-      '@typescript-eslint/eslint-plugin',
-    ];
-  }
+  options.devDeps = [
+    ...options.devDeps,
+    '@typescript-eslint/parser',
+    '@typescript-eslint/eslint-plugin',
+    'eslint-plugin-prettier',
+    'eslint-config-prettier',
+  ];
 
-  if (features.includes('react')) {
+  if (features.includes(Feature.REACT)) {
     eslintConfig.extends.unshift('plugin:react/recommended');
     eslintConfig.parserOptions.ecmaFeatures = {
       jsx: true,
@@ -30,18 +35,6 @@ export default async function(options: ChoreOptions) {
       react: { version: 'detect' },
     };
     options.devDeps = [...options.devDeps, 'eslint-plugin-react'];
-  }
-
-  if (features.includes('prettier')) {
-    if (features.includes('typescript')) {
-      eslintConfig.extends.push('prettier/@typescript-eslint');
-    }
-    eslintConfig.extends.push('plugin:prettier/recommended');
-    options.devDeps = [
-      ...options.devDeps,
-      'eslint-plugin-prettier',
-      'eslint-config-prettier',
-    ];
   }
 
   Object.assign<FileContent, FileContent>(options.files, {
