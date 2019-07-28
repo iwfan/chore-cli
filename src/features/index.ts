@@ -1,4 +1,5 @@
-import addCommitlint from './addCommitlint';
+import { getPackageManager } from '../utils';
+import addCommitLint from './addCommitlint';
 import addPackageJson from './addPackageJson';
 import addEditorconfig from './addEditorconfig';
 import addTypescript from './addTypescript';
@@ -9,23 +10,41 @@ import addBoilerplateCode from './addBoilerplateCode';
 import addBrowsersList from './addBrowserslist';
 import addRollup from './addRollup';
 import { addBabel } from './addBabel';
+import { Feature } from '../constants';
 
-export default async function addFeatures(options: ChoreOptions) {
-  const { features } = options;
+export default async function addFeatures(
+  libraryDir: string,
+  features: string[],
+): Promise<ChoreOptions> {
+  const options: ChoreOptions = {
+    libraryDir: libraryDir,
+    features,
+    deps: [],
+    devDeps: [],
+    files: {},
+    postInstallListener: [],
+    pkgManager: getPackageManager(),
+  };
+
   await addPackageJson(options);
   await addEditorconfig(options);
-  await addBrowsersList(options);
+  await addTypescript(options);
   await addPrettier(options);
-  await addCommitlint(options);
-
-  if (features.includes('typescript')) {
-    await addTypescript(options);
-  }
   await addEslint(options);
+
+  if (features.includes(Feature.STYLE)) {
+    await addBrowsersList(options);
+  }
+
   await addJest(options);
-  if (features.includes('rollup')) {
+  await addBoilerplateCode(options);
+
+  if (features.includes(Feature.ROLLUP)) {
     await addBabel(options);
     await addRollup(options);
+  } else if (features.includes(Feature.WEBPACK)) {
   }
-  await addBoilerplateCode(options);
+
+  await addCommitLint(options);
+  return options;
 }

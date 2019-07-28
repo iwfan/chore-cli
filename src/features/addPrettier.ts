@@ -4,6 +4,7 @@ export default async function(options: ChoreOptions) {
     singleQuote: true,
     semi: true,
     printWidth: 80,
+    jsxSingleQuote: true,
   };
 
   Object.assign<FileContent, FileContent>(options.files, {

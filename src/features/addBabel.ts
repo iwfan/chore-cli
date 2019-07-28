@@ -1,8 +1,10 @@
+import { Feature } from '../constants';
+
 export async function addBabel(options: ChoreOptions) {
   const { features } = options;
 
   const babelConfig: any = {
-    presets: [['@babel/preset-env']],
+    presets: [['@babel/preset-env'], '@babel/preset-typescript'],
     plugins: [
       '@babel/proposal-class-properties',
       '@babel/proposal-object-rest-spread',
@@ -16,14 +18,10 @@ export async function addBabel(options: ChoreOptions) {
     '@babel/preset-env',
     '@babel/plugin-proposal-class-properties',
     '@babel/plugin-proposal-object-rest-spread',
+    '@babel/preset-typescript',
   ];
 
-  if (features.includes('typescript')) {
-    babelConfig.presets.push('@babel/preset-typescript');
-    options.devDeps = [...options.devDeps, '@babel/preset-typescript'];
-  }
-
-  if (features.includes('react')) {
+  if (features.includes(Feature.REACT)) {
     babelConfig.presets.push('@babel/preset-react');
     options.devDeps = [...options.devDeps, '@babel/preset-react'];
   }

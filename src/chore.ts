@@ -1,60 +1,54 @@
-#!/usr/bin/env node
-
-import fs from 'fs-extra';
+import yargs from 'yargs';
 import path from 'path';
-import cmd from 'commander';
-import chalk from 'chalk';
-import promptForMissingOptions from './promptForMissingOptions';
-import createProject from './createProject';
+import fs from 'fs-extra';
+import ora from 'ora';
+import askQuestions from './askQuestions';
+import addFeatures from './features';
+import { isValidDirectory, writeFileFromObject } from './utils';
+import execa from 'execa';
 
-const { description, version } = fs.readJsonSync(
-  path.resolve(__dirname, '../package.json'),
-);
+export default async function chore({
+  libraryName,
+  yes: useDefaultValue,
+}: yargs.Arguments) {
+  const dir = path.resolve(process.cwd(), libraryName as string);
+  const spinner = ora(`generate base config`);
 
-cmd
-  .description(description)
-  .version(version)
-  .usage('[options] <project-directory>')
-  .option('-y, --yes', 'This will skip all prompts and go for default options')
-  .action(async (projectDirectory, cmd) => {
-    try {
-      if (typeof projectDirectory !== 'string') {
-        console.error(
-          '%s Please specify the project directory first!',
-          chalk.red.bold('ERROR'),
-        );
-        return;
-      }
-
-      const projectDirPath = path.resolve(process.cwd(), projectDirectory);
-
-      if (
-        fs.existsSync(projectDirPath) &&
-        !fs.lstatSync(projectDirPath).isDirectory()
-      ) {
-        console.error(
-          '%s The project directory provided is not a correct directory!',
-          chalk.red.bold('ERROR'),
-        );
-        return;
-      }
-
-      const baseOptions: ChoreOptions = {
-        projectDir: projectDirPath,
-        skipPrompts: cmd.yes,
-        features: [],
-        deps: [],
-        devDeps: [],
-        files: {},
-        postInstallListener: [],
-      };
-
-      const options = await promptForMissingOptions(baseOptions);
-
-      await createProject(options);
-    } catch (e) {
-      console.error(e);
+  try {
+    if (!isValidDirectory(dir)) {
+      spinner.fail('The library name provided is a invalid directory!');
+      return;
     }
-  });
 
-cmd.parse(process.argv);
+    const features = await askQuestions(useDefaultValue as boolean);
+
+    spinner.start();
+
+    process.chdir(dir);
+
+    const options = await addFeatures(dir, features);
+
+    const { files } = options;
+
+    await writeFileFromObject(files, options.libraryDir);
+
+    const { deps, devDeps } = options;
+
+    if (deps.length > 0) {
+      await execa(options.pkgManager, ['add', ...deps]);
+    }
+
+    if (devDeps.length > 0) {
+      await execa(options.pkgManager, ['add', ...devDeps, '-D']);
+    }
+
+    [].forEach.call(options.postInstallListener, (listener: () => void) => {
+      listener.call(null);
+    });
+    spinner.succeed('finished!');
+  } catch (e) {
+    fs.remove(dir);
+    spinner.fail('somethings went wrong!');
+    console.error(e);
+  }
+}
