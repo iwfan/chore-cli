@@ -14,7 +14,7 @@
   </a>
 </p>
 
-Chore CLI is the Tooling for building a front-end library. Chore-CLI can generate basic configuration of the project, such as: typescript, babel, eslint, etc.
+Chore CLI is the Tooling for building a front-end library. Chore-CLI can generate basic configuration of the project, such as: typescript, babel, eslint, etc. It can save a lot of time every time you create a new project.
 
 ### 🏠 [Homepage](https://github.com/iwfan/chore-cli#readme)
 
@@ -39,16 +39,18 @@ chore my-project
 
 ## ✨ Todo
 
-- [x] editorconfig
+- [x] typescript
+- [x] eslint
 - [x] prettier
-- [x] commit message lint
-- [x] TypeScript
-- [x] ESLint
-- [x] Babel
+- [x] editorconfig
+- [x] babel
+- [x] webpack
 - [x] rollup
 - [x] jest
 - [x] react
-- [x] webpack
+- [x] commit message lint
+- [x] lint staged
+- [ ] style
 - [ ] changelog
 
 ## 👤 Author

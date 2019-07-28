@@ -12,7 +12,7 @@ export default async function chore({
   yes: useDefaultValue,
 }: yargs.Arguments) {
   const dir = path.resolve(process.cwd(), libraryName as string);
-  const spinner = ora(`generate base config`);
+  const spinner = ora(`pending`);
 
   try {
     if (!isValidDirectory(dir)) {
