@@ -1,5 +1,7 @@
 type TextContent = string;
-type FileContent = { [filename: string]: FileContent | TextContent };
+interface FileContent {
+  [filename: string]: FileContent | TextContent;
+}
 
 interface ChoreOptions {
   libraryDir: string;
@@ -7,7 +9,7 @@ interface ChoreOptions {
   deps: string[];
   devDeps: string[];
   files: FileContent;
-  postInstallListener: Array<() => void>;
+  postInstallListener: (() => void)[];
   pkgManager: string;
 }
 

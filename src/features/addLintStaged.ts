@@ -8,20 +8,16 @@ export default async function(options: ChoreOptions) {
     hooks = pkgJson['husky'] = {};
   }
 
-  hooks['commit-msg'] = 'commitlint -E HUSKY_GIT_PARAMS';
+  hooks['pre-commit'] = 'lint-staged';
 
-  pkgJson['commitlint'] = {
-    extends: ['@commitlint/config-conventional'],
+  pkgJson['lint-staged'] = {
+    '*.{js,json,scss,css,md}': ['prettier --write', 'git add'],
+    '*.{ts,tsx}': ['prettier --write', 'eslint --fix', 'git add'],
   };
 
   Object.assign<FileContent, FileContent>(options.files, {
     'package.json': JSON.stringify(pkgJson, null, 2),
   });
 
-  options.devDeps = [
-    ...options.devDeps,
-    'husky',
-    '@commitlint/config-conventional',
-    '@commitlint/cli',
-  ];
+  options.devDeps = [...options.devDeps, 'husky', 'lint-staged'];
 }

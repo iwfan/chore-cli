@@ -34,6 +34,7 @@
   ],
   "husky": {
     "hooks": {
+      "pre-commit": "lint-staged",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
@@ -42,10 +43,22 @@
       "@commitlint/config-conventional"
     ]
   },
+  "lint-staged": {
+    "*.{js,json,scss,css,md}": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.{ts,tsx}": [
+      "prettier --write",
+      "eslint --fix",
+      "git add"
+    ]
+  },
   "dependencies": {
     "execa": "^1.0.0",
     "fs-extra": "^8.0.1",
     "inquirer": "^6.3.1",
+    "lint-staged": "^9.2.1",
     "ora": "^3.4.0",
     "prettier": "^1.18.2",
     "yargs": "^13.3.0"

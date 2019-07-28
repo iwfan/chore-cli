@@ -1,11 +1,11 @@
 import inquirer from 'inquirer';
 import { Feature } from './constants';
 
-type Answer = {
+interface Answer {
   bundler: string;
   react: boolean;
   style: boolean;
-};
+}
 
 export default async function askQuestions(useDefaultValue: boolean) {
   const NO_BUNDLER_OPTION = 'None(Just use the TypeScript compiler)';

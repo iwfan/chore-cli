@@ -1,6 +1,6 @@
 import { Feature } from '../constants';
 
-export async function addBabel(options: ChoreOptions) {
+export default async function addBabel(options: ChoreOptions) {
   const { features } = options;
 
   const babelConfig: any = {
