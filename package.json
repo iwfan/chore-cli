@@ -1,6 +1,6 @@
 {
   "name": "chore-cli",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "️Chore CLI is the Tooling for building a front-end library.",
   "main": "dist/cli.js",
   "scripts": {

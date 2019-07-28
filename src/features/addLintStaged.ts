@@ -2,10 +2,12 @@ export default async function(options: ChoreOptions) {
   const rawJson = options.files['package.json'];
   const pkgJson = JSON.parse(rawJson as string);
 
-  let hooks = pkgJson['husky'];
-
+  if (!pkgJson['husky']) {
+    pkgJson['husky'] = { hooks: {} };
+  }
+  let { hooks } = pkgJson['husky'];
   if (!hooks) {
-    hooks = pkgJson['husky'] = {};
+    hooks = pkgJson['husky'].hooks = {};
   }
 
   hooks['pre-commit'] = 'lint-staged';

@@ -2,11 +2,7 @@ export default async function(options: ChoreOptions) {
   const rawJson = options.files['package.json'];
   const pkgJson = JSON.parse(rawJson as string);
 
-  let hooks = pkgJson['husky'];
-
-  if (!hooks) {
-    hooks = pkgJson['husky'] = {};
-  }
+  let hooks = pkgJson['husky'].hooks;
 
   hooks['commit-msg'] = 'commitlint -E HUSKY_GIT_PARAMS';
 
