@@ -13,6 +13,7 @@ export default async function(options: ChoreOptions) {
       ecmaVersion: 9,
       sourceType: 'module',
     },
+    ignorePatterns: ['node_modules/', 'dist/'],
     rules: {},
   };
 
