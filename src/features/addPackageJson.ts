@@ -14,6 +14,8 @@ export default async function(options: ChoreOptions) {
     module: `dist/${appName}.esm.js`,
     typings: 'dist/index.d.ts',
     scripts: {
+      'build:declaration':
+        'tsc --declaration —-declarationDir dist --emitDeclarationOnly --skipLibCheck src/index.ts',
       test: 'echo "Error: no test specified" && exit 1',
     },
     repository: {
