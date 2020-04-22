@@ -13,8 +13,8 @@ export default async function(options: ChoreOptions) {
   hooks['pre-commit'] = 'lint-staged';
 
   pkgJson['lint-staged'] = {
-    '*.{js,json,scss,css,md}': ['prettier --write', 'git add'],
-    '*.{ts,tsx}': ['prettier --write', 'eslint --fix', 'git add'],
+    '*.{js,json,scss,css,md}': ['prettier --write'],
+    '*.{ts,tsx}': ['prettier --write', 'eslint --fix'],
   };
 
   Object.assign<FileContent, FileContent>(options.files, {
