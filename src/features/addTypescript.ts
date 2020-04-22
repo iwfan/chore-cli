@@ -12,6 +12,8 @@ export default async function(options: ChoreOptions) {
     const pkgJson = JSON.parse(rawJson as string);
     pkgJson.scripts.build = 'tsc --outDir dist';
     pkgJson.scripts.start = 'tsc --outDir dist --watch';
+    pkgJson.scripts['build:declaration'] =
+      'tsc --declaration —-declarationDir dist --emitDeclarationOnly --skipLibCheck src/index.ts';
     Object.assign<FileContent, FileContent>(options.files, {
       'package.json': JSON.stringify(pkgJson, null, 2),
     });
@@ -24,7 +26,7 @@ export default async function(options: ChoreOptions) {
       'tsc',
       '--init',
       '--target',
-      'esnext',
+      'es2015',
       '--noImplicitAny',
       '--strictNullChecks',
       '--strictFunctionTypes',

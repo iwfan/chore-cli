@@ -50,8 +50,10 @@ chore my-project
 - [x] react
 - [x] commit message lint
 - [x] lint staged
+- [x] github actions
 - [ ] style
 - [ ] changelog
+- [ ] typedoc
 
 ## 👤 Author
 

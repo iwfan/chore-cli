@@ -14,7 +14,9 @@ export default async function(options: ChoreOptions) {
       sourceType: 'module',
     },
     ignorePatterns: ['node_modules/', 'dist/'],
-    rules: {},
+    rules: {
+      '@typescript-eslint/explicit-function-return-type': 0,
+    },
   };
 
   options.devDeps = [...options.devDeps, 'eslint'];

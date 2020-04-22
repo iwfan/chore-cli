@@ -14,6 +14,7 @@ import addBabel from './addBabel';
 import addLintStaged from './addLintStaged';
 import addReact from './addReact';
 import addWebpack from './addWebpack';
+import addGithubActions from './addGithubActions';
 
 export default async function addFeatures(
   libraryDir: string,
@@ -57,5 +58,6 @@ export default async function addFeatures(
 
   await addLintStaged(options);
   await addCommitLint(options);
+  await addGithubActions(options);
   return options;
 }

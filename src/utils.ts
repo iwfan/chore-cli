@@ -9,14 +9,6 @@ export function isValidDirectory(directory: string) {
     : (ensureDirSync(directory), true);
 }
 
-export function getGitInfo(): GitInfo {
-  return {
-    username: getGitUserName(),
-    email: getGitUserEmail(),
-    repoUrl: getGitReposUrl(),
-  };
-}
-
 export function getGitUserName() {
   try {
     const stdout = execSync(`git config --get user.name`);
@@ -35,6 +27,13 @@ export function getGitUserEmail() {
   }
 }
 
+function refineGitRepoUrl(url: string) {
+  return url
+    .replace('\n', '')
+    .replace('git+', '')
+    .replace('.git', '');
+}
+
 export function getGitReposUrl() {
   try {
     const stdout = execSync(`git config --get remote.origin.url`);
@@ -44,11 +43,12 @@ export function getGitReposUrl() {
   }
 }
 
-function refineGitRepoUrl(url: string) {
-  return url
-    .replace('\n', '')
-    .replace('git+', '')
-    .replace('.git', '');
+export function getGitInfo(): GitInfo {
+  return {
+    username: getGitUserName(),
+    email: getGitUserEmail(),
+    repoUrl: getGitReposUrl(),
+  };
 }
 
 export function transformGitUrlToHttpsUrl(url: string): string | void {

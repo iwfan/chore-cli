@@ -9,5 +9,7 @@
     "ecmaVersion": 9,
     "sourceType": "module"
   },
-  "rules": {}
+  "rules": {
+    "@typescript-eslint/explicit-function-return-type": 0
+  }
 }

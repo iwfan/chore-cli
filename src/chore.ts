@@ -47,7 +47,7 @@ export default async function chore({
     });
     spinner.succeed('finished!');
   } catch (e) {
-    fs.remove(dir);
+    fs.removeSync(dir);
     spinner.fail('somethings went wrong!');
     console.error(e);
   }

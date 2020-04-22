@@ -1,22 +1,44 @@
-const editorconfig = `# http://editorconfig.org
+const publishAction = `name: Publish package
 
-root = true
+on:
+  push:
+    branches:
+      - master
+  release:
+    types: [created]
 
-[*]
-charset = utf-8
-indent_style = space
-indent_size = 2
-end_of_line = lf
-insert_final_newline = true
-trim_trailing_whitespace = true
-
-[*.md]
-insert_final_newline = false
-trim_trailing_whitespace = false
+jobs:
+  publish-npm:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [8.x, 10.x, 12.x, 13.x]
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: https://registry.npmjs.org/
+        env:
+          CI: true
+      - run: yarn install --frozen-lockfile
+      - run: yarn test
+      - run: yarn build
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          token: \${{secrets.CODECOV_TOKEN}}
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: \${{secrets.npm_token}}
 `;
 
 export default async function(options: ChoreOptions) {
   Object.assign(options.files, {
-    '.editorconfig': editorconfig,
+    '.github': {
+      workflows: {
+        'publish.yml': publishAction,
+      },
+    },
   });
 }
