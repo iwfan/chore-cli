@@ -46,6 +46,8 @@ chore my-project
 - [x] babel
 - [x] webpack
 - [x] rollup
+- [ ] parcel
+- [ ] snowpack
 - [x] jest
 - [x] react
 - [x] commit message lint
