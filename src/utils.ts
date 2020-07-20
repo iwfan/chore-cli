@@ -3,6 +3,7 @@ import { execSync } from 'child_process';
 import fs, { ensureDirSync, existsSync, lstatSync } from 'fs-extra';
 import path from 'path';
 
+
 export function isValidDirectory(directory: string) {
   return existsSync(directory)
     ? lstatSync(directory).isDirectory()

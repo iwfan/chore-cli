@@ -1,30 +1,21 @@
-import yargs from 'yargs';
 import path from 'path';
 import fs from 'fs-extra';
 import ora from 'ora';
-import askQuestions from './askQuestions';
-import addFeatures from './features';
+import questions from './questions';
+import addFeatures from './plugins';
 import { isValidDirectory, writeFileFromObject } from './utils';
 import execa from 'execa';
 
 export default async function chore({
   libraryName,
   yes: useDefaultValue,
-}: yargs.Arguments) {
+}) {
   const dir = path.resolve(process.cwd(), libraryName as string);
   const spinner = ora(`pending`);
 
   try {
-    if (!isValidDirectory(dir)) {
-      spinner.fail('The library name provided is a invalid directory!');
-      return;
-    }
-
-    const features = await askQuestions(useDefaultValue as boolean);
 
     spinner.start();
-
-    process.chdir(dir);
 
     const options = await addFeatures(dir, features);
 

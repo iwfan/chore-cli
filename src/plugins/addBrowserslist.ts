@@ -1,9 +1,6 @@
 const editorconfig = `# https://github.com/browserslist/browserslist#readme
 
->= 1%
-last 1 major version
-not dead
-not ie <= 11
+defaults
 `;
 
 export default async function(options: ChoreOptions) {

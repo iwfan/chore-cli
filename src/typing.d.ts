@@ -1,8 +1,3 @@
-type TextContent = string;
-interface FileContent {
-  [filename: string]: FileContent | TextContent;
-}
-
 interface ChoreOptions {
   libraryDir: string;
   features: string[];
@@ -13,7 +8,6 @@ interface ChoreOptions {
   pkgManager: string;
 }
 
-type PackageManager = 'yarn' | 'npm';
 
 interface GitInfo {
   username: string;

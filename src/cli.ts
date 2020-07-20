@@ -1,23 +1,27 @@
 #!/usr/bin/env node
 
-import yargs from 'yargs';
-import chore from './chore';
+import { program } from 'commander';
+import chalk from 'chalk';
+import { bin, version, description, homepage } from '../package.json';
+import { main } from './main';
 
-yargs
-  .command(
-    '$0 <library-name>',
-    '️Chore CLI is the Tooling for building a front-end library.',
-    {},
-    chore,
-  )
-  .option('y', {
-    alias: 'yes',
-    type: 'boolean',
-    describe: 'Use default values for all fields',
+program
+  .name(Object.keys(bin)[0] ?? 'chore')
+  .arguments('<library-path>')
+  .option('-Y, --yes', 'use default value insteadof answer')
+  .option('-S, --skip-install', 'skip install npm packages')
+  .description(description)
+  .version(version)
+  .action(main)
+  .on('--help', () => {
+    console.log('');
+    console.log(`for more information, check out ${homepage}`);
+    console.log('');
   })
-  .help()
-  .alias('v', 'version')
-  .epilogue(
-    'for more information, check out https://github.com/iwfan/chore-cli',
-  )
-  .parse();
+  .parseAsync(process.argv)
+  .then(d => {
+    console.log(chalk.green.bold('DONE'));
+  })
+  .catch(e => {
+    console.error(chalk.red.bold('Something went wrong'));
+  });
