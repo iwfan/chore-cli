@@ -32,3 +32,10 @@ interface Context {
   devDeps: string[];
   files: FileContent;
 }
+
+class Context {
+  public addPackageJsonDependency() {}
+  public addPackageJsonScript() {}
+  public applyTemplates() {}
+  public queryNode() {}
+}
