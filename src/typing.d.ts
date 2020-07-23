@@ -1,13 +1,48 @@
-interface ChoreOptions {
-  libraryDir: string;
-  features: string[];
-  deps: string[];
-  devDeps: string[];
-  files: FileContent;
-  postInstallListener: (() => void)[];
-  pkgManager: string;
+type TextContent = string;
+type Path = string;
+type PackageManager = 'yarn' | 'npm';
+
+export enum Bundler {
+  webpack = 'webpack',
+  parcel = 'Parcel',
+  rollup = 'Rollup',
+  TSC = 'None(Just use the TypeScript compiler)',
 }
 
+export enum NodeDependencyType {
+  Default,
+  Dev,
+  Peer,
+}
+
+interface NodeDependency {
+  name: string;
+  version: string;
+  type: NodeDependencyType;
+}
+
+interface FileTree {
+  [pathToFile: string]: TextContent | FileTree;
+}
+
+interface TempFileSystem {
+  files: FileTree;
+  deps: {
+    default?: string[];
+    dev?: string[];
+    peer?: string[];
+  };
+}
+
+interface ChoreContext {
+  cwd: string;
+  pkgMgr: PackageManager;
+  tasks: string[];
+}
+
+interface Chore {
+  (context: ChoreContext): Promise<void>;
+}
 
 interface GitInfo {
   username: string;

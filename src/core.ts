@@ -1,41 +1,31 @@
-type TextContent = string;
+/**
+ *
+ */
+import { NodeDependency, Path } from './typing';
+import path from 'path';
 
-// interface FileContent {
-//   [filename: string]: TextContent;
-// }
+export const applyTemplates = (path: Path, data: any) => {
+  path.resolve();
+};
 
-class FileContent {
-  private files: { [filename: string]: string } = {};
+export const addPackageJsonDependency = (dependency: NodeDependency) => {
 
-  public push(path: string, content: string) {
-    if (!this.files[path]) {
-      this.files[path] = content;
-    }
-  }
+}
+  patchJson() {}
+  patchYaml() {}
+  applyTemplates() {}
+  query() {}
 
-  public query(path: string): string {
-    return this.files[path];
-  }
 
-  public update(path: string, content: string) {
-    this.files[path] = content;
+class ChoreBoy {
+  private context: ChoreContext = new Context();
+
+  private constructor(cwd: Path, pkgMgr: PackageManager) {}
+  public pipe(...chores: Chore[]): ChoreContext {
+    return this.context;
   }
 }
 
-type PackageManager = 'yarn' | 'npm';
-
-interface Context {
-  dir: string;
-  packageManager: PackageManager;
-  features: string[];
-  deps: string[];
-  devDeps: string[];
-  files: FileContent;
-}
-
-class Context {
-  public addPackageJsonDependency() {}
-  public addPackageJsonScript() {}
-  public applyTemplates() {}
-  public queryNode() {}
-}
+/**
+ * chore_boy.pipe()
+ */

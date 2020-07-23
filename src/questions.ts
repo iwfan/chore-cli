@@ -1,17 +1,16 @@
 import inquirer from 'inquirer';
+import { Bundler, PackageManager } from './typing';
 
 interface Answer {
   bundler: string;
   react: boolean;
-  packageManager: string;
+  packageManager: boolean;
 }
 
 interface InitAnswer {
   useDefault: boolean;
   skipInstall: boolean;
 }
-
-const NO_BUNDLER_OPTION = 'None(Just use the TypeScript compiler)';
 
 export default async function questions(init: InitAnswer) {
   const answer = await inquirer.prompt<Answer>([
@@ -20,11 +19,11 @@ export default async function questions(init: InitAnswer) {
       name: 'bundler',
       message: 'Please choose which module bundler to use',
       choices: [
-        'webpack',
-        'Rollup',
-        'Parcel',
+        Bundler.webpack,
+        Bundler.rollup,
+        Bundler.parcel,
         new inquirer.Separator(),
-        NO_BUNDLER_OPTION,
+        Bundler.TSC,
       ],
       when: !init.useDefault,
     },
@@ -44,15 +43,15 @@ export default async function questions(init: InitAnswer) {
     },
   ]);
 
-  let { bundler = 'rollup', react = false, packageManager = true } = answer;
-
-  if (bundler === NO_BUNDLER_OPTION) {
-    bundler = 'tsc';
-  }
+  let {
+    bundler = Bundler.rollup,
+    react = false,
+    packageManager = true,
+  } = answer;
 
   return {
-    bundler,
+    bundler: bundler as Bundler,
     react,
-    packageManager: packageManager ? 'yarn' : 'npm',
+    packageManager: (packageManager ? 'yarn' : 'npm') as PackageManager,
   };
 }
