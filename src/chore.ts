@@ -1,41 +1,31 @@
-import path from 'path'
-import fs from 'fs-extra'
-import ora from 'ora'
-import questions from './questions'
-import addFeatures from './plugins'
-import { isValidDirectory, writeFileFromObject } from './utils'
-import execa from 'execa'
+#!/usr/bin/env node
 
-export default async function chore({ libraryName, yes: useDefaultValue }) {
-  const dir = path.resolve(process.cwd(), libraryName as string)
-  const spinner = ora(`pending`)
+import { program } from 'commander'
+import chalk from 'chalk'
+import { bin, version, description, homepage } from '../package.json'
+import { takeFirst } from './utils/tools'
+import { main } from './main'
 
-  try {
-    spinner.start()
+program
+  .name(takeFirst(Object.keys(bin)) as string)
+  .arguments('<project-path>')
+  .description(chalk.cyan.bold(description))
+  .version(version)
+  .action(main)
+  .on('--help', () => {
+    console.log('')
+    console.log(`for more information, check out ${chalk.greenBright(homepage)}`)
+    console.log('')
+  })
+  .parseAsync(process.argv)
+  .then(() => {
+    console.log(chalk.green.bold('everything done, enjoy your coding time!'))
+  })
+  .catch(e => {
+    console.error(chalk.red.bold('Unhandled exception'), e)
+  })
 
-    const options = await addFeatures(dir, features)
-
-    const { files } = options
-
-    await writeFileFromObject(files, options.libraryDir)
-
-    const { deps, devDeps } = options
-
-    if (deps.length > 0) {
-      await execa(options.pkgManager, ['add', ...deps])
-    }
-
-    if (devDeps.length > 0) {
-      await execa(options.pkgManager, ['add', ...devDeps, '-D'])
-    }
-
-    ;[].forEach.call(options.postInstallListener, (listener: () => void) => {
-      listener.call(null)
-    })
-    spinner.succeed('finished!')
-  } catch (e) {
-    fs.removeSync(dir)
-    spinner.fail('somethings went wrong!')
-    console.error(e)
-  }
-}
+process.on('unhandledRejection', e => {
+  console.error(chalk.red.bold('Unhandled exception'), e)
+  process.exit(1)
+})

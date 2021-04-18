@@ -2,38 +2,41 @@ import { resolve } from 'path'
 import ora from 'ora'
 import chalk from 'chalk'
 import { ensureDir, lstat, pathExists } from 'fs-extra'
-import questions from './questions'
-import chore from './chore'
-import { setupEditorconfig } from './features/editorconfig'
-import { ChoreContext } from './typing'
+import { withSpinner } from './utils/with_spinner'
+// import questions from './questions'
+// import { setupEditorconfig } from './features/editorconfig'
+// import { ChoreContext } from './typing'
 
-export const isExistsDir = async (dir: string) =>
+export const isDirectoryExists = async (dir: string) =>
   (await pathExists(dir)) && (await lstat(dir)).isDirectory()
 
-const ensurePathExists = async (path: string) => {
-  const spinner = ora(`checking ${chalk.cyan('<library-path>')}`)
-  spinner.start()
-  if (await isExistsDir(path)) {
-    spinner.fail(`Directory ${path} has been exists.`)
-    throw new Error(`Directory ${path} has been exists.`)
+const ensureUsabilityOfPath = (path: string) => {
+  const check = async () => {
+    if (await isDirectoryExists(path)) {
+      throw new Error(`Directory ${path} has been exists.`)
+    }
+    await ensureDir(path)
   }
-  await ensureDir(path)
-  spinner.succeed(`Created directory ${path}`)
+
+  return withSpinner(check, {
+    start: `🚨  Checking usability ${chalk.cyan('<project-path>')}`,
+    success: `Created directory ${path}`,
+    failed: ``
+  })
 }
 
-export async function main(libraryPath: string, { yes = false, skipInstall = false }) {
-  console.log(skipInstall)
-  const projectPath = resolve(libraryPath)
-  await ensurePathExists(projectPath)
-  const answer = await questions({ useDefault: yes, skipInstall })
+export async function main(projectPath: string) {
+  const resolvedPath = resolve(projectPath)
+  await ensurePathExists(resolvedPath)
+  // const answer = await questions({ useDefault: yes, skipInstall })
 
-  const choreContext: ChoreContext = {
-    cwd: libraryPath,
-    pkgMgr: answer.packageManager,
-    tasks: []
-  }
+  // const choreContext: ChoreContext = {
+  //   cwd: resolvedPath,
+  //   pkgMgr: answer.packageManager,
+  //   tasks: []
+  // }
 
-  choreContext.tasks.push(answer.bundler)
+  // choreContext.tasks.push(answer.bundler)
 
   //
   // const options = {
@@ -41,7 +44,7 @@ export async function main(libraryPath: string, { yes = false, skipInstall = fal
   //   ...answer,
   // };
 
-  choreBoy.pipe(setupEditorconfig).do()
+  // choreBoy.pipe(setupEditorconfig).do()
 
   //
   // process.chdir(libraryPath);

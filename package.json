@@ -10,7 +10,7 @@
     "test": "jest"
   },
   "bin": {
-    "chore": "dist/cli.js"
+    "chore": "dist/chore.js"
   },
   "repository": {
     "type": "git",
