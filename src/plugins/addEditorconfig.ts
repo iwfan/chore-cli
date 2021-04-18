@@ -1,4 +1,5 @@
-const editorconfig = `# http://editorconfig.org
+const editorconfig = `
+# http://editorconfig.org
 
 root = true
 
@@ -19,6 +20,6 @@ insert_final_newline = false
 
 export default async function (options: ChoreOptions) {
   Object.assign(options.files, {
-    '.editorconfig': editorconfig
+    '.editorconfig': editorconfig.trim()
   })
 }
