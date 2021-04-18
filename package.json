@@ -4,9 +4,10 @@
   "description": "️Chore CLI is a pioneer to create a TypeScript application or library.",
   "main": "dist/cli.js",
   "scripts": {
-    "test": "jest",
+    "prepare": "husky install",
+    "dev": "tsc --outDir dist --watch",
     "build": "tsc --outDir dist",
-    "dev": "tsc --outDir dist --watch"
+    "test": "jest"
   },
   "bin": {
     "chore": "dist/cli.js"
@@ -28,12 +29,6 @@
   "engines": {
     "node": ">=14"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"
@@ -41,13 +36,11 @@
   },
   "lint-staged": {
     "*.{js,json,scss,css,md}": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ],
     "*.{ts,tsx}": [
       "prettier --write",
-      "eslint --fix",
-      "git add"
+      "eslint --fix"
     ]
   },
   "dependencies": {
