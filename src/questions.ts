@@ -32,7 +32,7 @@ export default async function questions(init: InitAnswer) {
       name: 'react',
       message: 'Do you want to use react library?',
       default: false,
-      when: answer => !init.useDefault && answer.bundler !== NO_BUNDLER_OPTION,
+      when: answer => !init.useDefault && answer.bundler !== Bundler.TSC,
     },
     {
       type: 'confirm',
