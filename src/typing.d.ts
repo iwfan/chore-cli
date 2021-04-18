@@ -1,51 +1,52 @@
-type TextContent = string;
-type Path = string;
-type PackageManager = 'yarn' | 'npm';
+type TextContent = string
+type Path = string
+type PackageManager = 'yarn' | 'npm'
 
 export enum Bundler {
   webpack = 'webpack',
   parcel = 'Parcel',
   rollup = 'Rollup',
-  TSC = 'None(Just use the TypeScript compiler)',
+  esbuild = 'Esbuild',
+  TSC = 'None(Just use the TypeScript compiler)'
 }
 
 export enum NodeDependencyType {
   Default,
   Dev,
-  Peer,
+  Peer
 }
 
 interface NodeDependency {
-  name: string;
-  version: string;
-  type: NodeDependencyType;
+  name: string
+  version: string
+  type: NodeDependencyType
 }
 
 interface FileTree {
-  [pathToFile: string]: TextContent | FileTree;
+  [pathToFile: string]: TextContent | FileTree
 }
 
 interface TempFileSystem {
-  files: FileTree;
+  files: FileTree
   deps: {
-    default?: string[];
-    dev?: string[];
-    peer?: string[];
-  };
+    default?: string[]
+    dev?: string[]
+    peer?: string[]
+  }
 }
 
 interface ChoreContext {
-  cwd: string;
-  pkgMgr: PackageManager;
-  tasks: string[];
+  cwd: string
+  pkgMgr: PackageManager
+  tasks: string[]
 }
 
 interface Chore {
-  (context: ChoreContext): Promise<void>;
+  (context: ChoreContext): Promise<void>
 }
 
 interface GitInfo {
-  username: string;
-  email: string;
-  repoUrl: string;
+  username: string
+  email: string
+  repoUrl: string
 }

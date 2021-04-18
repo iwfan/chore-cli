@@ -26,20 +26,16 @@
     "url": "https://github.com/iwfan/chore-cli/issues"
   },
   "homepage": "https://github.com/iwfan/chore-cli#readme",
-  "engines": {
-    "node": ">=14"
-  },
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"
     ]
   },
   "lint-staged": {
-    "*.{js,json,scss,css,md}": [
-      "prettier --write"
+    "*.{js,ts,jsx,tsx,json,scss,css,md}": [
+      "pretty-quick --staged"
     ],
-    "*.{ts,tsx}": [
-      "prettier --write",
+    "*.{js,ts,jsx,tsx}": [
       "eslint --fix"
     ]
   },
@@ -73,6 +69,7 @@
     "eslint-plugin-prettier": "^3.4.0",
     "husky": "^6.0.0",
     "jest": "^26.6.3",
+    "pretty-quick": "^3.1.0",
     "ts-jest": "^26.5.5",
     "ts-node": "^9.1.1",
     "typescript": "^4.2.4"
