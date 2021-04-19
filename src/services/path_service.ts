@@ -16,7 +16,7 @@ export const ensureUsabilityOfPath = async (path: string) => {
   try {
     await withSpinner(check, {
       start: `👷 Checking usability ${colorizePath('<project-path>')}`,
-      success: ` 🏗  The development infrastructure will be generated in ${colorizePath(path)}`,
+      success: `🏗  The development infrastructure will be generated in ${colorizePath(path)}`,
       failed: `🚨 path ${colorizePath(path)} already exists and it is not a directory.`
     })
   } catch {}

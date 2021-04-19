@@ -1,46 +1,42 @@
-import { execSync } from 'child_process';
+import { execSync } from 'child_process'
 
-import fs, { ensureDirSync, existsSync, lstatSync } from 'fs-extra';
-import path from 'path';
-
+import fs, { ensureDirSync, existsSync, lstatSync } from 'fs-extra'
+import path from 'path'
 
 export function isValidDirectory(directory: string) {
   return existsSync(directory)
     ? lstatSync(directory).isDirectory()
-    : (ensureDirSync(directory), true);
+    : (ensureDirSync(directory), true)
 }
 
 export function getGitUserName() {
   try {
-    const stdout = execSync(`git config --get user.name`);
-    return stdout.toString().replace('\n', '');
+    const stdout = execSync(`git config --get user.name`)
+    return stdout.toString().replace('\n', '')
   } catch (e) {
-    return '';
+    return ''
   }
 }
 
 export function getGitUserEmail() {
   try {
-    const stdout = execSync(`git config --get user.email`);
-    return stdout.toString().replace('\n', '');
+    const stdout = execSync(`git config --get user.email`)
+    return stdout.toString().replace('\n', '')
   } catch (e) {
-    return '';
+    return ''
   }
 }
 
 function refineGitRepoUrl(url: string) {
-  return url
-    .replace('\n', '')
-    .replace('git+', '')
-    .replace('.git', '');
+  return url.replace('\n', '').replace('git+', '').replace('.git', '')
 }
 
 export function getGitReposUrl() {
   try {
-    const stdout = execSync(`git config --get remote.origin.url`);
-    return refineGitRepoUrl(stdout.toString());
+    const stdout = execSync(`git config --get remote.origin.url`)
+    return refineGitRepoUrl(stdout.toString())
   } catch (e) {
-    return '';
+    return ''
   }
 }
 
@@ -48,47 +44,41 @@ export function getGitInfo(): GitInfo {
   return {
     username: getGitUserName(),
     email: getGitUserEmail(),
-    repoUrl: getGitReposUrl(),
-  };
+    repoUrl: getGitReposUrl()
+  }
 }
 
 export function transformGitUrlToHttpsUrl(url: string): string | void {
-  const substr = url.slice(url.lastIndexOf(':') + 1);
-  const [userName, repoName] = substr.split('/');
+  const substr = url.slice(url.lastIndexOf(':') + 1)
+  const [userName, repoName] = substr.split('/')
   if (userName && repoName) {
-    return `https://github.com/${userName}/${repoName}`;
+    return `https://github.com/${userName}/${repoName}`
   }
-  return '';
+  return ''
 }
 
 export function getPackageManager(): PackageManager {
   try {
-    execSync('yarnpkg --version');
-    return 'yarn';
+    execSync('yarnpkg --version')
+    return 'yarn'
   } catch (e) {
-    return 'npm';
+    return 'npm'
   }
 }
 
-export async function writeFileFromObject(
-  files: FileContent,
-  parentDir: string = '',
-) {
+export async function writeFileFromObject(files: FileContent, parentDir = '') {
   for (const filename in files) {
     if (Object.hasOwnProperty.call(files, filename)) {
-      const fileContent = files[filename];
+      const fileContent = files[filename]
       if (typeof fileContent === 'string') {
-        let filePath = path.resolve(parentDir, filename);
+        let filePath = path.resolve(parentDir, filename)
         if (fs.existsSync(filePath)) {
-          filePath = path.resolve(parentDir, 'chore_' + filename);
+          filePath = path.resolve(parentDir, 'chore_' + filename)
         }
-        await fs.ensureFile(filePath);
-        await fs.writeFile(filePath, fileContent);
+        await fs.ensureFile(filePath)
+        await fs.writeFile(filePath, fileContent)
       } else if (typeof fileContent === 'object') {
-        await writeFileFromObject(
-          fileContent,
-          path.resolve(parentDir, filename),
-        );
+        await writeFileFromObject(fileContent, path.resolve(parentDir, filename))
       }
     }
   }
