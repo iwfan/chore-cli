@@ -3,31 +3,34 @@ import ora from 'ora'
 import chalk from 'chalk'
 import { ensureDir, lstat, pathExists } from 'fs-extra'
 import { withSpinner } from './utils/with_spinner'
+import { colorizePath } from './utils/colorizer'
 // import questions from './questions'
 // import { setupEditorconfig } from './features/editorconfig'
 // import { ChoreContext } from './typing'
 
-export const isDirectoryExists = async (dir: string) =>
-  (await pathExists(dir)) && (await lstat(dir)).isDirectory()
-
-const ensureUsabilityOfPath = (path: string) => {
+const ensureUsabilityOfPath = async (path: string) => {
   const check = async () => {
-    if (await isDirectoryExists(path)) {
-      throw new Error(`Directory ${path} has been exists.`)
+    if (!(await pathExists(path))) {
+      await ensureDir(path)
+      return
     }
-    await ensureDir(path)
+
+    if (!(await lstat(path)).isDirectory()) {
+      throw new Error(`path ${colorizePath(path)} already exists.`)
+    }
   }
 
-  return withSpinner(check, {
-    start: `🚨  Checking usability ${chalk.cyan('<project-path>')}`,
-    success: `Created directory ${path}`,
-    failed: ``
+  await withSpinner(check, {
+    start: `🚨  Checking usability ${colorizePath('<project-path>')}`,
+    success: `Created directory ${colorizePath(path)}`,
+    failed: `path ${colorizePath(path)} already exists.`
   })
 }
 
 export async function main(projectPath: string) {
   const resolvedPath = resolve(projectPath)
-  await ensurePathExists(resolvedPath)
+  await ensureUsabilityOfPath(resolvedPath)
+  ora().info(`The development infrastructure will be deployed in the ${colorizePath(resolvedPath)}`)
   // const answer = await questions({ useDefault: yes, skipInstall })
 
   // const choreContext: ChoreContext = {

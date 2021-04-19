@@ -48,25 +48,28 @@ npm install chore-cli -g
 chore my-project
 ```
 
-## ✨ Todo
+## ✨ Features
 
 - [x] typescript
+- [x] editorconfig
 - [x] eslint
 - [x] prettier
-- [x] editorconfig
 - [x] babel
-- [x] webpack
-- [x] rollup
-- [ ] parcel
-- [ ] snowpack
+- [x] webpack (optional)
+- [x] rollup (optional)
 - [x] jest
-- [x] react
+- [x] react (optional)
 - [x] commit message lint
 - [x] lint staged
+
+## Todo
+
 - [x] github actions
-- [ ] style
 - [ ] changelog
 - [ ] typedoc
+- [ ] style
+- [ ] parcel
+- [ ] snowpack
 
 ## 🤝 Contributing
 
