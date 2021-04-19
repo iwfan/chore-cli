@@ -2,14 +2,6 @@ type TextContent = string
 type Path = string
 type PackageManager = 'yarn' | 'npm'
 
-export enum Bundler {
-  webpack = 'webpack',
-  parcel = 'Parcel',
-  rollup = 'Rollup',
-  esbuild = 'Esbuild',
-  TSC = 'None(Just use the TypeScript compiler)'
-}
-
 export enum NodeDependencyType {
   Default,
   Dev,

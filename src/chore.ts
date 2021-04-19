@@ -1,31 +1,32 @@
 #!/usr/bin/env node
 
 import { program } from 'commander'
-import chalk from 'chalk'
 import { bin, version, description, homepage } from '../package.json'
+import { colorizeErrorText, colorizeText, colorizeUrl } from './utils/colorizer'
 import { takeFirst } from './utils/tools'
 import { main } from './main'
 
 program
   .name(takeFirst(Object.keys(bin)) as string)
   .arguments('<project-path>')
-  .description(chalk.cyan.bold(description))
+  .description(`🤖 ${colorizeText(description)}`)
   .version(version)
   .action(main)
   .on('--help', () => {
     console.log('')
-    console.log(`for more information, check out ${chalk.greenBright(homepage)}`)
+    console.log(`📝 for more information, check out ${colorizeUrl(homepage)}`)
     console.log('')
   })
   .parseAsync(process.argv)
   .then(() => {
-    console.log(chalk.green.bold('everything done, enjoy your coding time!'))
+    console.log(colorizeText('🎉 All done, enjoy your coding time!'))
+    console.log('')
   })
   .catch(e => {
-    console.error(chalk.red.bold('Unhandled exception'), e)
+    console.error(colorizeErrorText('Unhandled exception'), e)
   })
 
 process.on('unhandledRejection', e => {
-  console.error(chalk.red.bold('Unhandled exception'), e)
+  console.error(colorizeErrorText('Unhandled exception'), e)
   process.exit(1)
 })
