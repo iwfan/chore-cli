@@ -1,6 +1,6 @@
 import { lstat, pathExists } from 'fs-extra'
-import { withSpinner } from '../utils/with_spinner'
-import { colorizePath } from '../utils/colorizer'
+import { withSpinner } from './with_spinner'
+import { colorizePath } from './colorizer'
 
 export const ensureUsabilityOfPath = async (path: string) => {
   const check = async () => {
@@ -20,4 +20,8 @@ export const ensureUsabilityOfPath = async (path: string) => {
       failed: `🚨 path ${colorizePath(path)} already exists and it is not a directory.`
     })
   } catch {}
+}
+
+export const fileExists = async (path: string) => {
+  return (await pathExists(path)) && (await lstat(path)).isFile()
 }

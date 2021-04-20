@@ -6,6 +6,7 @@ export default async function (options: ChoreOptions) {
   const appName = path.basename(libraryDir)
   const gitInfo = await getGitInfo()
   const repoUrl = transformGitUrlToHttpsUrl(gitInfo.repoUrl)
+
   const pkgJson = {
     name: appName,
     version: '0.1.0',

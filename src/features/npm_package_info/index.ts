@@ -1,6 +1,8 @@
-import type { FeatureSetup, QuestionBuilder, FeatureContext } from '../../types'
+import type { FeatureSetup, QuestionBuilder } from '../../types'
 import { basename, resolve } from 'path'
 import ejs from 'ejs'
+import { getGitInfo } from '../../utils/git_info'
+import { fileExists } from '../../utils/path_helper'
 
 export const templates = [resolve(__dirname, './templates/package.json.tpl')]
 
@@ -17,27 +19,42 @@ export const a = async () => {
 }
 
 export const questionBuilder: QuestionBuilder = async context => {
-  console.log(context)
+  const { rootPath } = context
+  const hasPackageFile = await fileExists(resolve(rootPath, 'package.json'))
+  if (hasPackageFile) return []
+
+  const appName = basename(rootPath)
+  const gitInfo = getGitInfo()
+
   const askPackageName = {
     type: 'input',
     name: 'packageName',
-    message: '❓ package name?',
-    default: 'abc'
+    message: '📦 package name?',
+    default: appName
   }
 
   const askLicense = {
     type: 'input',
-    name: 'packageName',
-    message: '❓ package name?',
-    default: 'abc'
+    name: 'license',
+    message: '📝 license?',
+    default: 'ISC'
   }
-  /**
-git repository:
-author:
-license: (ISC)
-*/
 
-  return [askPackageName]
+  const askAuthor = {
+    type: 'input',
+    name: 'author',
+    message: '👤 Author?',
+    default: gitInfo.username ? `${gitInfo.username} <${gitInfo.email}>` : ''
+  }
+
+  const askRepository = {
+    type: 'input',
+    name: 'author',
+    message: '👤 repository url?',
+    default: gitInfo.repoUrl ?? ''
+  }
+
+  return [askPackageName, askAuthor, askRepository, askLicense]
 }
 
 export const setup: FeatureSetup = async () => {

@@ -1,4 +1,4 @@
-import type { Question, QuestionCollection, Answers } from 'inquirer'
+import type { Question, Answers } from 'inquirer'
 import { BUILD_TOOLS } from './questions/build-tools'
 
 interface FeatFile {
@@ -29,7 +29,7 @@ export interface FeatureContext {
 }
 
 export interface QuestionBuilder {
-  (context: FeatureContext): Promise<QuestionCollection>
+  (context: FeatureContext): Promise<Question[]>
 }
 
 export interface FeatureSetup {
@@ -37,7 +37,7 @@ export interface FeatureSetup {
 }
 
 export interface FeatureModule extends Record<string, unknown> {
-  readonly questionsBuilder: QuestionBuilder
+  readonly questionsBuilder?: QuestionBuilder
   readonly setup: FeatureSetup
   readonly teardown?: (context: FeatureContext) => Promise<void>
 }
