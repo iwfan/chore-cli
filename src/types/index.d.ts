@@ -25,11 +25,15 @@ export interface QuestionAnswers extends Answers {
 
 export interface FeatureContext {
   readonly rootPath: string
-  readonly answers: QuestionAnswers
+  answers: QuestionAnswers
 }
 
 export interface QuestionBuilder {
   (context: FeatureContext): Promise<Question[]>
+}
+
+export interface IsSkipFeature {
+  (context: FeatureContext): Promise<boolean>
 }
 
 export interface FeatureSetup {
@@ -38,6 +42,7 @@ export interface FeatureSetup {
 
 export interface FeatureModule extends Record<string, unknown> {
   readonly questionsBuilder?: QuestionBuilder
+  readonly isSkip?: IsSkipFeature
   readonly setup: FeatureSetup
   readonly teardown?: (context: FeatureContext) => Promise<void>
 }

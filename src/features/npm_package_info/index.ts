@@ -1,43 +1,28 @@
-import type { FeatureSetup, QuestionBuilder } from '../../types'
+import type { FeatureSetup, IsSkipFeature, QuestionBuilder } from '../../types'
 import { basename, resolve } from 'path'
 import ejs from 'ejs'
 import { getGitInfo } from '../../utils/git_info'
 import { fileExists } from '../../utils/path_helper'
 
-export const templates = [resolve(__dirname, './templates/package.json.tpl')]
-
-export const a = async () => {
-  const appName = basename('/Users/f/Documents/github_repo/chore-cli/src/abc')
-
-  const data = await ejs.renderFile(resolve(__dirname, './templates/package.json.tpl'), {
-    projectName: appName,
-    username: '123',
-    email: '123',
-    repoUrl: '4567'
-  })
-  console.log(data)
-}
+const packageJsonExists = async (path: string) => await fileExists(resolve(path, 'package.json'))
+let hasPackageJsonExists = false
 
 export const questionBuilder: QuestionBuilder = async context => {
   const { rootPath } = context
-  const hasPackageFile = await fileExists(resolve(rootPath, 'package.json'))
-  if (hasPackageFile) return []
+  const hasPackageFile = await packageJsonExists(rootPath)
+  if (hasPackageFile) {
+    hasPackageJsonExists = true
+    return []
+  }
 
-  const appName = basename(rootPath)
+  const packageName = basename(rootPath)
   const gitInfo = getGitInfo()
 
   const askPackageName = {
     type: 'input',
     name: 'packageName',
     message: '📦 package name?',
-    default: appName
-  }
-
-  const askLicense = {
-    type: 'input',
-    name: 'license',
-    message: '📝 license?',
-    default: 'ISC'
+    default: packageName
   }
 
   const askAuthor = {
@@ -49,14 +34,37 @@ export const questionBuilder: QuestionBuilder = async context => {
 
   const askRepository = {
     type: 'input',
-    name: 'author',
+    name: 'repoUrl',
     message: '👤 repository url?',
     default: gitInfo.repoUrl ?? ''
+  }
+
+  const askLicense = {
+    type: 'input',
+    name: 'license',
+    message: '📝 license?',
+    default: 'ISC'
   }
 
   return [askPackageName, askAuthor, askRepository, askLicense]
 }
 
-export const setup: FeatureSetup = async () => {
+export const isSkip: IsSkipFeature = async () => {
+  return hasPackageJsonExists
+}
+
+export const setup: FeatureSetup = async context => {
+  const { answers } = context
+  const { packageName, author, repoUrl, license } = answers
+
+  const data = await ejs.renderFile(resolve(__dirname, './templates/package.json.tpl'), {
+    packageName,
+    author,
+    repoUrl,
+    license
+  })
+
+  console.log(data)
+
   return {}
 }

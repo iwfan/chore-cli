@@ -1,21 +1,30 @@
-import type { FeatureModule, QuestionBuilder, FeatureSetup } from '../types'
-import type { Question } from 'inquirer'
+import inquirer from 'inquirer'
+import type { FeatureModule, FeatureContext } from '../types'
 import * as npmPackageFeature from './npm_package_info'
 
 const featureCollection: FeatureModule[] = [npmPackageFeature]
 
-export const questionBuilder: QuestionBuilder = async context => {
-  const questions: Question[] = []
-
+export const askQuestion = async (context: FeatureContext) => {
   for (const featureModule of featureCollection) {
     if (typeof featureModule.questionBuilder === 'function') {
-      const questionList = await featureModule.questionBuilder(context)
-      questions.push(...questionList)
+      const questions = await featureModule.questionBuilder(context)
+      const answers = await inquirer.prompt(questions)
+      context.answers = Object.assign({}, context.answers, answers)
     }
   }
-  return questions
 }
 
-export const setup: FeatureSetup = async () => {
+export const runTask = async (context: FeatureContext) => {
+  for (const featureModule of featureCollection) {
+    let isSkiped = false
+    if (typeof featureModule.isSkip === 'function') {
+      isSkiped = await featureModule.isSkip(context)
+    }
+
+    if (!isSkiped) {
+      await featureModule.setup(context)
+    }
+  }
+
   return {}
 }
