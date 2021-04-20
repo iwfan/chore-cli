@@ -1,9 +1,8 @@
 import path from 'path'
 import fs from 'fs-extra'
 import ora from 'ora'
-import questions from './questions'
 import addFeatures from './plugins'
-import { isValidDirectory, writeFileFromObject } from './utils'
+import { writeFileFromObject } from './utils'
 import execa from 'execa'
 
 export default async function chore({ libraryName, yes: useDefaultValue }) {

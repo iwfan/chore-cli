@@ -10,6 +10,8 @@ end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
 
+[*.{js,ts,jsx,tsx}]
+spaces_around_brackets = inside
+
 [*.md]
 insert_final_newline = false
-trim_trailing_whitespace = false

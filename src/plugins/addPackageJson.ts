@@ -1,11 +1,11 @@
-import path from 'path';
-import { getGitInfo, transformGitUrlToHttpsUrl } from '../utils';
+import path from 'path'
+import { getGitInfo, transformGitUrlToHttpsUrl } from '../utils'
 
-export default async function(options: ChoreOptions) {
-  const { libraryDir } = options;
-  const appName = path.basename(libraryDir);
-  const gitInfo = await getGitInfo();
-  const repoUrl = transformGitUrlToHttpsUrl(gitInfo.repoUrl);
+export default async function (options: ChoreOptions) {
+  const { libraryDir } = options
+  const appName = path.basename(libraryDir)
+  const gitInfo = await getGitInfo()
+  const repoUrl = transformGitUrlToHttpsUrl(gitInfo.repoUrl)
   const pkgJson = {
     name: appName,
     version: '0.1.0',
@@ -14,26 +14,26 @@ export default async function(options: ChoreOptions) {
     module: `dist/${appName}.esm.js`,
     typings: 'dist/index.d.ts',
     scripts: {
-      test: 'echo "Error: no test specified" && exit 1',
+      test: 'echo "Error: no test specified" && exit 1'
     },
     repository: {
       type: 'git',
-      url: `git+${repoUrl}.git`,
+      url: `git+${repoUrl}.git`
     },
     keywords: ['chore', 'chore-cli'],
     author: {
       name: gitInfo.username,
-      email: gitInfo.email,
+      email: gitInfo.email
     },
     license: 'MIT',
     bugs: {
-      url: `${repoUrl}/issues`,
+      url: `${repoUrl}/issues`
     },
     homepage: `${repoUrl}#readme`,
-    files: ['dist'],
-  };
+    files: ['dist']
+  }
 
   Object.assign<FileContent, FileContent>(options.files, {
-    'package.json': JSON.stringify(pkgJson, null, 2),
-  });
+    'package.json': JSON.stringify(pkgJson, null, 2)
+  })
 }

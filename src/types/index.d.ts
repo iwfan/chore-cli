@@ -19,12 +19,25 @@ interface FeatureData {
 }
 
 export interface QuestionAnswers extends Answers {
-  readonly buildTool: BUILD_TOOLS
-  readonly isReactNeeded: boolean
+  readonly buildTool?: BUILD_TOOLS
+  readonly isReactNeeded?: boolean
+}
+
+export interface FeatureContext {
+  readonly rootPath: string
+  readonly answers: QuestionAnswers
+}
+
+export interface QuestionBuilder {
+  (context: FeatureContext): Promise<QuestionCollection>
+}
+
+export interface FeatureSetup {
+  (context: FeatureContext): Promise<FeatureData>
 }
 
 export interface FeatureModule extends Record<string, unknown> {
-  readonly questionsBuilder?: (answers: QuestionAnswers) => Question | QuestionCollection
-  readonly setup: (answers: QuestionAnswers) => Promise<FeatureData>
-  readonly teardown?: (answers: QuestionAnswers) => Promise<void>
+  readonly questionsBuilder: QuestionBuilder
+  readonly setup: FeatureSetup
+  readonly teardown?: (context: FeatureContext) => Promise<void>
 }
