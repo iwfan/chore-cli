@@ -1,9 +1,13 @@
-import { Chore } from '../../typing'
+import type { FeatureSetup } from '../../types'
+import ejs from 'ejs'
+import fs from 'fs-extra'
+import { resolve } from 'path'
 
-export const setupEditorconfig: Chore = async () => {
-  console.log(' ---- ---- --- ')
-}
+export const setup: FeatureSetup = async context => {
+  const { rootPath } = context
 
-export const setup = () => {
-  console.log(' --- ')
+  const content = await ejs.renderFile(resolve(__dirname, './templates/.editorconfig.tpl'))
+  const filePath = resolve(rootPath, '.editorconfig')
+  await fs.ensureFile(filePath)
+  await fs.writeFile(filePath, content)
 }

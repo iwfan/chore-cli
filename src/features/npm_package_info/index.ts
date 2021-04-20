@@ -1,6 +1,7 @@
 import type { FeatureSetup, IsSkipFeature, QuestionBuilder } from '../../types'
 import { basename, resolve } from 'path'
 import ejs from 'ejs'
+import fs from 'fs-extra'
 import { getGitInfo } from '../../utils/git_info'
 import { fileExists } from '../../utils/path_helper'
 
@@ -35,7 +36,7 @@ export const questionBuilder: QuestionBuilder = async context => {
   const askRepository = {
     type: 'input',
     name: 'repoUrl',
-    message: '👤 repository url?',
+    message: '🌎 repository url?',
     default: gitInfo.repoUrl ?? ''
   }
 
@@ -54,17 +55,17 @@ export const isSkip: IsSkipFeature = async () => {
 }
 
 export const setup: FeatureSetup = async context => {
-  const { answers } = context
+  const { rootPath, answers } = context
   const { packageName, author, repoUrl, license } = answers
 
-  const data = await ejs.renderFile(resolve(__dirname, './templates/package.json.tpl'), {
+  const content = await ejs.renderFile(resolve(__dirname, './templates/package.json.tpl'), {
     packageName,
     author,
     repoUrl,
     license
   })
 
-  console.log(data)
-
-  return {}
+  const filePath = resolve(rootPath, 'package.json')
+  await fs.ensureFile(filePath)
+  await fs.writeFile(filePath, content)
 }

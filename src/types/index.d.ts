@@ -37,7 +37,7 @@ export interface IsSkipFeature {
 }
 
 export interface FeatureSetup {
-  (context: FeatureContext): Promise<FeatureData>
+  (context: FeatureContext): Promise<FeatureData | void>
 }
 
 export interface FeatureModule extends Record<string, unknown> {
