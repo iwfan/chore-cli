@@ -2,8 +2,13 @@ import inquirer from 'inquirer'
 import type { FeatureModule, FeatureContext } from '../types'
 import * as npmPackageFeature from './npm_package_info'
 import * as editorConfigFeature from './editorconfig'
+import * as browserListFeature from './browserlist'
 
-const featureCollection: FeatureModule[] = [npmPackageFeature, editorConfigFeature]
+const featureCollection: FeatureModule[] = [
+  npmPackageFeature,
+  editorConfigFeature,
+  browserListFeature
+]
 
 export const askQuestion = async (context: FeatureContext) => {
   for (const featureModule of featureCollection) {

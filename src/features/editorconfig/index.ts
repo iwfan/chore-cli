@@ -1,7 +1,12 @@
-import type { FeatureSetup } from '../../types'
+import type { FeatureSetup, IsSkipFeature } from '../../types'
 import ejs from 'ejs'
 import fs from 'fs-extra'
 import { resolve } from 'path'
+import { fileExists } from '../../utils/path_helper'
+
+export const isSkip: IsSkipFeature = async context => {
+  return await fileExists(resolve(context.rootPath, '.editorconfig'))
+}
 
 export const setup: FeatureSetup = async context => {
   const { rootPath } = context
