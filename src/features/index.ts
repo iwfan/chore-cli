@@ -10,6 +10,7 @@ import * as huskyFeature from './husky'
 import * as babelFeature from './babel'
 import * as prettierFeature from './prettier'
 import * as eslintFeature from './eslint'
+import * as jestFeature from './jest'
 import * as depsInstallFeature from './deps_install'
 
 const featureCollection: FeatureModule[] = [
@@ -21,7 +22,8 @@ const featureCollection: FeatureModule[] = [
   huskyFeature,
   babelFeature,
   prettierFeature,
-  eslintFeature
+  eslintFeature,
+  jestFeature
 ]
 
 const askModuleQuestion = async (featureModule: FeatureModule, context: FeatureContext) => {
