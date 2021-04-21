@@ -1,6 +1,6 @@
 import type { FeatureSetup, IsSkipFeature, QuestionBuilder } from '../../types'
 import { buildConfirmQuestion } from '../../core/question'
-import { BUILD_TOOLS } from '../../questions/build-tools'
+import { BUILD_TOOLS } from '../typescript/build-tools'
 import { addDeps, addDevDeps } from '../../core/dependency'
 
 export const questionBuilder: QuestionBuilder = async () => {

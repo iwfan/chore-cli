@@ -4,6 +4,7 @@ import { getGitInfo } from '../../utils/git_info'
 import { fileExists } from '../../utils/path_helper'
 import { buildInputQuestion } from '../../core/question'
 import { rederTemplate } from '../../core/template'
+import { BUILD_TOOLS } from '../typescript/build-tools'
 
 const packageJsonExists = async (path: string) => await fileExists(resolve(path, 'package.json'))
 let hasPackageJsonExists = false
@@ -40,7 +41,7 @@ export const isSkip: IsSkipFeature = async () => {
 
 export const setup: FeatureSetup = async context => {
   const { rootPath, answers } = context
-  const { packageName, author, repoUrl, license } = answers
+  const { packageName, author, repoUrl, license, buildTool } = answers
 
   await rederTemplate(
     resolve(rootPath, 'package.json'),
@@ -49,7 +50,8 @@ export const setup: FeatureSetup = async context => {
       packageName,
       author,
       repoUrl,
-      license
+      license,
+      useTypeScriptCompiler: buildTool === BUILD_TOOLS.TSC
     }
   )
 }

@@ -1,19 +1,19 @@
 export enum BUILD_TOOLS {
   TSC,
   WEBPACK,
-  PARCEL,
-  ROLLUP,
-  ESBUILD,
-  SNOWPACK
+  ROLLUP
+  // PARCEL,
+  // ESBUILD,
+  // SNOWPACK
 }
 
 const LabelMappings = [
   'None(Just use the TypeScript compiler)',
   'webpack',
-  'Parcel',
-  'Rollup',
-  'esbuild',
-  'Snowpack'
+  'Rollup'
+  // 'Parcel',
+  // 'esbuild',
+  // 'Snowpack'
 ]
 
 export const buildTools = () => {

@@ -4,7 +4,7 @@ import { program } from 'commander'
 import { bin, version, description, homepage } from '../package.json'
 import { colorizeErrorText, colorizeText, colorizeUrl } from './utils/colorizer'
 import { takeFirst } from './utils/tools'
-import { main } from './main'
+import { main } from './core/main'
 
 program
   .name(takeFirst(Object.keys(bin)) as string)

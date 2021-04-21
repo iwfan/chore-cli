@@ -1,7 +1,7 @@
 import { resolve } from 'path'
-import { ensureUsabilityOfPath } from './utils/path_helper'
-import { askQuestion, runTask } from './features'
-import type { FeatureContext } from './types'
+import { ensureUsabilityOfPath } from '../utils/path_helper'
+import { askQuestion, runTask } from '../features'
+import type { FeatureContext } from '../types'
 
 export async function main(projectPath: string) {
   const resolvedPath = resolve(projectPath)

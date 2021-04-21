@@ -6,6 +6,11 @@
   "module": "dist/<%= packageName %>.esm.js",
   "typings": "dist/index.d.ts",
   "scripts": {
+    <% if (useTypeScriptCompiler) { %>
+    "start": "tsc --watch",
+    "build": "tsc",
+    "build:declaration": "tsc --declaration —-declarationDir dist --emitDeclarationOnly src/index.ts",
+    <% } %>
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "files": ["dist"],

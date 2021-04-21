@@ -10,9 +10,9 @@ import * as eslintFeature from './eslint'
 import * as depsInstallFeature from './deps_install'
 
 const featureCollection: FeatureModule[] = [
+  typescriptFeature,
   npmPackageFeature,
   editorConfigFeature,
-  typescriptFeature,
   reactFeature,
   browserListFeature,
   prettierFeature,
