@@ -3,6 +3,7 @@ import { resolve } from 'path'
 import { fileExists } from '../../utils/path_helper'
 import { rederTemplate } from '../../core/template'
 import { buildTools } from './build-tools'
+import { addDevDeps } from '../../core/dependency'
 
 export const questionBuilder: QuestionBuilder = async () => {
   return buildTools()
@@ -17,6 +18,9 @@ export const setup: FeatureSetup = async context => {
     rootPath,
     answers: { isReactNeeded }
   } = context
+
+  addDevDeps(['typescript'])
+
   await rederTemplate(
     resolve(rootPath, 'tsconfig.json'),
     resolve(__dirname, './templates/tsconfig.json.tpl'),

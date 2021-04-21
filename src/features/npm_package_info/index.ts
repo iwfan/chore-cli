@@ -5,6 +5,8 @@ import { fileExists } from '../../utils/path_helper'
 import { buildInputQuestion } from '../../core/question'
 import { rederTemplate } from '../../core/template'
 import { BUILD_TOOLS } from '../typescript/build-tools'
+import { addDevDeps } from '../../core/dependency'
+import { lstat, pathExists } from 'fs-extra'
 
 const packageJsonExists = async (path: string) => await fileExists(resolve(path, 'package.json'))
 let hasPackageJsonExists = false
@@ -43,6 +45,10 @@ export const setup: FeatureSetup = async context => {
   const { rootPath, answers } = context
   const { packageName, author, repoUrl, license, buildTool } = answers
 
+  const gitFolderPath = resolve(rootPath, '.git')
+  const hasGitFolder =
+    (await pathExists(gitFolderPath)) && (await lstat(gitFolderPath)).isDirectory()
+
   await rederTemplate(
     resolve(rootPath, 'package.json'),
     resolve(__dirname, './templates/package.json.tpl'),
@@ -51,7 +57,28 @@ export const setup: FeatureSetup = async context => {
       author,
       repoUrl,
       license,
-      useTypeScriptCompiler: buildTool === BUILD_TOOLS.TSC
+      useTypeScriptCompiler: buildTool === BUILD_TOOLS.TSC,
+      hasGitFolder,
+      __prettier_parser: 'json-stringify'
     }
   )
+
+  if (hasGitFolder) {
+    addDevDeps(['husky', 'lint-staged', '@commitlint/config-conventional', '@commitlint/cli'])
+
+    await rederTemplate(
+      resolve(rootPath, '.husky', 'commit-msg'),
+      resolve(__dirname, './templates/commit-msg.tpl')
+    )
+
+    await rederTemplate(
+      resolve(rootPath, '.husky', 'pre-commit'),
+      resolve(__dirname, './templates/pre-commit.tpl')
+    )
+
+    await rederTemplate(
+      resolve(rootPath, '.husky', '.gitignore'),
+      resolve(__dirname, './templates/.gitignore.tpl')
+    )
+  }
 }

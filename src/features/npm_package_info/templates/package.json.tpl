@@ -6,6 +6,9 @@
   "module": "dist/<%= packageName %>.esm.js",
   "typings": "dist/index.d.ts",
   "scripts": {
+    <% if (hasGitFolder) { %>
+    "prepare": "husky install",
+    <% } %>
     <% if (useTypeScriptCompiler) { %>
     "start": "tsc --watch",
     "build": "tsc",
@@ -14,6 +17,21 @@
     "test": "jest"
   },
   "files": ["dist"],
+  <% if (hasGitFolder) { %>
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "lint-staged": {
+    "*.{js,ts,jsx,tsx,scss,css,json,md}": [
+      "pretty-quick --staged"
+    ],
+    "*.{js,ts,jsx,tsx}": [
+      "eslint --fix"
+    ]
+  },
+  <% } %>
   "repository": {
     "type": "git",
     "url": "git+<%= repoUrl %>.git"
