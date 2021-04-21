@@ -13,7 +13,7 @@ export const questionBuilder: QuestionBuilder = async context => {
   const hasPackageFile = await packageJsonExists(rootPath)
   if (hasPackageFile) {
     hasPackageJsonExists = true
-    return []
+    return
   }
 
   const packageName = basename(rootPath)

@@ -8,7 +8,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "files": ["dist"]
+  "files": ["dist"],
   "repository": {
     "type": "git",
     "url": "git+<%= repoUrl %>.git"
