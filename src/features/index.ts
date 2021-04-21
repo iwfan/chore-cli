@@ -14,6 +14,7 @@ import * as webpackFeature from './webpack'
 import * as rollupFeature from './rollup'
 import * as jestFeature from './jest'
 import * as boilerplateFeature from './boilerplate'
+import * as githubActionFeature from './github_action'
 import * as depsInstallFeature from './deps_install'
 
 const featureCollection: FeatureModule[] = [
@@ -29,7 +30,8 @@ const featureCollection: FeatureModule[] = [
   webpackFeature,
   rollupFeature,
   jestFeature,
-  boilerplateFeature
+  boilerplateFeature,
+  githubActionFeature
 ]
 
 const askModuleQuestion = async (featureModule: FeatureModule, context: FeatureContext) => {

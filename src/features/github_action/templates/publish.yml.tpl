@@ -1,4 +1,4 @@
-const publishAction = `name: Publish package
+name: Publish package
 
 on:
   push:
@@ -30,15 +30,4 @@ jobs:
           token: \${{secrets.CODECOV_TOKEN}}
       - run: npm publish
         env:
-          NODE_AUTH_TOKEN: \${{secrets.npm_token}}
-`;
 
-export default async function(options: ChoreOptions) {
-  Object.assign(options.files, {
-    '.github': {
-      workflows: {
-        'publish.yml': publishAction,
-      },
-    },
-  });
-}
