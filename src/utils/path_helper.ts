@@ -9,7 +9,7 @@ export const ensureUsabilityOfPath = async (path: string) => {
     }
 
     if (!(await lstat(path)).isDirectory()) {
-      throw new Error(`path ${colorizePath(path)} already exists.`)
+      throw new Error(`🚨 path ${colorizePath(path)} already exists and it is not a directory.`)
     }
   }
 

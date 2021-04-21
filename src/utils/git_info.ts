@@ -1,4 +1,4 @@
-import { execSync } from 'child_process'
+import { readStdout } from './executor'
 
 export interface GitInfo {
   username: string | null
@@ -6,32 +6,23 @@ export interface GitInfo {
   repoUrl: string | null
 }
 
-export function readStdout(cmd: string) {
-  try {
-    const stdout = execSync(cmd)
-    return stdout.toString().replace('\n', '')
-  } catch (e) {
-    return null
-  }
+export async function getGitUserName() {
+  return await readStdout(`git config --get user.name`)
 }
 
-export function getGitUserName() {
-  return readStdout(`git config --get user.name`)
+export async function getGitUserEmail() {
+  return await readStdout(`git config --get user.email`)
 }
 
-export function getGitUserEmail() {
-  return readStdout(`git config --get user.email`)
+export async function getGitReposUrl() {
+  return await readStdout(`git config --get remote.origin.url`)
 }
 
-export function getGitReposUrl() {
-  return readStdout(`git config --get remote.origin.url`)
-}
-
-export function getGitInfo(): GitInfo {
+export async function getGitInfo(): Promise<GitInfo> {
   return {
-    username: getGitUserName(),
-    email: getGitUserEmail(),
-    repoUrl: transformGitUrlToGithubsUrl(getGitReposUrl())
+    username: await getGitUserName(),
+    email: await getGitUserEmail(),
+    repoUrl: transformGitUrlToGithubsUrl(await getGitReposUrl())
   }
 }
 

@@ -1,6 +1,7 @@
 import type { FeatureSetup, IsSkipFeature, QuestionBuilder } from '../../types'
 import { buildConfirmQuestion } from '../../core/question'
 import { BUILD_TOOLS } from '../../questions/build-tools'
+import { addDeps, addDevDeps } from '../../core/dependency'
 
 export const questionBuilder: QuestionBuilder = async () => {
   return buildConfirmQuestion(
@@ -16,7 +17,6 @@ export const isSkip: IsSkipFeature = async context => {
 }
 
 export const setup: FeatureSetup = async () => {
-  // options.deps = [...options.deps, 'react', 'react-dom'];
-  // options.devDeps = [...options.devDeps, '@types/react', '@types/react-dom'];
-  console.log(' React setup')
+  addDeps(['react', 'react-dom'])
+  addDevDeps(['@types/react', '@types/react-dom'])
 }

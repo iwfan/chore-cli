@@ -17,7 +17,7 @@ export const questionBuilder: QuestionBuilder = async context => {
   }
 
   const packageName = basename(rootPath)
-  const gitInfo = getGitInfo()
+  const gitInfo = await getGitInfo()
 
   const askPackageName = buildInputQuestion('packageName', '📦 package name?', packageName)
 

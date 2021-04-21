@@ -14,7 +14,7 @@ export function withSpinner<T>(func: () => T | Promise<T>, textInfo: SpinnerText
 
   const setSpinnerSucceed = (d: T) => (spinner.succeed(textInfo.success), d)
   const setSpinnerFailed = (e: Error) => {
-    spinner.fail(textInfo.failed)
+    spinner.fail(e.message ?? textInfo.failed)
     throw e
   }
 
