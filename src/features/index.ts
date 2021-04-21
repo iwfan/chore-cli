@@ -11,6 +11,7 @@ import * as babelFeature from './babel'
 import * as prettierFeature from './prettier'
 import * as eslintFeature from './eslint'
 import * as webpackFeature from './webpack'
+import * as rollupFeature from './rollup'
 import * as jestFeature from './jest'
 import * as depsInstallFeature from './deps_install'
 
@@ -25,6 +26,7 @@ const featureCollection: FeatureModule[] = [
   prettierFeature,
   eslintFeature,
   webpackFeature,
+  rollupFeature,
   jestFeature
 ]
 

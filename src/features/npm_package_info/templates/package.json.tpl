@@ -22,6 +22,11 @@
     "build:declaration": "tsc --declaration —-declarationDir dist --emitDeclarationOnly src/index.ts",
     <% } %>
 
+    <% if (useRoolup) { %>
+    "build": "rollup -c rollup.config.ts",
+    "build:declaration": "tsc --declaration —-declarationDir dist --emitDeclarationOnly src/index.ts",
+    <% } %>
+
     "test": "jest"
   },
   "files": ["dist"],
