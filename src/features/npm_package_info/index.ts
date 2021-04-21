@@ -5,7 +5,6 @@ import { fileExists } from '../../utils/path_helper'
 import { buildInputQuestion } from '../../core/question'
 import { rederTemplate } from '../../core/template'
 import { BUILD_TOOLS } from '../typescript/build-tools'
-import { addDevDeps } from '../../core/dependency'
 import { lstat, pathExists } from 'fs-extra'
 
 const packageJsonExists = async (path: string) => await fileExists(resolve(path, 'package.json'))
@@ -62,23 +61,4 @@ export const setup: FeatureSetup = async context => {
       __prettier_parser: 'json-stringify'
     }
   )
-
-  if (hasGitFolder) {
-    addDevDeps(['husky', 'lint-staged', '@commitlint/config-conventional', '@commitlint/cli'])
-
-    await rederTemplate(
-      resolve(rootPath, '.husky', 'commit-msg'),
-      resolve(__dirname, './templates/commit-msg.tpl')
-    )
-
-    await rederTemplate(
-      resolve(rootPath, '.husky', 'pre-commit'),
-      resolve(__dirname, './templates/pre-commit.tpl')
-    )
-
-    await rederTemplate(
-      resolve(rootPath, '.husky', '.gitignore'),
-      resolve(__dirname, './templates/.gitignore.tpl')
-    )
-  }
 }

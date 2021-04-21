@@ -6,6 +6,7 @@ import * as npmPackageFeature from './npm_package_info'
 import * as editorConfigFeature from './editorconfig'
 import * as reactFeature from './react'
 import * as browserListFeature from './browserlist'
+import * as huskyFeature from './husky'
 import * as babelFeature from './babel'
 import * as prettierFeature from './prettier'
 import * as eslintFeature from './eslint'
@@ -17,6 +18,7 @@ const featureCollection: FeatureModule[] = [
   editorConfigFeature,
   reactFeature,
   browserListFeature,
+  huskyFeature,
   babelFeature,
   prettierFeature,
   eslintFeature
