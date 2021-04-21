@@ -11,7 +11,7 @@
     "build": "tsc",
     "build:declaration": "tsc --declaration —-declarationDir dist --emitDeclarationOnly src/index.ts",
     <% } %>
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "files": ["dist"],
   "repository": {
