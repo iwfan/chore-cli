@@ -1,13 +1,17 @@
 import inquirer from 'inquirer'
 import type { FeatureModule, FeatureContext } from '../types'
+import * as typescriptFeature from './typescript'
 import * as npmPackageFeature from './npm_package_info'
 import * as editorConfigFeature from './editorconfig'
+import * as reactFeature from './react'
 import * as browserListFeature from './browserlist'
 import * as eslintFeature from './eslint'
 
 const featureCollection: FeatureModule[] = [
+  typescriptFeature,
   npmPackageFeature,
   editorConfigFeature,
+  reactFeature,
   browserListFeature,
   eslintFeature
 ]

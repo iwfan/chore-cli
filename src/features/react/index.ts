@@ -1,0 +1,22 @@
+import type { FeatureSetup, IsSkipFeature, QuestionBuilder } from '../../types'
+import { buildConfirmQuestion } from '../../core/question'
+import { BUILD_TOOLS } from '../../questions/build-tools'
+
+export const questionBuilder: QuestionBuilder = async () => {
+  return buildConfirmQuestion(
+    'isReactNeeded',
+    '❓ Do you need to use React?',
+    false,
+    answer => answer.buildTool !== BUILD_TOOLS.TSC
+  )
+}
+
+export const isSkip: IsSkipFeature = async context => {
+  return !Boolean(context.answers.isReactNeeded)
+}
+
+export const setup: FeatureSetup = async () => {
+  // options.deps = [...options.deps, 'react', 'react-dom'];
+  // options.devDeps = [...options.devDeps, '@types/react', '@types/react-dom'];
+  console.log(' React setup')
+}

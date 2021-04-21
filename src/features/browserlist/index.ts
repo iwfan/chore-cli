@@ -1,12 +1,19 @@
-import type { FeatureSetup, IsSkipFeature, QuestionBuilder } from '../../types'
+import type { FeatureContext, FeatureSetup, IsSkipFeature, QuestionBuilder } from '../../types'
 import { resolve } from 'path'
 import { fileExists } from '../../utils/path_helper'
 import { buildConfirmQuestion } from '../../core/question'
 import { rederTemplate } from '../../core/template'
 
+const isReactNeeded = (context: FeatureContext) => Boolean(context.answers.isReactNeeded)
+
 export const questionBuilder: QuestionBuilder = async context => {
   const skip = await isSkip(context)
   if (skip) {
+    return
+  }
+
+  if (isReactNeeded(context)) {
+    context.answers.isBrowserListNeeded = true
     return
   }
 
