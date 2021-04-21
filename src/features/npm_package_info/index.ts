@@ -57,6 +57,7 @@ export const setup: FeatureSetup = async context => {
       repoUrl,
       license,
       useTypeScriptCompiler: buildTool === BUILD_TOOLS.TSC,
+      useWebpack: buildTool === BUILD_TOOLS.WEBPACK,
       hasGitFolder,
       __prettier_parser: 'json-stringify'
     }

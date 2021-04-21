@@ -9,11 +9,19 @@
     <% if (hasGitFolder) { %>
     "prepare": "husky install",
     <% } %>
+
     <% if (useTypeScriptCompiler) { %>
     "start": "tsc --watch",
     "build": "tsc",
     "build:declaration": "tsc --declaration —-declarationDir dist --emitDeclarationOnly src/index.ts",
     <% } %>
+
+    <% if (useWebpack) { %>
+    "start": "webpack-dev-server --process --color --config webpack.config.ts",
+    "build": "webpack --config webpack.config.ts",
+    "build:declaration": "tsc --declaration —-declarationDir dist --emitDeclarationOnly src/index.ts",
+    <% } %>
+
     "test": "jest"
   },
   "files": ["dist"],
