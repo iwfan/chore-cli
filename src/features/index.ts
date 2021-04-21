@@ -14,8 +14,10 @@ export const askQuestion = async (context: FeatureContext) => {
   for (const featureModule of featureCollection) {
     if (typeof featureModule.questionBuilder === 'function') {
       const questions = await featureModule.questionBuilder(context)
-      const answers = await inquirer.prompt(questions)
-      context.answers = Object.assign({}, context.answers, answers)
+      if (questions != null) {
+        const answers = await inquirer.prompt(Array.isArray(questions) ? questions : [questions])
+        context.answers = Object.assign({}, context.answers, answers)
+      }
     }
   }
 }

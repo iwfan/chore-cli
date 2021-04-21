@@ -29,7 +29,7 @@ export interface FeatureContext {
 }
 
 export interface QuestionBuilder {
-  (context: FeatureContext): Promise<Question[]>
+  (context: FeatureContext): Promise<Question | Question[] | void | null>
 }
 
 export interface IsSkipFeature {
