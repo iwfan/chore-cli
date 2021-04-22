@@ -6,7 +6,7 @@
   "scripts": {
     "prepare": "husky install",
     "dev": "tsc --watch",
-    "lint": "eslint src",
+    "lint": "eslint '*/**/*.{js,ts,tsx}'",
     "build": "pnpm run clean && tsc && pnpm run copy-template",
     "clean": "rm -rf dist",
     "copy-template": "ts-node scripts/copy_templates.ts",
