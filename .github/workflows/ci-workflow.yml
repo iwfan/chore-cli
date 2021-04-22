@@ -3,9 +3,10 @@ name: CI workflow
 on:
   push:
     branches:
-      - dev
-      - fix-*
-      - feat-*
+      - main
+      # - dev
+      # - fix-*
+      # - feat-*
   pull_request:
     branches:
       - main
