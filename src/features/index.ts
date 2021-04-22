@@ -1,63 +1,79 @@
-import { Feature } from '../constants';
-import { getPackageManager } from '../utils';
-import addCommitLint from './addCommitlint';
-import addPackageJson from './addPackageJson';
-import addEditorconfig from './addEditorconfig';
-import addTypescript from './addTypescript';
-import addEslint from './addEslint';
-import addPrettier from './addPrettier';
-import addJest from './addJest';
-import addBoilerplateCode from './addBoilerplateCode';
-import addBrowsersList from './addBrowserslist';
-import addRollup from './addRollup';
-import addBabel from './addBabel';
-import addLintStaged from './addLintStaged';
-import addReact from './addReact';
-import addWebpack from './addWebpack';
-import addGithubActions from './addGithubActions';
+import type { FeatureModule, FeatureContext } from '../types'
+import inquirer from 'inquirer'
+import { withSpinner } from '../utils/with_spinner'
+import * as typescriptFeature from './typescript'
+import * as npmPackageFeature from './npm_package_info'
+import * as editorConfigFeature from './editorconfig'
+import * as reactFeature from './react'
+import * as browserListFeature from './browserlist'
+import * as huskyFeature from './husky'
+import * as babelFeature from './babel'
+import * as prettierFeature from './prettier'
+import * as eslintFeature from './eslint'
+import * as webpackFeature from './webpack'
+import * as rollupFeature from './rollup'
+import * as jestFeature from './jest'
+import * as boilerplateFeature from './boilerplate'
+import * as githubActionFeature from './github_action'
+import * as depsInstallFeature from './deps_install'
 
-export default async function addFeatures(
-  libraryDir: string,
-  features: string[],
-): Promise<ChoreOptions> {
-  const options: ChoreOptions = {
-    libraryDir: libraryDir,
-    features,
-    deps: [],
-    devDeps: [],
-    files: {},
-    postInstallListener: [],
-    pkgManager: getPackageManager(),
-  };
+const featureCollection: FeatureModule[] = [
+  typescriptFeature,
+  npmPackageFeature,
+  editorConfigFeature,
+  reactFeature,
+  browserListFeature,
+  huskyFeature,
+  babelFeature,
+  prettierFeature,
+  eslintFeature,
+  webpackFeature,
+  rollupFeature,
+  jestFeature,
+  boilerplateFeature,
+  githubActionFeature
+]
 
-  await addPackageJson(options);
-  await addEditorconfig(options);
-  await addTypescript(options);
-
-  if (features.includes(Feature.REACT)) {
-    await addReact(options);
+const askModuleQuestion = async (featureModule: FeatureModule, context: FeatureContext) => {
+  if (typeof featureModule.questionBuilder === 'function') {
+    const questions = await featureModule.questionBuilder(context)
+    if (questions != null) {
+      const answers = await inquirer.prompt(
+        Array.isArray(questions) ? questions : [questions],
+        context.answers
+      )
+      context.answers = Object.assign({}, context.answers, answers)
+    }
   }
+}
 
-  await addPrettier(options);
-  await addEslint(options);
-
-  if (features.includes(Feature.STYLE)) {
-    await addBrowsersList(options);
+export const askQuestion = async (context: FeatureContext) => {
+  for (const featureModule of featureCollection) {
+    await askModuleQuestion(featureModule, context)
   }
+}
 
-  await addJest(options);
-  await addBoilerplateCode(options);
+export const runTask = async (context: FeatureContext) => {
+  await withSpinner(
+    async () => {
+      for (const featureModule of featureCollection) {
+        let isSkiped = false
+        if (typeof featureModule.isSkip === 'function') {
+          isSkiped = await featureModule.isSkip(context)
+        }
 
-  if (features.includes(Feature.ROLLUP)) {
-    await addBabel(options);
-    await addRollup(options);
-  } else if (features.includes(Feature.WEBPACK)) {
-    await addBabel(options);
-    await addWebpack(options);
-  }
+        if (!isSkiped) {
+          await featureModule.setup(context)
+        }
+      }
+    },
+    {
+      start: '👷 Building infrastructure',
+      success: '🏗  The development infrastructure generated.',
+      failed: `🚨 Failed to generate development environment infrastructure.`
+    }
+  ).catch()
 
-  await addLintStaged(options);
-  await addCommitLint(options);
-  await addGithubActions(options);
-  return options;
+  await askModuleQuestion(depsInstallFeature, context)
+  await depsInstallFeature.setup(context)
 }
