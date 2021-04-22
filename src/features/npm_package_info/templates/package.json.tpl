@@ -29,7 +29,6 @@
 
     "test": "jest"
   },
-  "files": ["dist"],
   <% if (hasGitFolder) { %>
   "commitlint": {
     "extends": [

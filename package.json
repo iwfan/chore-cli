@@ -5,12 +5,15 @@
   "main": "dist/cli.js",
   "scripts": {
     "prepare": "husky install",
-    "dev": "tsc --outDir dist --watch",
-    "build": "tsc --outDir dist",
+    "dev": "tsc --watch",
+    "lint": "eslint src",
+    "build": "pnpm run clean && tsc && pnpm run copy-template",
+    "clean": "rm -rf dist",
+    "copy-template": "ts-node scripts/copy_templates.ts",
     "test": "jest"
   },
   "bin": {
-    "chore": "dist/chore.js"
+    "chore": "src/chore.js"
   },
   "repository": {
     "type": "git",

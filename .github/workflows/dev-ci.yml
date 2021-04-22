@@ -41,9 +41,10 @@ jobs:
             - recursive: true
               args: [--frozen-lockfile, --strict-peer-dependencies]
 
-      - name: run test
+      - name: run lint & test & build
         run: |
-          pnpm run build
+          pnpm run lint
           pnpm run test
+          pnpm run build
         env:
           CI: true
