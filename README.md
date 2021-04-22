@@ -1,51 +1,66 @@
-<h1 align="center">Welcome to chore-cli 👋</h1>
-<p>
-  <img alt="Version" src="https://img.shields.io/npm/v/chore-cli.svg">
+<pre align="center">
+
+ ╭━━━╮╭╮╱╭╮╭━━━╮╭━━━╮╭━━━╮╱╱╱╱╭━━━╮╭╮╱╱╱╭━━╮
+ ┃╭━╮┃┃┃╱┃┃┃╭━╮┃┃╭━╮┃┃╭━━╯╱╱╱╱┃╭━╮┃┃┃╱╱╱╰┫┣╯
+┃┃╱╰╯┃╰━╯┃┃┃╱┃┃┃╰━╯┃┃╰━━╮╱╱╱╱┃┃╱╰╯┃┃╱╱╱╱┃┃
+┃┃╱╭╮┃╭━╮┃┃┃╱┃┃┃╭╮╭╯┃╭━━╯╭━━╮┃┃╱╭╮┃┃╱╭╮╱┃┃
+ ┃╰━╯┃┃┃╱┃┃┃╰━╯┃┃┃┃╰╮┃╰━━╮╰━━╯┃╰━╯┃┃╰━╯┃╭┫┣╮
+ ╰━━━╯╰╯╱╰╯╰━━━╯╰╯╰━╯╰━━━╯╱╱╱╱╰━━━╯╰━━━╯╰━━╯
+
+</pre>
+
+<p align="center">
+  <img alt="Version" src="https://img.shields.io/npm/v/chore-cli.svg" />
+
+  <a href="https://codecov.io/gh/iwfan/chore-cli" target="_blank">
+    <img alt="Documentation" src="https://codecov.io/gh/iwfan/chore-cli/branch/main/graph/badge.svg" />
+  </a>
+
+  <img alt="Prettier" src="https://img.shields.io/badge/styled_with-prettier-ff69b4.svg" />
   <img src="https://img.shields.io/badge/npm-%3E%3D6.9.0-blue.svg" />
-  <img src="https://img.shields.io/badge/node-%3E%3D10.16.0-blue.svg" />
-  <a href="https://github.com/iwfan/chore-cli#readme">
-    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" target="_blank" />
+  <img src="https://img.shields.io/badge/node-%3E%3D12.0.0-blue.svg" />
+
+  <a href="https://github.com/iwfan/chore-cli#readme" target="_blank">
+    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
   </a>
-  <a href="https://github.com/iwfan/chore-cli/graphs/commit-activity">
-    <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" target="_blank" />
+  <a href="https://github.com/iwfan/chore-cli/graphs/commit-activity" target="_blank">
+    <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
   </a>
-  <a href="https://github.com/iwfan/chore-cli/blob/master/LICENSE">
-    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" target="_blank" />
+  <a href="https://github.com/iwfan/chore-cli/blob/master/LICENSE" target="_blank">
+    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
   </a>
 </p>
 
-Chore CLI is the Tooling for building a front-end library. Chore-CLI can generate basic configuration of the project, such as: typescript, babel, eslint, etc. It can save a lot of time every time you create a new project.
+chore-cli is the super assistant for building a typescript library. It can generate development infrastructure for projects or libraries, such as prettier, eslint, husky etc, or even Github Actions Config files. It can save a lot of time every time you create new stuff.
 
-不要让写代码的热情被配置环境消耗殆尽。
+As we know, These tools like eslint, prettier can make the codebase better. But it takes us a lot of time to configure them. If you don't want your enthusiasm for writing code to be consumed by these configurations, and if you don't like doing these annoying "chores" frequently, try chore-cli.
 
-我们都知道 Eslint、Prettier、Commitlint
-等工具能够让我们的项目变得更好，但是配置它们却需要花费我们非常多的时间。如果你不想让写代码的热情被这些配置消耗殆尽，如果你也不喜欢频繁的做这些恼人的“家务事”，那就来试试 chore-cli 吧。
-Chore-cli
-可以生成 TypeScript 项目模板，为项目自动配置了许多工具，它可以帮你在创建新项目时节省很多时间。
+chore cli 是构建 typescript 应用的超级助手。它可以为项目或库生成开发基础设施，如 prettier、eslint、husky 等，甚至是 Github Actions 配置文件。它可以在你每次创造新东西的时候，节省很多时间。
 
-TypeScript Development Infrastructure
+众所周知，像 eslint 和 prettier 这样的工具可以使代码库变得更好。但是我们要花很多时间来配置它们。如果你不想让你写代码的热情被这些配置消耗掉，如果你不喜欢频繁地做这些烦人的“杂务”，那就试试 chore-cli 。
 
-As we know, These tools like eslint, prettier can make project better.
+## 🚀 Usage
 
-### 🏠 [Homepage](https://github.com/iwfan/chore-cli#readme)
-
-## ⚓ Prerequisites
-
-- npm >=6.9.0
-- node >=10.16.0
-
-## 📦 Install
+Using `chore-cli` is super easy.
 
 ```sh
+npx chore-cli <path-to-project>
+```
+
+You can also add `chore-cli` as a global dependency.
+
+```sh
+pnpm add chore-cli -g
+# or
 yarn global add chore-cli
 # or
 npm install chore-cli -g
 ```
 
-## 🚀 Usage
+And run
 
 ```sh
-chore my-project
+chore <path-to-project>
 ```
 
 ## ✨ Features
