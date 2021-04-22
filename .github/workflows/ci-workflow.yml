@@ -6,7 +6,7 @@ on:
       - dev
   pull_request:
     branches:
-      - master
+      - main
 
 jobs:
   test_and_build:
