@@ -2,7 +2,7 @@ import path from 'path'
 import fs from 'fs-extra'
 
 async function copy() {
-  console.log(' Copy Templates ')
+  console.log(' Copy Files ')
   const distPath = path.resolve(__dirname, '..', 'dist')
   const distFolderExists = await fs.pathExists(distPath)
 
@@ -21,7 +21,13 @@ async function copy() {
     }
   }
 
-  console.log(' All templates has been copied to dist folder')
+  await fs.copy(
+    path.resolve(__dirname, '..', '.prettierrc'),
+    path.resolve(distPath, '.prettierrc'),
+    { overwrite: true }
+  )
+
+  console.log(' All files has been copied to dist folder')
 }
 
 copy()

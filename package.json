@@ -7,9 +7,9 @@
     "prepare": "husky install",
     "dev": "tsc --watch",
     "lint": "eslint '*/**/*.{js,ts,tsx}'",
-    "build": "pnpm run clean && tsc && pnpm run copy-template",
+    "build": "pnpm run clean && tsc && pnpm run copy-files",
     "clean": "rm -rf dist",
-    "copy-template": "ts-node scripts/copy_templates.ts",
+    "copy-files": "ts-node scripts/copy_files.ts",
     "test": "jest"
   },
   "bin": {
