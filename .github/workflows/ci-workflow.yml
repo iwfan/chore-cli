@@ -1,15 +1,15 @@
 name: CI workflow
 
 on:
-  push:
-    branches:
-      - main
-      # - dev
-      # - fix-*
-      # - feat-*
   pull_request:
     branches:
       - main
+  # push:
+  #   branches:
+      # - main
+      # - dev
+      # - fix-*
+      # - feat-*
 
 jobs:
   test_and_build:

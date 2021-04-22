@@ -85,6 +85,7 @@ jobs:
           cd dist
           # upgrade npm version in package.json to the tag used in the release.
           npm version ${{ github.event.release.tag_name }}
+          echo //registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN > .npmrc
           npm publish --access public
         env:
           # Use a token to publish to NPM. See below for how to set it up
