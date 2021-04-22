@@ -4,8 +4,6 @@ on:
   release:
     # This specifies that the build will be triggered when we publish a release
     types: [published]
-    branches:
-          - main
 
 jobs:
   test_and_build:
