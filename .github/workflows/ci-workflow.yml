@@ -3,7 +3,10 @@ name: CI workflow
 on:
   push:
     branches:
-      - dev
+      - main
+      # - dev
+      # - fix-*
+      # - feat-*
   pull_request:
     branches:
       - main
@@ -16,7 +19,6 @@ jobs:
         os: [ubuntu-latest]
         node-version: [12.x, 14.x]
     env:
-      CI: true
       HUSKY: 0
     steps:
       - uses: actions/checkout@v2
