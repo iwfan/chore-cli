@@ -16,7 +16,7 @@ export const setup: FeatureSetup = async context => {
   )
 
   await rederTemplate(
-    resolve(rootPath, 'src', 'index.spec.ts'),
+    resolve(rootPath, 'tests', 'index.spec.ts'),
     resolve(__dirname, './templates/index.spec.ts.tpl')
   )
 }
