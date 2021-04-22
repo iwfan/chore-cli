@@ -13,7 +13,6 @@ jobs:
         os: [ubuntu-latest]
         node-version: [12.x, 14.x]
     env:
-      CI: true
       HUSKY: 0
     steps:
       - uses: actions/checkout@v2
@@ -64,6 +63,8 @@ jobs:
       contents: read
       packages: write
     needs: test_and_build
+    env:
+      HUSKY: 0
     steps:
       - uses: actions/checkout@v2
 
