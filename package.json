@@ -1,7 +1,7 @@
 {
   "name": "chore-cli",
-  "version": "0.0.7",
-  "description": "️Chore CLI is a pioneer to create a TypeScript application or library.",
+  "version": "0.0.9",
+  "description": "️TypeScript development infrastructure.",
   "main": "dist/cli.js",
   "scripts": {
     "prepare": "husky install",
