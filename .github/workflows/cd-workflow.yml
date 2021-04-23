@@ -99,7 +99,7 @@ jobs:
 
           npm version ${{ github.event.release.tag_name }}
 
-          git push
+          git push origin HEAD:main
         env:
           # The secret is passed automatically. Nothing to configure.
           github-token: ${{ secrets.GITHUB_TOKEN }}
