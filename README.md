@@ -10,20 +10,21 @@
 </pre>
 
 <p align="center">
-  <img src="https://img.shields.io/npm/v/chore-cli.svg" alt="npm version" />
-  <img src="https://status.david-dm.org/gh/iwfan/chore-cli.svg" alt="dependencies status" />
+  <a href="https://www.npmjs.com/package/chore-cli" target="_blank">
+    <img src="https://img.shields.io/npm/v/chore-cli.svg" alt="npm version" />
+  </a>
+  <a href="https://github.com/iwfan/chore-cli/actions/workflows/cd-workflow.yml" target="_blank">
+    <img src="https://github.com/iwfan/chore-cli/actions/workflows/cd-workflow.yml/badge.svg" />
+  </a>
+  <a href="https://david-dm.org/iwfan/chore-cli" target="_blank">
+    <img src="https://status.david-dm.org/gh/iwfan/chore-cli.svg" alt="dependencies status" />
+  </a>
 
-  <img src="https://img.shields.io/badge/neovim-%2357A143.svg?&logo=neovim&logoColor=white"/>
-  <img alt="Prettier" src="https://img.shields.io/badge/styled_with-prettier-ff69b4.svg" />
+  <img src="https://img.shields.io/badge/Neovim-%233fb622.svg?&logo=neovim&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Prettier-%234b4b4b.svg?&logo=prettier"/>
 
   <a href="https://codecov.io/gh/iwfan/chore-cli" target="_blank">
     <img alt="Documentation" src="https://codecov.io/gh/iwfan/chore-cli/branch/main/graph/badge.svg" />
-  </a>
-  <a href="https://github.com/iwfan/chore-cli#readme" target="_blank">
-    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
-  </a>
-  <a href="https://github.com/iwfan/chore-cli/graphs/commit-activity" target="_blank">
-    <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
   </a>
   <a href="https://github.com/iwfan/chore-cli/blob/master/LICENSE" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
