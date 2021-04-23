@@ -10,15 +10,15 @@
 </pre>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/neovim-%2357A143.svg?&style=flat-square&logo=neovim&logoColor=white"/>
-  <img alt="Version" src="https://img.shields.io/npm/v/chore-cli.svg" />
+  <img src="https://img.shields.io/npm/v/chore-cli.svg" alt="npm version" />
+  <img src="https://status.david-dm.org/gh/iwfan/chore-cli.svg" alt="dependencies status" />
+
+  <img src="https://img.shields.io/badge/neovim-%2357A143.svg?&logo=neovim&logoColor=white"/>
+  <img alt="Prettier" src="https://img.shields.io/badge/styled_with-prettier-ff69b4.svg" />
 
   <a href="https://codecov.io/gh/iwfan/chore-cli" target="_blank">
     <img alt="Documentation" src="https://codecov.io/gh/iwfan/chore-cli/branch/main/graph/badge.svg" />
   </a>
-
-  <img alt="Prettier" src="https://img.shields.io/badge/styled_with-prettier-ff69b4.svg" />
-
   <a href="https://github.com/iwfan/chore-cli#readme" target="_blank">
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
   </a>
@@ -77,15 +77,16 @@ chore <path-to-project>
 - [x] react (optional)
 - [x] commit message lint
 - [x] lint staged
-
-## Todo
-
 - [x] github actions
+
+## ✅ Todo
+
 - [ ] changelog
 - [ ] typedoc
-- [ ] style
+- [ ] styles
 - [ ] parcel
-- [ ] snowpack
+- [ ] Snowpack
+- [ ] Automatic releases
 
 ## 🤝 Contributing
 
