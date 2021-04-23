@@ -1,0 +1,30 @@
+name: test git push workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      HUSKY: 0
+    steps:
+      - uses: actions/checkout@v2
+
+      # push the version changes to GitHub
+      - name: publish to github
+        run: |
+          # set up git since we will later push to the repo
+          git config --global user.name "iwfan"
+          git config --global user.email "i.wangfancn@gmail.com"
+
+          echo '\n' > CHANGELOG.md
+
+          git commit -am "build: update CHANGELOG"
+
+          git push origin HEAD:main
+        env:
+          # The secret is passed automatically. Nothing to configure.
+          github-token: ${{ secrets.GITHUB_TOKEN }}

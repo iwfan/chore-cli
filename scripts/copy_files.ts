@@ -27,6 +27,10 @@ async function copy() {
     { overwrite: true }
   )
 
+  await fs.copy(path.resolve(__dirname, '..', 'README.md'), path.resolve(distPath, 'README.md'), {
+    overwrite: true
+  })
+
   console.log(' All files has been copied to dist folder')
 }
 
