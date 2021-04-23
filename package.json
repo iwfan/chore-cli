@@ -2,7 +2,6 @@
   "name": "chore-cli",
   "version": "0.0.9",
   "description": "️TypeScript development infrastructure.",
-  "main": "dist/cli.js",
   "scripts": {
     "dev": "tsc --watch",
     "lint": "eslint '*/**/*.{js,ts,tsx}'",
