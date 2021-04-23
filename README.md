@@ -39,7 +39,7 @@ chore cli 是构建 typescript 应用的超级助手。它可以为项目或库�
 
 众所周知，像 eslint 和 prettier 这样的工具可以使代码库变得更好。但是我们要花很多时间来配置它们。如果你不想让你写代码的热情被这些配置消耗掉，如果你不喜欢频繁地做这些烦人的“杂务”，那就试试 chore-cli 。
 
-![chore-cli](https://raw.githubusercontent.com/iwfan/chore-cli/main/.github/command_line.png)
+![chore-cli](https://raw.githubusercontent.com/iwfan/chore-cli/main/.github/chore-cmd-line.gif)
 
 ## 🚀 Usage
 
