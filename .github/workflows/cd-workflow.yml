@@ -97,7 +97,7 @@ jobs:
           git config --global user.name "iwfan"
           git config --global user.email "i.wangfancn@gmail.com"
 
-          npm version ${{ github.event.release.tag_name }}
+          npm version --no-git-tag-version ${{ github.event.release.tag_name }}
 
           git push origin HEAD:main
         env:
