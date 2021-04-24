@@ -22,7 +22,7 @@ jobs:
 
       - id: version_diff
         run: |
-          current_version=$(node -pe require('./package.json').version)
+          current_version=$(node -pe "require('./package.json').version")
           latest_version=$(npm view chore-cli@latest version)
           [[ "$current_version" == "$latest_version" ]] && changed="true" || changed="false"
 
