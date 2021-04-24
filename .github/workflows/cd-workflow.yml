@@ -24,19 +24,22 @@ jobs:
         run: |
           current_version=$(node -pe "require('./package.json').version")
           latest_version=$(npm view chore-cli@latest version)
-          [[ "$current_version" == "$latest_version" ]] && changed="true" || changed="false"
-
-          echo "Current Version: $current_version"
-          echo "Latest Version: $latest_version"
+          [[ "$current_version" != "$latest_version" ]] && changed=true || changed=false
 
           echo "current_version=$current_version" >> $GITHUB_ENV
           echo "latest_version=$latest_version" >> $GITHUB_ENV
           echo "changed=$changed" >> $GITHUB_ENV
 
-      - name: Check version status
-        if: steps.version_diff.outputs.changed == 'true'
+      - name: echo change info
         run: |
-          echo "Version change found! New version: ${{ steps.version.outputs.version }} (${{ steps.version.outputs.type }})"
+          echo ${{ steps.version_diff.outputs.current_version }}
+          echo ${{ steps.version_diff.outputs.latest_version }}
+          echo ${{ steps.version_diff.outputs.changed }}
+
+      - name: Check version status
+        if: steps.version_diff.outputs.changed == true
+        run: |
+          echo "Version change found! New version: ${{ steps.version_diff.outputs.current_version }}"
 
     outputs:
       version: ${{ steps.version_diff.outputs.current_version }}
@@ -45,7 +48,7 @@ jobs:
   build:
     name: Build
     needs: check_version
-    if: needs.check_version.outputs.version_changed == 'true'
+    if: needs.check_version.outputs.version_changed == true
     runs-on: ubuntu-latest
     env:
       HUSKY: 0
