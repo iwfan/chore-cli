@@ -4,18 +4,18 @@ on:
   pull_request:
     branches:
       - main
-  # push:
-  #   branches:
-  # - main
-  # - dev
-  # - fix-*
-  # - feat-*
+  push:
+    branches:
+      - main
+    paths:
+      - src
 
 jobs:
   test_and_build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
+        fail-fast: false
         os: [ubuntu-latest]
         node-version: [12.x, 14.x]
     env:
