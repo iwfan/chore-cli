@@ -35,10 +35,10 @@ jobs:
           echo ${{ steps.version_diff.outputs.current_version }}
           echo ${{ steps.version_diff.outputs.latest_version }}
 
-          changed=steps.version_diff.outputs.changed
+          changed=${{ steps.version_diff.outputs.changed }}
           echo ${{ changed }}
-          [ $changed='true' ] && echo 'New version' || echo 'No version change'
-          echo ${{ changed }}
+          [ $changed == 'true' ] && echo 'New version' || echo 'No version change'
+          [ $changed == true ] && echo 'New version1' || echo 'No version change1'
 
     outputs:
       version: ${{ steps.version_diff.outputs.current_version }}
