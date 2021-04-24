@@ -1,6 +1,6 @@
 {
   "name": "chore-cli",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "️TypeScript development infrastructure.",
   "scripts": {
     "dev": "tsc --watch",
