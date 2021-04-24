@@ -39,7 +39,6 @@ jobs:
           version_changed=${{ steps.version_diff.outputs.changed }}
           echo $version_changed
           [ $version_changed == 'true' ] && echo 'New version' || echo 'No version change'
-          [ $version_changed == true ] && echo 'New version1' || echo 'No version change1'
 
     outputs:
       version: ${{ env.current_version }}
