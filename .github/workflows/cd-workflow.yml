@@ -48,44 +48,48 @@ jobs:
   test:
     name: Test
     needs: check_version
+    runs-on: ubuntu-latest
     steps:
-      run: |
-        echo ${{ steps.version_diff.outputs.current_version }}
-        echo ${{ env.current_version }}
-        echo ${{ env.changed }}
+      - run: |
+          echo ${{ steps.version_diff.outputs.current_version }}
+          echo ${{ env.current_version }}
+          echo ${{ env.changed }}
 
   test1:
     name: Test1
+    runs-on: ubuntu-latest
     needs: check_version
     if: ${{ env.changed == 'true' }}
     steps:
-      run: |
-        echo ${{ steps.version_diff.outputs.current_version }}
-        echo ${{ env.current_version }}
-        echo ${{ env.changed }}
-        echo ${{ env.changed == 'true' }}
+      - run: |
+         echo ${{ steps.version_diff.outputs.current_version }}
+         echo ${{ env.current_version }}
+         echo ${{ env.changed }}
+         echo ${{ env.changed == 'true' }}
 
   test2:
     name: Test2
+    runs-on: ubuntu-latest
     needs: check_version
     if: ${{ needs.check_version.outputs.version_changed == 'true' }}
     steps:
-      run: |
-        echo ${{ steps.version_diff.outputs.current_version }}
-        echo ${{ env.current_version }}
-        echo ${{ env.changed }}
-        echo ${{ needs.check_version.outputs.version_changed == 'true' }}
+      - run: |
+         echo ${{ steps.version_diff.outputs.current_version }}
+         echo ${{ env.current_version }}
+         echo ${{ env.changed }}
+         echo ${{ needs.check_version.outputs.version_changed == 'true' }}
 
   test3:
     name: Test3
+    runs-on: ubuntu-latest
     needs: check_version
     if: ${{ needs.check_version.outputs.version_changed != 'true' }}
     steps:
-      run: |
-        echo ${{ steps.version_diff.outputs.current_version }}
-        echo ${{ env.current_version }}
-        echo ${{ env.changed }}
-        echo ${{ needs.check_version.outputs.version_changed != 'true' }}
+      - run: |
+         echo ${{ steps.version_diff.outputs.current_version }}
+         echo ${{ env.current_version }}
+         echo ${{ env.changed }}
+         echo ${{ needs.check_version.outputs.version_changed != 'true' }}
 
   build:
     name: Build
