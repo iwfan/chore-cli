@@ -5,22 +5,34 @@ import { buildListQuestion } from '../../core/question'
 import { takeFirst } from '../../utils/tools'
 import { withSpinner } from '../../utils/with_spinner'
 
+export enum PackageManager {
+  NPM,
+  YARN,
+  PNPM
+}
+
+const INSTALL_CMD_MAPPING: Record<string, string> = {
+  [PackageManager.NPM]: 'npm install',
+  [PackageManager.YARN]: 'yarn add',
+  [PackageManager.PNPM]: 'pnpm add'
+}
+
 export const questionBuilder: QuestionBuilder = async context => {
   const pkgList = []
 
   const pnpmVersion = await readStdout('pnpm --version')
   if (pnpmVersion) {
-    pkgList.push({ name: `pnpm (${pnpmVersion})`, value: 'pnpm add' })
+    pkgList.push({ name: `pnpm (${pnpmVersion})`, value: PackageManager.PNPM })
   }
 
   const yarnVersion = await readStdout('yarn --version')
   if (yarnVersion) {
-    pkgList.push({ name: `yarn (${pnpmVersion})`, value: 'yarn add' })
+    pkgList.push({ name: `yarn (${pnpmVersion})`, value: PackageManager.YARN })
   }
 
   const npmVersion = await readStdout('npm --version')
   if (npmVersion) {
-    pkgList.push({ name: `npm (${npmVersion})`, value: 'npm install' })
+    pkgList.push({ name: `npm (${npmVersion})`, value: PackageManager.NPM })
   }
 
   if (pkgList.length === 1) {
@@ -43,7 +55,7 @@ export const setup: FeatureSetup = async context => {
 
   await withSpinner(
     async () => {
-      if (!Boolean(packageManager)) {
+      if (packageManager == null) {
         throw new Error('Can not found package manager.')
       }
 
@@ -57,7 +69,7 @@ export const setup: FeatureSetup = async context => {
 
       if (dependencies.length) {
         try {
-          await exec(`${packageManager} --save ${dependencies.join(' ')}`)
+          await exec(`${INSTALL_CMD_MAPPING[packageManager]} --save ${dependencies.join(' ')}`)
         } catch {
           throw new Error(`🚨 Dependencies installation failed! ${dependencies.join(' ')}`)
         }
@@ -68,7 +80,9 @@ export const setup: FeatureSetup = async context => {
         .map(dep => dep.name)
       if (devDependencies.length) {
         try {
-          await exec(`${packageManager} --save-dev ${devDependencies.join(' ')}`)
+          await exec(
+            `${INSTALL_CMD_MAPPING[packageManager]} --save-dev ${devDependencies.join(' ')}`
+          )
         } catch {
           throw new Error(`🚨 Dependencies installation failed! ${devDependencies.join(' ')}`)
         }
@@ -79,7 +93,9 @@ export const setup: FeatureSetup = async context => {
         .map(dep => dep.name)
       if (peerDependencies.length) {
         try {
-          await exec(`${packageManager} --save-peer ${peerDependencies.join(' ')}`)
+          await exec(
+            `${INSTALL_CMD_MAPPING[packageManager]} --save-peer ${peerDependencies.join(' ')}`
+          )
         } catch {
           throw new Error(`🚨 Dependencies installation failed! ${peerDependencies.join(' ')}`)
         }
