@@ -34,12 +34,11 @@ jobs:
         run: |
           echo ${{ steps.version_diff.outputs.current_version }}
           echo ${{ steps.version_diff.outputs.latest_version }}
-          echo ${{ steps.version_diff.outputs.changed }}
 
-      - name: Check version status
-        if: steps.version_diff.outputs.changed == true
-        run: |
-          echo "Version change found! New version: ${{ steps.version_diff.outputs.current_version }}"
+          changed=steps.version_diff.outputs.changed
+          echo ${{ changed }}
+          [ $changed='true' ] && echo 'New version' || echo 'No version change'
+          echo ${{ changed }}
 
     outputs:
       version: ${{ steps.version_diff.outputs.current_version }}
@@ -48,7 +47,7 @@ jobs:
   build:
     name: Build
     needs: check_version
-    if: needs.check_version.outputs.version_changed == true
+    if: needs.check_version.outputs.version_changed == 'true'
     runs-on: ubuntu-latest
     env:
       HUSKY: 0
