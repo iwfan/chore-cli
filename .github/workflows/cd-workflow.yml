@@ -134,6 +134,8 @@ jobs:
           cd dist
           # upgrade npm version in package.json to the tag used in the release.
           echo //npm.pkg.github.com/:_authToken=$GITHUB_TOKEN > .npmrc
+          echo registry=https://npm.pkg.github.com >> .npmrc
+          echo @iwfan:registry=https://npm.pkg.github.com >> .npmrc
           sed -i 's/\"chore-cli\"/\"\@iwfan\/chore-cli\"/' package.json
           npm publish --access public
         env:
