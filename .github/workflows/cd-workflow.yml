@@ -33,6 +33,7 @@ jobs:
       - name: echo change info
         run: |
           echo ${{ steps.version_diff.outputs.current_version }}
+          echo ${{ env.current_version }}
           echo ${{ steps.version_diff.outputs.latest_version }}
 
           version_changed=${{ steps.version_diff.outputs.changed }}
@@ -41,8 +42,50 @@ jobs:
           [ $version_changed == true ] && echo 'New version1' || echo 'No version change1'
 
     outputs:
-      version: ${{ steps.version_diff.outputs.current_version }}
-      version_changed: ${{ steps.version_diff.outputs.changed }}
+      version: ${{ env.current_version }}
+      version_changed: ${{ env.changed }}
+
+  test:
+    name: Test
+    needs: check_version
+    steps:
+      run: |
+        echo ${{ steps.version_diff.outputs.current_version }}
+        echo ${{ env.current_version }}
+        echo ${{ env.changed }}
+
+  test1:
+    name: Test1
+    needs: check_version
+    if: ${{ env.changed == 'true' }}
+    steps:
+      run: |
+        echo ${{ steps.version_diff.outputs.current_version }}
+        echo ${{ env.current_version }}
+        echo ${{ env.changed }}
+        echo ${{ env.changed == 'true' }}
+
+  test2:
+    name: Test2
+    needs: check_version
+    if: ${{ needs.check_version.outputs.version_changed == 'true' }}
+    steps:
+      run: |
+        echo ${{ steps.version_diff.outputs.current_version }}
+        echo ${{ env.current_version }}
+        echo ${{ env.changed }}
+        echo ${{ needs.check_version.outputs.version_changed == 'true' }}
+
+  test3:
+    name: Test3
+    needs: check_version
+    if: ${{ needs.check_version.outputs.version_changed != 'true' }}
+    steps:
+      run: |
+        echo ${{ steps.version_diff.outputs.current_version }}
+        echo ${{ env.current_version }}
+        echo ${{ env.changed }}
+        echo ${{ needs.check_version.outputs.version_changed != 'true' }}
 
   build:
     name: Build
