@@ -47,7 +47,7 @@ jobs:
   build:
     name: Build
     needs: check_version
-    if: needs.check_version.outputs.version_changed == 'true'
+    if: ${{ needs.check_version.outputs.version_changed == 'true' }}
     runs-on: ubuntu-latest
     env:
       HUSKY: 0
