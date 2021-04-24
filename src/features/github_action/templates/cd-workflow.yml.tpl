@@ -24,7 +24,7 @@ jobs:
         id: version_diff
         run: |
           current_version=$(node -pe "require('./package.json').version")
-          latest_version=$(npm view chore-cli@latest version)
+          latest_version=$(npm view <%= packageName %>@latest version)
           [[ "$current_version" != "$latest_version" ]] && changed=true || changed=false
 
           echo "current_version=$current_version" >> $GITHUB_ENV
@@ -63,6 +63,7 @@ jobs:
           node-version: 14.16.1
           registry-url: https://registry.npmjs.org/
 
+      <% if (usePnpm) { %>
       - name: Cache pnpm modules
         uses: actions/cache@v2
         env:
@@ -85,6 +86,43 @@ jobs:
           pnpm run lint
           pnpm run test
           pnpm run build
+      <% } %>
+
+      <% if (useNpm) { %>
+      - name: Cache npm modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-npm-modules
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-
+
+      - name: run lint & test & build
+        run: |
+          npm run lint
+          npm run test
+          npm run build
+      <% } %>
+
+      <% if (useYarn) { %>
+      - name: Cache Yarn modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-yarn-modules
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-
+
+      - name: run lint & test & build
+        run: |
+          yarn run lint
+          yarn run test
+          yarn run build
+      <% } %>
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
@@ -128,14 +166,3 @@ jobs:
         env:
           # Use a token to publish to NPM. See below for how to set it up
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-
-      - name: publish to github packages
-        run: |
-          cd dist
-          # upgrade npm version in package.json to the tag used in the release.
-          echo //npm.pkg.github.com/:_authToken=$GITHUB_TOKEN > .npmrc
-          sed -i 's/\"chore-cli\"/\"\@iwfan\/chore-cli\"/' package.json
-          npm publish --access public
-        env:
-          # Use a token to publish to NPM. See below for how to set it up
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

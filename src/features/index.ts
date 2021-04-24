@@ -51,6 +51,8 @@ export const askQuestion = async (context: FeatureContext) => {
   for (const featureModule of featureCollection) {
     await askModuleQuestion(featureModule, context)
   }
+
+  await askModuleQuestion(depsInstallFeature, context)
 }
 
 export const runTask = async (context: FeatureContext) => {
@@ -74,6 +76,5 @@ export const runTask = async (context: FeatureContext) => {
     }
   ).catch()
 
-  await askModuleQuestion(depsInstallFeature, context)
   await depsInstallFeature.setup(context)
 }
