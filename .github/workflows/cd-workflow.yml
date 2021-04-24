@@ -1,4 +1,4 @@
-name: build
+name: Auto-publish
 
 on:
   release:
@@ -6,21 +6,45 @@ on:
     types: [published]
 
 jobs:
-  test_and_build:
+  check_version:
+    name: Check version
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node-version: [12.x, 14.x]
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: main
+
+      - name: Check version changes
+        uses: EndBug/version-check@v1
+        id: version
+        with:
+          diff-search: true
+
+      - name: Check version status
+        if: steps.version.outputs.changed == 'true'
+        run: |
+          echo "Version change found! New version: ${{ steps.version.outputs.version }} (${{ steps.version.outputs.type }})"
+
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      version_changed: ${{ steps.version.outputs.changed }}
+
+  build:
+    name: Build
+    needs: check_version
+    if: needs.check.outputs.version_changed == 'true'
+    runs-on: ubuntu-latest
     env:
       HUSKY: 0
     steps:
       - uses: actions/checkout@v2
+        with:
+          ref: main
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js 14.16.1
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 14.16.1
           registry-url: https://registry.npmjs.org/
 
       - name: Cache pnpm modules
@@ -56,24 +80,22 @@ jobs:
         with:
           name: artifacts
           path: dist/
+          retention-days: 5
+          if-no-files-found: error
 
-  publish_package:
+  publish:
+    needs: build
+    environment: npm-publish
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-    needs: test_and_build
-    env:
-      HUSKY: 0
     steps:
       - uses: actions/checkout@v2
         with:
           ref: main
 
-      - name: Use Node.js 14
+      - name: Use Node.js 14.16.1
         uses: actions/setup-node@v1
         with:
-          node-version: 14
+          node-version: 14.16.1
 
       - name: download artifact
         uses: actions/download-artifact@main
@@ -85,25 +107,8 @@ jobs:
         run: |
           cd dist
           # upgrade npm version in package.json to the tag used in the release.
-          npm version ${{ github.event.release.tag_name }}
           echo //registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN > .npmrc
           npm publish --access public
         env:
           # Use a token to publish to NPM. See below for how to set it up
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-
-      # push the version changes to GitHub
-      - name: publish to github
-        run: |
-          # set up git since we will later push to the repo
-          git config --global user.name "iwfan"
-          git config --global user.email "i.wangfancn@gmail.com"
-
-          npm version --no-git-tag-version ${{ github.event.release.tag_name }}
-
-          git commit -am "build: ${{ github.event.release.tag_name }}"
-
-          git push origin HEAD:main
-        env:
-          # The secret is passed automatically. Nothing to configure.
-          github-token: ${{ secrets.GITHUB_TOKEN }}
