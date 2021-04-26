@@ -34,7 +34,7 @@ export const setup: FeatureSetup = async context => {
   ])
 
   if (isReactNeeded) {
-    addDevDeps(['eslint-plugin-react'])
+    addDevDeps(['eslint-plugin-react', 'eslint-plugin-react-hooks'])
   }
 
   await rederTemplate(
