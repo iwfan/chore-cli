@@ -1,7 +1,7 @@
 import path from 'path'
 import fs from 'fs-extra'
 
-async function copy() {
+export async function copy() {
   console.log(' Copy Files ')
   const distPath = path.resolve(__dirname, '..', 'dist')
   const distFolderExists = await fs.pathExists(distPath)
@@ -21,17 +21,11 @@ async function copy() {
     }
   }
 
-  await fs.copy(
-    path.resolve(__dirname, '..', '.prettierrc'),
-    path.resolve(distPath, '.prettierrc'),
-    { overwrite: true }
-  )
+  for (const file of ['.prettierrc', 'package.json', 'README.md']) {
+    await fs.copy(path.resolve(__dirname, '..', file), path.resolve(distPath, file), {
+      overwrite: true
+    })
+  }
 
-  await fs.copy(path.resolve(__dirname, '..', 'README.md'), path.resolve(distPath, 'README.md'), {
-    overwrite: true
-  })
-
-  console.log(' All files has been copied to dist folder')
+  console.log('😌 All files has been copied to dist folder')
 }
-
-copy()
