@@ -9,7 +9,7 @@ export const questionBuilder: QuestionBuilder = async () => {
 }
 
 export const isSkip: IsSkipFeature = async context => {
-  return !Boolean(context.answers.isGithubActionNeeded)
+  return !context.answers.isGithubActionNeeded
 }
 
 export const setup: FeatureSetup = async context => {

@@ -19,7 +19,9 @@ export const ensureUsabilityOfPath = async (path: string) => {
       success: `🏗  The development infrastructure will be generated in ${colorizePath(path)}`,
       failed: `🚨 path ${colorizePath(path)} already exists and it is not a directory.`
     })
-  } catch {}
+  } catch (e) {
+    console.warn(e)
+  }
 }
 
 export const fileExists = async (path: string) => {

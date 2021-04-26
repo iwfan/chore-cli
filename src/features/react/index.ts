@@ -13,7 +13,7 @@ export const questionBuilder: QuestionBuilder = async () => {
 }
 
 export const isSkip: IsSkipFeature = async context => {
-  return !Boolean(context.answers.isReactNeeded)
+  return !context.answers.isReactNeeded
 }
 
 export const setup: FeatureSetup = async () => {
