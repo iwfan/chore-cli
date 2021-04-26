@@ -36,7 +36,7 @@ describe('As chore eslint feature', () => {
     const configContent = await fs.readJSON(eslintPath)
     expect(configContent.parser).toBe('@typescript-eslint/parser')
     expect(configContent.parserOptions.ecmaFeatures).toBeUndefined()
-    expect(configContent.extends).toEqual([
+    expect(configContent.extends).toStrictEqual([
       'eslint:recommended',
       'plugin:@typescript-eslint/recommended',
       'plugin:jest/recommended',
@@ -53,7 +53,7 @@ describe('As chore eslint feature', () => {
       'eslint-plugin-jest'
     ].map(item => ({ name: item, type: DependencyType.DEV }))
 
-    expect(deps).toEqual(expectedDependencies)
+    expect(deps).toStrictEqual(expectedDependencies)
   })
 
   it('should write eslint config to project root when setup has been called with react needed', async () => {
@@ -64,7 +64,7 @@ describe('As chore eslint feature', () => {
     const configContent = await fs.readJSON(eslintPath)
     expect(configContent.parser).toBe('@typescript-eslint/parser')
     expect(configContent.parserOptions.ecmaFeatures).toBeDefined()
-    expect(configContent.extends).toEqual([
+    expect(configContent.extends).toStrictEqual([
       'eslint:recommended',
       'plugin:@typescript-eslint/recommended',
       'plugin:react/recommended',
@@ -85,6 +85,6 @@ describe('As chore eslint feature', () => {
       'eslint-plugin-react-hooks'
     ].map(item => ({ name: item, type: DependencyType.DEV }))
 
-    expect(deps).toEqual(expectedDependencies)
+    expect(deps).toStrictEqual(expectedDependencies)
   })
 })
