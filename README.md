@@ -68,8 +68,9 @@ chore <path-to-project>
 ## ✨ Features
 
 - [x] typescript
+- [x] esbuild
 - [x] editorconfig
-- [x] eslint
+- [x] eslint (@typescript/eslint)
 - [x] prettier
 - [x] babel
 - [x] webpack (optional)
@@ -78,16 +79,15 @@ chore <path-to-project>
 - [x] react (optional)
 - [x] commit message lint
 - [x] lint staged
-- [x] github actions
+- [x] github actions for CI/CD
 
 ## ✅ Todo
 
 - [ ] changelog
 - [ ] typedoc
-- [ ] styles
+- [ ] styles, such as style lint, Tailwind css
 - [ ] parcel
 - [ ] Snowpack
-- [ ] Automatic releases
 
 ## 🤝 Contributing
 

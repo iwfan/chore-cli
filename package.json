@@ -5,7 +5,6 @@
   "scripts": {
     "lint": "eslint '*/**/*.{js,ts,tsx}'",
     "build": "ts-node scripts/build.ts",
-    "build:source-file": "esbuild src/**/*.ts --platform=node --minify --format=cjs --outdir=dist/src",
     "test": "jest --coverage",
     "husky": "husky install"
   },
