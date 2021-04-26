@@ -29,7 +29,8 @@ export const setup: FeatureSetup = async context => {
     '@typescript-eslint/parser',
     '@typescript-eslint/eslint-plugin',
     'eslint-plugin-prettier',
-    'eslint-config-prettier'
+    'eslint-config-prettier',
+    'eslint-plugin-jest'
   ])
 
   if (isReactNeeded) {
