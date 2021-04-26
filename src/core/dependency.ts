@@ -9,7 +9,7 @@ export interface Dependency {
   type: DependencyType
 }
 
-const deps = new Set<Dependency>()
+let deps = new Set<Dependency>()
 
 export function addDep(name: string): void
 export function addDep(name: string, type: DependencyType): void
@@ -37,4 +37,8 @@ export function addPeerDevDeps(deps: string[]) {
 
 export function getDepsCollection() {
   return Array.from(deps)
+}
+
+export function clearDeps() {
+  deps = new Set<Dependency>()
 }

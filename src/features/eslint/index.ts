@@ -1,23 +1,13 @@
-import type { FeatureSetup, IsSkipFeature, QuestionBuilder } from '../../types'
+import type { FeatureSetup, IsSkipFeature } from '../../types'
 import { resolve } from 'path'
 import { fileExists } from '../../utils/path_helper'
 import { rederTemplate } from '../../core/template'
 import { addDevDeps } from '../../core/dependency'
 
 const configFileExists = async (path: string) => await fileExists(resolve(path, '.eslintrc'))
-let hasConfigFileExists = false
 
-export const questionBuilder: QuestionBuilder = async context => {
-  const { rootPath } = context
-  const hasPackageFile = await configFileExists(rootPath)
-  if (hasPackageFile) {
-    hasConfigFileExists = true
-    return
-  }
-}
-
-export const isSkip: IsSkipFeature = async () => {
-  return hasConfigFileExists
+export const isSkip: IsSkipFeature = async ({ rootPath }) => {
+  return await configFileExists(rootPath)
 }
 
 export const setup: FeatureSetup = async context => {
@@ -29,11 +19,12 @@ export const setup: FeatureSetup = async context => {
     '@typescript-eslint/parser',
     '@typescript-eslint/eslint-plugin',
     'eslint-plugin-prettier',
-    'eslint-config-prettier'
+    'eslint-config-prettier',
+    'eslint-plugin-jest'
   ])
 
   if (isReactNeeded) {
-    addDevDeps(['eslint-plugin-react'])
+    addDevDeps(['eslint-plugin-react', 'eslint-plugin-react-hooks'])
   }
 
   await rederTemplate(

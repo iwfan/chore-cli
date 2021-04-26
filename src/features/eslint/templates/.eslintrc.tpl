@@ -1,12 +1,9 @@
 {
+  "root": true,
+  "env": {
+    "jest/globals": true
+  },
   "parser": "@typescript-eslint/parser",
-  "extends": [
-    <% if (isReactNeeded) { %>
-      "plugin:react/recommended",
-    <% } %>
-    "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended"
-   ],
   "parserOptions": {
     "ecmaVersion": 2020,
     <% if (isReactNeeded) { %>
@@ -16,6 +13,20 @@
     <% } %>
     "sourceType": "module"
   },
+  "plugins": [
+    "@typescript-eslint",
+    "jest",
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    <% if (isReactNeeded) { %>
+      "plugin:react/recommended",
+      "plugin:react-hooks/recommended",
+    <% } %>
+    "plugin:jest/recommended",
+    "plugin:prettier/recommended"
+  ],
   <% if (isReactNeeded) { %>
   "settings": {
     "react": {

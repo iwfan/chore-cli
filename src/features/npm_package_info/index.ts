@@ -59,6 +59,7 @@ export const setup: FeatureSetup = async context => {
       useTypeScriptCompiler: buildTool === BUILD_TOOLS.TSC,
       useWebpack: buildTool === BUILD_TOOLS.WEBPACK,
       useRoolup: buildTool === BUILD_TOOLS.ROLLUP,
+      useEsbuild: buildTool === BUILD_TOOLS.ESBUILD,
       hasGitFolder,
       __prettier_parser: 'json-stringify'
     }

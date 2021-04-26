@@ -10,6 +10,7 @@ import * as huskyFeature from './husky'
 import * as babelFeature from './babel'
 import * as prettierFeature from './prettier'
 import * as eslintFeature from './eslint'
+import * as esbuildFeature from './esbuild'
 import * as webpackFeature from './webpack'
 import * as rollupFeature from './rollup'
 import * as jestFeature from './jest'
@@ -27,6 +28,7 @@ const featureCollection: FeatureModule[] = [
   babelFeature,
   prettierFeature,
   eslintFeature,
+  esbuildFeature,
   webpackFeature,
   rollupFeature,
   jestFeature,

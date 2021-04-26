@@ -10,6 +10,11 @@
     "prepare": "husky install",
     <% } %>
 
+    <% if (useEsbuild) { %>
+    "build": "ts-node scripts/build.ts",
+    "build:declaration": "tsc --declaration —-declarationDir dist --emitDeclarationOnly src/index.ts",
+    <% } %>
+
     <% if (useTypeScriptCompiler) { %>
     "start": "tsc --watch",
     "build": "tsc",
