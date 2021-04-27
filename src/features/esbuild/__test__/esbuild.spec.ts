@@ -35,10 +35,12 @@ describe('As chore esbuild feature', () => {
     expect(buildScript).toBeDefined()
 
     const deps = getDepsCollection()
-    const expectedDependencies = ['esbuild', 'glob', '@types/glob', 'ts-node'].map(item => ({
-      name: item,
-      type: DependencyType.DEV
-    }))
+    const expectedDependencies = ['esbuild', 'glob', '@types/glob', 'ts-node', 'fs-extra'].map(
+      item => ({
+        name: item,
+        type: DependencyType.DEV
+      })
+    )
 
     expect(deps).toStrictEqual(expectedDependencies)
   })

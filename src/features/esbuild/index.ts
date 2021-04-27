@@ -11,7 +11,7 @@ export const isSkip: IsSkipFeature = async ({ answers: { buildTool } }) => {
 export const setup: FeatureSetup = async context => {
   const { rootPath } = context
 
-  addDevDeps(['esbuild', 'glob', '@types/glob', 'ts-node'])
+  addDevDeps(['esbuild', 'glob', '@types/glob', 'ts-node', 'fs-extra'])
 
   await rederTemplate(
     resolve(rootPath, 'scripts', 'build.ts'),
