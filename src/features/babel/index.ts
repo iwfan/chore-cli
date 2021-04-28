@@ -5,7 +5,7 @@ import { addDevDeps } from '../../core/dependency'
 import { rederTemplate } from '../../core/template'
 
 export const isSkip: IsSkipFeature = async ({ answers }) => {
-  return answers.buildTool === BUILD_TOOLS.TSC
+  return [BUILD_TOOLS.TSC, BUILD_TOOLS.ESBUILD].includes(answers.buildTool)
 }
 
 export const setup: FeatureSetup = async context => {
