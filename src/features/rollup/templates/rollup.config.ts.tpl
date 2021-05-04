@@ -22,7 +22,7 @@ export default {
     commonjs(),
 
     // Compile TypeScript/JavaScript files
-    babel({ extensions: ['.js', '.jsx', '.es6', '.es', '.mjs'], include: ['src/**/*'], babelHelpers: 'runtime' }),
+    babel({ extensions: ['.js', '.jsx', '.es6', '.es', '.mjs', '.ts', '.tsx'], include: ['src/**/*'], babelHelpers: 'runtime' }),
 
     // Resolve source maps to the original source
     sourceMaps()
