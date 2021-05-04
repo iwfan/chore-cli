@@ -17,9 +17,9 @@ export const setup: FeatureSetup = async context => {
 
   addDevDeps([
     'rollup',
-    'rollup-plugin-babel',
-    'rollup-plugin-node-resolve',
-    'rollup-plugin-commonjs',
+    '@rollup/plugin-babel',
+    '@rollup/plugin-node-resolve',
+    '@rollup/plugin-commonjs',
     'rollup-plugin-sourcemaps'
   ])
 

@@ -1,6 +1,6 @@
-import commonjs from 'rollup-plugin-commonjs'
-import resolve from 'rollup-plugin-node-resolve'
-import babel from 'rollup-plugin-babel'
+import commonjs from '@rollup/plugin-commonjs'
+import { nodeResolve } from '@rollup/plugin-node-resolve'
+import babel from '@rollup/plugin-babel'
 import sourceMaps from 'rollup-plugin-sourcemaps'
 import pkg from './package.json'
 
@@ -16,13 +16,13 @@ export default {
   plugins: [
     // Allows node_modules resolution
     // https://github.com/rollup/rollup-plugin-node-resolve#usage
-    resolve(),
+    nodeResolve(),
 
     // Allow bundling cjs modules. Rollup doesn't understand cjs
     commonjs(),
 
     // Compile TypeScript/JavaScript files
-    babel({ extensions, include: ['src/**/*'], runtimeHelpers: true }),
+    babel({ extensions: ['.js', '.jsx', '.es6', '.es', '.mjs', '.ts', '.tsx'], include: ['src/**/*'], babelHelpers: 'runtime' }),
 
     // Resolve source maps to the original source
     sourceMaps()
