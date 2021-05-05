@@ -1,5 +1,6 @@
 import type { FeatureSetup, IsSkipFeature } from '../../types'
 import { resolve } from 'path'
+import camelCase from 'lodash.camelcase'
 import { BUILD_TOOLS } from '../typescript/build-tools'
 import { addDevDeps } from '../../core/dependency'
 import { rederTemplate } from '../../core/template'
@@ -13,18 +14,23 @@ export const isSkip: IsSkipFeature = async ({ rootPath, answers }) => {
 }
 
 export const setup: FeatureSetup = async context => {
-  const { rootPath } = context
+  const {
+    rootPath,
+    answers: { packageName }
+  } = context
 
   addDevDeps([
     'rollup',
     '@rollup/plugin-babel',
     '@rollup/plugin-node-resolve',
-    '@rollup/plugin-commonjs',
-    'rollup-plugin-sourcemaps'
+    '@rollup/plugin-commonjs'
   ])
 
   await rederTemplate(
     resolve(rootPath, 'rollup.config.ts'),
-    resolve(__dirname, './templates/rollup.config.ts.tpl')
+    resolve(__dirname, './templates/rollup.config.ts.tpl'),
+    {
+      appName: camelCase(packageName)
+    }
   )
 }
