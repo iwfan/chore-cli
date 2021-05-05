@@ -1,6 +1,7 @@
 # V0.2.1
 
 - Renew rollup config
+- Added runtim plugin for babel
 
 # V0.2.0
 
