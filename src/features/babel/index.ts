@@ -3,9 +3,15 @@ import { resolve } from 'path'
 import { BUILD_TOOLS } from '../typescript/build-tools'
 import { addDep, addDevDeps } from '../../core/dependency'
 import { rederTemplate } from '../../core/template'
+import { fileExists } from '../../utils/path_helper'
 
-export const isSkip: IsSkipFeature = async ({ answers }) => {
-  return [BUILD_TOOLS.TSC, BUILD_TOOLS.ESBUILD].includes(answers.buildTool)
+const configFileExists = async (path: string) => await fileExists(resolve(path, '.babelrc'))
+
+export const isSkip: IsSkipFeature = async ({ rootPath, answers }) => {
+  return (
+    (await configFileExists(rootPath)) ||
+    [BUILD_TOOLS.TSC, BUILD_TOOLS.ESBUILD].includes(answers.buildTool)
+  )
 }
 
 export const setup: FeatureSetup = async context => {
