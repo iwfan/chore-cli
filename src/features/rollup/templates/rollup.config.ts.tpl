@@ -30,7 +30,7 @@ export default {
   ],
 
   output: [
-    { file: pkg.main, name: '<LIBRARY_NAME>', format: 'umd', sourcemap: true },
+    { file: pkg.main, name: '<%= appName %>', format: 'umd', sourcemap: true },
     { file: pkg.module, format: 'es', sourcemap: true }
   ]
 }

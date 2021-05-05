@@ -8,6 +8,7 @@ specifiers:
   '@types/glob': ^7.1.3
   '@types/inquirer': ^7.3.1
   '@types/jest': ^26.0.22
+  '@types/lodash.camelcase': ^4.3.6
   '@types/node': ^14.14.41
   '@types/prettier': ^2.2.3
   '@types/yargs': ^16.0.1
@@ -28,6 +29,7 @@ specifiers:
   inquirer: ^8.0.0
   jest: ^26.6.3
   lint-staged: ^10.5.4
+  lodash.camelcase: ^4.3.0
   ora: ^5.4.0
   prettier: ^2.2.1
   pretty-quick: ^3.1.0
@@ -45,6 +47,7 @@ dependencies:
   fs-extra: 9.1.0
   inquirer: 8.0.0
   lint-staged: 10.5.4
+  lodash.camelcase: 4.3.0
   ora: 5.4.0
   prettier: 2.2.1
   tslib: 2.2.0
@@ -58,6 +61,7 @@ devDependencies:
   '@types/glob': 7.1.3
   '@types/inquirer': 7.3.1
   '@types/jest': 26.0.22
+  '@types/lodash.camelcase': 4.3.6
   '@types/node': 14.14.41
   '@types/prettier': 2.2.3
   '@types/yargs': 16.0.1
@@ -1127,6 +1131,22 @@ packages:
     resolution:
       {
         integrity: sha512-cxWFQVseBm6O9Gbw1IWb8r6OS4OhSt3hPZLkFApLjM8TEXROBuQGLAH2i2gZpcXdLBIrpXuTDhH7Vbm1iXmNGA==
+      }
+    dev: true
+
+  /@types/lodash.camelcase/4.3.6:
+    resolution:
+      {
+        integrity: sha512-hd/TEuPd76Jtf1xEq85CHbCqR+iqvs5IOKyrYbiaOg69BRQgPN9XkvLj8Jl8rBp/dfJ2wQ1AVcP8mZmybq7kIg==
+      }
+    dependencies:
+      '@types/lodash': 4.14.168
+    dev: true
+
+  /@types/lodash/4.14.168:
+    resolution:
+      {
+        integrity: sha512-oVfRvqHV/V6D1yifJbVRU3TMp8OT6o6BG+U9MkwuJ3U8/CsDHvalRpsxBqivn71ztOFZBTfJMvETbqHiaNSj7Q==
       }
     dev: true
 
@@ -4788,6 +4808,10 @@ packages:
     dependencies:
       p-locate: 5.0.0
     dev: true
+
+  /lodash.camelcase/4.3.0:
+    resolution: { integrity: sha1-soqmKIorn8ZRA1x3EfZathkDMaY= }
+    dev: false
 
   /lodash.clonedeep/4.5.0:
     resolution: { integrity: sha1-4j8/nE+Pvd6HJSnBBxhXoIblzO8= }
