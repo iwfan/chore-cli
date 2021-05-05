@@ -2,6 +2,7 @@
 
 - Renew rollup config
 - Added runtim plugin for babel
+- Use Camel-case for appname
 
 # V0.2.0
 
