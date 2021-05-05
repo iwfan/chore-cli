@@ -1,7 +1,7 @@
 import type { FeatureSetup, IsSkipFeature } from '../../types'
 import { resolve } from 'path'
 import { BUILD_TOOLS } from '../typescript/build-tools'
-import { addDevDeps } from '../../core/dependency'
+import { addDep, addDevDeps } from '../../core/dependency'
 import { rederTemplate } from '../../core/template'
 
 export const isSkip: IsSkipFeature = async ({ answers }) => {
@@ -18,8 +18,11 @@ export const setup: FeatureSetup = async context => {
     '@babel/preset-env',
     '@babel/plugin-proposal-class-properties',
     '@babel/plugin-proposal-object-rest-spread',
-    '@babel/preset-typescript'
+    '@babel/preset-typescript',
+    '@babel/plugin-transform-runtime'
   ])
+
+  addDep('@babel/runtime')
 
   if (isReactNeeded) {
     addDevDeps(['@babel/preset-react'])

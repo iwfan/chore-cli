@@ -1,3 +1,7 @@
+# V0.2.1
+
+- Renew rollup config
+
 # V0.2.0
 
 - Added esbuild feature for build typescript

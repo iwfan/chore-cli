@@ -27,6 +27,6 @@ export const buildTools = () => {
     name: 'buildTool',
     message: '🛠  Which build tool do you want to use?',
     choices,
-    default: BUILD_TOOLS.ESBUILD
+    default: BUILD_TOOLS.TSC
   }
 }

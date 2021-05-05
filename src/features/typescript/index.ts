@@ -2,7 +2,7 @@ import type { FeatureSetup, IsSkipFeature, QuestionBuilder } from '../../types'
 import { resolve } from 'path'
 import { fileExists } from '../../utils/path_helper'
 import { rederTemplate } from '../../core/template'
-import { buildTools } from './build-tools'
+import { buildTools, BUILD_TOOLS } from './build-tools'
 import { addDep, addDevDeps } from '../../core/dependency'
 
 export const questionBuilder: QuestionBuilder = async () => {
@@ -16,7 +16,7 @@ export const isSkip: IsSkipFeature = async context => {
 export const setup: FeatureSetup = async context => {
   const {
     rootPath,
-    answers: { isReactNeeded }
+    answers: { isReactNeeded, buildTool }
   } = context
 
   addDep('tslib')
@@ -26,7 +26,8 @@ export const setup: FeatureSetup = async context => {
     resolve(rootPath, 'tsconfig.json'),
     resolve(__dirname, './templates/tsconfig.json.tpl'),
     {
-      isReactNeeded
+      isReactNeeded,
+      useRoolup: buildTool === BUILD_TOOLS.ROLLUP
     }
   )
 }
