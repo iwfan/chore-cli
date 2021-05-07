@@ -13,8 +13,8 @@
   <a href="https://www.npmjs.com/package/chore-cli" target="_blank">
     <img src="https://img.shields.io/npm/v/chore-cli.svg" alt="npm version" />
   </a>
-  <a href="https://github.com/iwfan/chore-cli/actions/workflows/cd-workflow.yml" target="_blank">
-    <img src="https://github.com/iwfan/chore-cli/actions/workflows/cd-workflow.yml/badge.svg" />
+  <a href="https://github.com/iwfan/chore-cli/actions/workflows/ci-workflow.yml" target="_blank">
+    <img src="https://github.com/iwfan/chore-cli/actions/workflows/ci-workflow.yml/badge.svg" />
   </a>
   <a href="https://david-dm.org/iwfan/chore-cli" target="_blank">
     <img src="https://status.david-dm.org/gh/iwfan/chore-cli.svg" alt="dependencies status" />
