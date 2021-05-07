@@ -5,7 +5,7 @@ const config: Config.InitialOptions = {
   verbose: true,
   preset: 'ts-jest',
   testEnvironment: 'node',
-  coveragePathIgnorePatterns: ['/node_modules/', '/test/', '__test__', 'dist'],
+  coveragePathIgnorePatterns: ['/node_modules/', '/tests/', '__tests__', 'dist'],
   collectCoverageFrom: ['src/**/*.{js,ts}']
 }
 
