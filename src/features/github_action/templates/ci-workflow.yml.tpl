@@ -8,7 +8,8 @@ on:
     branches:
       - main
     paths:
-      - src
+      - src/**
+      - tests/**
 
 jobs:
   test_and_build:
