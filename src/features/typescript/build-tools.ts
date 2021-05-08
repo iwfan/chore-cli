@@ -1,19 +1,19 @@
 export enum BUILD_TOOLS {
-  TSC,
+  SNOWPACK,
   ESBUILD,
   WEBPACK,
-  ROLLUP
+  ROLLUP,
+  TSC
   // PARCEL,
-  // SNOWPACK
 }
 
 const LabelMappings = [
-  'None(Just use the TypeScript compiler)',
+  'Snowpack',
   'esbuild',
   'webpack',
-  'Rollup'
+  'Rollup',
+  'None(Just use the TypeScript compiler)'
   // 'Parcel',
-  // 'Snowpack'
 ]
 
 export const buildTools = () => {
@@ -27,6 +27,6 @@ export const buildTools = () => {
     name: 'buildTool',
     message: '🛠  Which build tool do you want to use?',
     choices,
-    default: BUILD_TOOLS.TSC
+    default: BUILD_TOOLS.SNOWPACK
   }
 }
