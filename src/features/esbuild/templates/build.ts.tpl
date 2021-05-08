@@ -28,8 +28,7 @@ async function build() {
   })
 }
 
-build()
-  .catch((e: Error) => {
-    console.error(e)
-    process.exit(1)
-  })
+build().catch((e: Error) => {
+  console.error(e)
+  process.exit(1)
+})
