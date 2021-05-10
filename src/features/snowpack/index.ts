@@ -19,12 +19,7 @@ export const setup: FeatureSetup = async context => {
     answers: { packageName }
   } = context
 
-  addDevDeps([
-    'snowpack',
-    '@rollup/plugin-babel',
-    '@rollup/plugin-node-resolve',
-    '@rollup/plugin-commonjs'
-  ])
+  addDevDeps(['snowpack'])
 
   await rederTemplate(
     resolve(rootPath, 'rollup.config.ts'),
