@@ -1,3 +1,7 @@
+# draft
+
+- You can use `npm run docs` generate api documention files.
+
 # V0.2.1
 
 - Renew rollup config
