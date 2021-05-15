@@ -80,11 +80,11 @@ chore <path-to-project>
 - [x] commit message lint
 - [x] lint staged
 - [x] github actions for CI/CD
+- [x] typedoc
 
 ## ✅ Todo
 
 - [ ] changelog
-- [ ] typedoc
 - [ ] styles, such as style lint, Tailwind css
 - [ ] parcel
 - [ ] Snowpack

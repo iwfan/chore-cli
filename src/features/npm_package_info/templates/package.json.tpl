@@ -32,7 +32,9 @@
     "build:declaration": "tsc --declaration —-declarationDir dist --emitDeclarationOnly src/index.ts",
     <% } %>
 
-    "test": "jest"
+    "docs": "typedoc --out docs src/index.ts",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   <% if (hasGitFolder) { %>
   "commitlint": {
