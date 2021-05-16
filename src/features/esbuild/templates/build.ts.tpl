@@ -21,6 +21,7 @@ async function build() {
     entryPoints,
     platform: 'node',
     minify: true,
+    sourcemap: true,
     format: 'cjs',
     tsconfig: 'tsconfig.json',
     outdir: 'dist/src'
