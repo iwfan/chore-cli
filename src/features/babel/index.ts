@@ -10,7 +10,7 @@ const configFileExists = async (path: string) => await fileExists(resolve(path, 
 export const isSkip: IsSkipFeature = async ({ rootPath, answers }) => {
   return (
     (await configFileExists(rootPath)) ||
-    [BUILD_TOOLS.TSC, BUILD_TOOLS.ESBUILD].includes(answers.buildTool)
+    [BUILD_TOOLS.TSC, BUILD_TOOLS.ESBUILD, BUILD_TOOLS.SNOWPACK].includes(answers.buildTool)
   )
 }
 
