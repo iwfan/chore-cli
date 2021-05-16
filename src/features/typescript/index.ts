@@ -20,7 +20,7 @@ export const setup: FeatureSetup = async context => {
   } = context
 
   addDep('tslib')
-  addDevDeps(['typescript'])
+  addDevDeps(['typescript', 'typedoc'])
 
   await rederTemplate(
     resolve(rootPath, 'tsconfig.json'),
