@@ -67,27 +67,27 @@ chore <path-to-project>
 
 ## ✨ Features
 
-- [x] typescript
-- [x] esbuild
-- [x] editorconfig
-- [x] eslint (@typescript/eslint)
-- [x] prettier
-- [x] babel
+- [x] TypeScript
+- [x] Editorconfig
+- [x] Eslint (@typescript/eslint)
+- [x] Prettier
+- [x] Babel
+- [x] Jest
+- [x] TypeDoc
+- [x] Commit message lint
+- [x] Lint staged
+- [x] Github actions for CI/CD
+- [x] React (optional)
+- [x] Esbuild (optional)
 - [x] webpack (optional)
-- [x] rollup (optional)
-- [x] jest
-- [x] react (optional)
-- [x] commit message lint
-- [x] lint staged
-- [x] github actions for CI/CD
-- [x] typedoc
+- [x] Rollup (optional)
+- [x] Snowpack (optional)
 
 ## ✅ Todo
 
-- [ ] changelog
-- [ ] styles, such as style lint, Tailwind css
-- [ ] parcel
-- [ ] Snowpack
+- [ ] Changelog
+- [ ] Styles, such as style lint, Tailwind css
+- [ ] Parcel
 
 ## 🤝 Contributing
 
@@ -95,7 +95,7 @@ Contributions, issues and feature requests are welcome!<br />Feel free to check 
 
 ## Show your support
 
-Give a ⭐️ if this project helped you!
+Give a ⭐️ if this project helped you! And let me know if you find any bugs, or you have any idea for improving it.
 
 ## 📝 License
 

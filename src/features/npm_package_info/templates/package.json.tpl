@@ -12,26 +12,28 @@
 
     <% if (useEsbuild) { %>
     "build": "ts-node scripts/build.ts",
-    "build:declaration": "tsc --declaration —-declarationDir dist --emitDeclarationOnly src/index.ts",
     <% } %>
 
     <% if (useTypeScriptCompiler) { %>
     "start": "tsc --watch",
     "build": "tsc",
-    "build:declaration": "tsc --declaration —-declarationDir dist --emitDeclarationOnly src/index.ts",
     <% } %>
 
     <% if (useWebpack) { %>
     "start": "webpack-dev-server --process --color --config webpack.config.ts",
     "build": "webpack --config webpack.config.ts",
-    "build:declaration": "tsc --declaration —-declarationDir dist --emitDeclarationOnly src/index.ts",
     <% } %>
 
     <% if (useRoolup) { %>
     "build": "rollup -c rollup.config.ts",
-    "build:declaration": "tsc --declaration —-declarationDir dist --emitDeclarationOnly src/index.ts",
     <% } %>
 
+    <% if (useSnowpack) { %>
+    "start": "snowpack dev",
+    "build": "snowpack build",
+    <% } %>
+
+    "build:declaration": "tsc --declaration —-declarationDir dist --emitDeclarationOnly src/index.ts",
     "docs": "typedoc --out docs src/index.ts",
     "test": "jest",
     "test:watch": "jest --watch"

@@ -24,17 +24,15 @@ describe('As chore eslint feature', () => {
   })
 
   it('should skip this feature when given special build tool', async () => {
-    const skiped = await isSkip({ rootPath, answers: { buildTool: BUILD_TOOLS.TSC } })
-    expect(skiped).toBe(true)
+    expect(await isSkip({ rootPath, answers: { buildTool: BUILD_TOOLS.TSC } })).toBe(true)
 
-    const skiped1 = await isSkip({ rootPath, answers: { buildTool: BUILD_TOOLS.ESBUILD } })
-    expect(skiped1).toBe(true)
+    expect(await isSkip({ rootPath, answers: { buildTool: BUILD_TOOLS.ESBUILD } })).toBe(true)
 
-    const skiped2 = await isSkip({ rootPath, answers: { buildTool: BUILD_TOOLS.ROLLUP } })
-    expect(skiped2).toBe(false)
+    expect(await isSkip({ rootPath, answers: { buildTool: BUILD_TOOLS.SNOWPACK } })).toBe(true)
 
-    const skiped3 = await isSkip({ rootPath, answers: { buildTool: BUILD_TOOLS.WEBPACK } })
-    expect(skiped3).toBe(false)
+    expect(await isSkip({ rootPath, answers: { buildTool: BUILD_TOOLS.ROLLUP } })).toBe(false)
+
+    expect(await isSkip({ rootPath, answers: { buildTool: BUILD_TOOLS.WEBPACK } })).toBe(false)
   })
 
   it('should write babel config to project root when setup has been called with no react', async () => {

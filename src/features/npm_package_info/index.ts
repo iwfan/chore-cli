@@ -8,13 +8,11 @@ import { BUILD_TOOLS } from '../typescript/build-tools'
 import { lstat, pathExists } from 'fs-extra'
 
 const packageJsonExists = async (path: string) => await fileExists(resolve(path, 'package.json'))
-let hasPackageJsonExists = false
 
 export const questionBuilder: QuestionBuilder = async context => {
   const { rootPath } = context
   const hasPackageFile = await packageJsonExists(rootPath)
   if (hasPackageFile) {
-    hasPackageJsonExists = true
     return
   }
 
@@ -36,8 +34,8 @@ export const questionBuilder: QuestionBuilder = async context => {
   return [askPackageName, askAuthor, askRepository, askLicense]
 }
 
-export const isSkip: IsSkipFeature = async () => {
-  return hasPackageJsonExists
+export const isSkip: IsSkipFeature = async ({ rootPath }) => {
+  return await packageJsonExists(rootPath)
 }
 
 export const setup: FeatureSetup = async context => {
@@ -60,6 +58,7 @@ export const setup: FeatureSetup = async context => {
       useWebpack: buildTool === BUILD_TOOLS.WEBPACK,
       useRoolup: buildTool === BUILD_TOOLS.ROLLUP,
       useEsbuild: buildTool === BUILD_TOOLS.ESBUILD,
+      useSnowpack: buildTool === BUILD_TOOLS.SNOWPACK,
       hasGitFolder,
       __prettier_parser: 'json-stringify'
     }
