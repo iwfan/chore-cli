@@ -11,11 +11,11 @@ export const isArrayLike = (val: unknown): val is ArrayLike<unknown> => {
 
   if (!isObject(val)) return false
 
-  return typeof ((val as unknown) as Iterable<unknown>)[Symbol.iterator] !== 'function'
+  return typeof (val as unknown as Iterable<unknown>)[Symbol.iterator] !== 'function'
 }
 
 export const takeFirst = <T = unknown>(list: unknown): T | undefined => {
   if (isArrayLike(list)) {
-    return (list[0] as unknown) as T
+    return list[0] as unknown as T
   }
 }
