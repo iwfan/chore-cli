@@ -1,11 +1,12 @@
 {
   "root": true,
   "env": {
+    "shared-node-browser": true,
+    "es2021": true,
     "jest/globals": true
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": 2020,
     <% if (isReactNeeded) { %>
       "ecmaFeatures": {
         "jsx": true
