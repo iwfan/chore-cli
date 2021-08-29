@@ -17,14 +17,14 @@ describe('As chore esbuild feature', () => {
 
   it('should install this feature when project has selected esbuild', async () => {
     const context = { rootPath, answers: { buildTool: BUILD_TOOLS.ESBUILD } }
-    const skiped = await isSkip(context)
-    expect(skiped).toBe(false)
+    const skipped = await isSkip(context)
+    expect(skipped).toBe(false)
   })
 
   it('should skip install this feature when project has exists eslint config file', async () => {
     const context = { rootPath, answers: {} }
-    const skiped = await isSkip(context)
-    expect(skiped).toBe(true)
+    const skipped = await isSkip(context)
+    expect(skipped).toBe(true)
   })
 
   it('should write build script to project root when setup has been called', async () => {

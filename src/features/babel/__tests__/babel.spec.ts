@@ -19,8 +19,8 @@ describe('As chore eslint feature', () => {
     const eslintPath = path.resolve(rootPath, '.babelrc')
     await fs.ensureFile(eslintPath)
     const context = { rootPath, answers: {} }
-    const skiped = await isSkip(context)
-    expect(skiped).toBe(true)
+    const skipped = await isSkip(context)
+    expect(skipped).toBe(true)
   })
 
   it('should skip this feature when given special build tool', async () => {

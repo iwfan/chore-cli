@@ -16,23 +16,23 @@ describe('As chore typescript feature', () => {
 
   it('should install this feature when project has no typescript config file', async () => {
     const context = { rootPath, answers: {} }
-    const skiped = await isSkip(context)
-    expect(skiped).toBe(false)
+    const skipped = await isSkip(context)
+    expect(skipped).toBe(false)
   })
 
   it('should skip install this feature when project has exists typescript config file', async () => {
-    const tsconfPath = path.resolve(rootPath, 'tsconfig.json')
-    await fs.ensureFile(tsconfPath)
+    const tsConfPath = path.resolve(rootPath, 'tsconfig.json')
+    await fs.ensureFile(tsConfPath)
     const context = { rootPath, answers: {} }
-    const skiped = await isSkip(context)
-    expect(skiped).toBe(true)
+    const skipped = await isSkip(context)
+    expect(skipped).toBe(true)
   })
 
   it('should write typescript config to project root when setup has been called', async () => {
-    const tsconfPath = path.resolve(rootPath, 'tsconfig.json')
+    const tsConfPath = path.resolve(rootPath, 'tsconfig.json')
     const context = { rootPath, answers: {} }
     await setup(context)
-    const configContent = await fs.readFile(tsconfPath)
+    const configContent = await fs.readFile(tsConfPath)
     expect(configContent).toBeDefined()
 
     const deps = getDepsCollection()

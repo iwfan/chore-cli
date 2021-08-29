@@ -31,7 +31,7 @@ describe('As chore package info feature', () => {
     const packageJsonPath = path.resolve(rootPath, 'package.json')
     await fs.ensureFile(packageJsonPath)
     const context = { rootPath, answers: {} }
-    const skiped = await isSkip(context)
-    expect(skiped).toBe(true)
+    const skipped = await isSkip(context)
+    expect(skipped).toBe(true)
   })
 })

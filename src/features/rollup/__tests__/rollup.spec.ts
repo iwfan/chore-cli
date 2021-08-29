@@ -19,22 +19,22 @@ describe('As chore rollup feature', () => {
     const rollupConfigPath = path.resolve(rootPath, 'rollup.config.ts')
     await fs.ensureFile(rollupConfigPath)
     const context = { rootPath, answers: {} }
-    const skiped = await isSkip(context)
-    expect(skiped).toBe(true)
+    const skipped = await isSkip(context)
+    expect(skipped).toBe(true)
   })
 
   it('should skip this feature when given special build tool', async () => {
-    const skiped = await isSkip({ rootPath, answers: { buildTool: BUILD_TOOLS.TSC } })
-    expect(skiped).toBe(true)
+    const skipped = await isSkip({ rootPath, answers: { buildTool: BUILD_TOOLS.TSC } })
+    expect(skipped).toBe(true)
 
-    const skiped1 = await isSkip({ rootPath, answers: { buildTool: BUILD_TOOLS.ESBUILD } })
-    expect(skiped1).toBe(true)
+    const skipped1 = await isSkip({ rootPath, answers: { buildTool: BUILD_TOOLS.ESBUILD } })
+    expect(skipped1).toBe(true)
 
-    const skiped2 = await isSkip({ rootPath, answers: { buildTool: BUILD_TOOLS.ROLLUP } })
-    expect(skiped2).toBe(false)
+    const skipped2 = await isSkip({ rootPath, answers: { buildTool: BUILD_TOOLS.ROLLUP } })
+    expect(skipped2).toBe(false)
 
-    const skiped3 = await isSkip({ rootPath, answers: { buildTool: BUILD_TOOLS.WEBPACK } })
-    expect(skiped3).toBe(true)
+    const skipped3 = await isSkip({ rootPath, answers: { buildTool: BUILD_TOOLS.WEBPACK } })
+    expect(skipped3).toBe(true)
   })
 
   it('should write rollup config to project root when setup has been called', async () => {

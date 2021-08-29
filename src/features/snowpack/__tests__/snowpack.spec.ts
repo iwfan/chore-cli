@@ -17,16 +17,16 @@ describe('As chore snowpack feature', () => {
 
   it('should install this feature when project has not exists snowpack config file', async () => {
     const context = { rootPath, answers: { buildTool: BUILD_TOOLS.SNOWPACK } }
-    const skiped = await isSkip(context)
-    expect(skiped).toBe(false)
+    const skipped = await isSkip(context)
+    expect(skipped).toBe(false)
   })
 
   it('should skip install this feature when project has exists snowpack config file', async () => {
     const snowpackConfigPath = path.resolve(rootPath, 'snowpack.config.js')
     await fs.ensureFile(snowpackConfigPath)
     const context = { rootPath, answers: {} }
-    const skiped = await isSkip(context)
-    expect(skiped).toBe(true)
+    const skipped = await isSkip(context)
+    expect(skipped).toBe(true)
   })
 
   it('should write snowpack config to project root when setup has been called', async () => {

@@ -63,12 +63,12 @@ export const runTask = async (context: FeatureContext) => {
   await withSpinner(
     async () => {
       for (const featureModule of featureCollection) {
-        let isSkiped = false
+        let isSkipped = false
         if (typeof featureModule.isSkip === 'function') {
-          isSkiped = await featureModule.isSkip(context)
+          isSkipped = await featureModule.isSkip(context)
         }
 
-        if (!isSkiped) {
+        if (!isSkipped) {
           await featureModule.setup(context)
         }
       }
