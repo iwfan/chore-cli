@@ -29,7 +29,7 @@ export function withSpinner<T>(func: () => T | Promise<T>, textInfo: SpinnerText
       result = setSpinnerSucceed(r)
     }
   } catch (e) {
-    setSpinnerFailed(e)
+    setSpinnerFailed(e as Error)
   }
 
   return result
