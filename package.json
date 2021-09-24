@@ -1,6 +1,6 @@
 {
   "name": "chore-cli",
-  "version": "0.2.1",
+  "version": "0.2.3",
   "description": "️TypeScript development infrastructure generator.",
   "scripts": {
     "lint": "eslint '*/**/*.{js,ts,tsx}'",
