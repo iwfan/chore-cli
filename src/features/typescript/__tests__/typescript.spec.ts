@@ -36,7 +36,7 @@ describe('As chore typescript feature', () => {
     expect(configContent).toBeDefined()
 
     const deps = getDepsCollection()
-    const expectedDependencies = ['typescript', 'typedoc'].map(item => ({
+    const expectedDependencies = ['typescript', 'typedoc', 'ts-node'].map(item => ({
       name: item,
       type: DependencyType.DEV
     }))

@@ -33,7 +33,8 @@ describe('As chore eslint feature', () => {
     const context = { rootPath, answers: {} }
     await setup(context)
 
-    const configContent = await fs.readJSON(eslintPath)
+    let configContent = await fs.readJSON(eslintPath)
+    configContent = configContent.overrides[0]
     expect(configContent.parser).toBe('@typescript-eslint/parser')
     expect(configContent.parserOptions.ecmaFeatures).toBeUndefined()
     expect(configContent.extends).toStrictEqual([
@@ -61,7 +62,8 @@ describe('As chore eslint feature', () => {
     const context = { rootPath, answers: { isReactNeeded: true } }
     await setup(context)
 
-    const configContent = await fs.readJSON(eslintPath)
+    let configContent = await fs.readJSON(eslintPath)
+    configContent = configContent.overrides[0]
     expect(configContent.parser).toBe('@typescript-eslint/parser')
     expect(configContent.parserOptions.ecmaFeatures).toBeDefined()
     expect(configContent.extends).toStrictEqual([
