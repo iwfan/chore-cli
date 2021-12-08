@@ -27,7 +27,7 @@ export const questionBuilder: QuestionBuilder = async context => {
 
   const yarnVersion = await readStdout('yarn --version')
   if (yarnVersion) {
-    pkgList.push({ name: `yarn (${pnpmVersion})`, value: PackageManager.YARN })
+    pkgList.push({ name: `yarn (${yarnVersion})`, value: PackageManager.YARN })
   }
 
   const npmVersion = await readStdout('npm --version')
